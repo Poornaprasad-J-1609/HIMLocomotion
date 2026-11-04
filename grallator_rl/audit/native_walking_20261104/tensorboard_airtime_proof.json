@@ -1,0 +1,38 @@
+{
+  "Reward_Rate/feet_air_time": [
+    {
+      "step": 0,
+      "value": 0.0
+    },
+    {
+      "step": 0,
+      "value": 0.0
+    },
+    {
+      "step": 0,
+      "value": 0.0
+    },
+    {
+      "step": 0,
+      "value": 0.0
+    }
+  ],
+  "Episode_Reward/feet_air_time": [
+    {
+      "step": 0,
+      "value": 0.0
+    },
+    {
+      "step": 0,
+      "value": 0.0
+    },
+    {
+      "step": 0,
+      "value": 0.0
+    },
+    {
+      "step": 0,
+      "value": 0.0
+    }
+  ]
+}

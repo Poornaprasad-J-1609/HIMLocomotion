@@ -1,0 +1,72 @@
+unittest.case.FunctionTestCase (test_velocity_trainer_uses_pretrained_270d_interface)
+test_him_shapes.py:test_velocity_trainer_uses_pretrained_270d_interface ... ok
+unittest.case.FunctionTestCase (test_hio_update_runs_with_270d_history_and_45d_next_obs)
+test_him_shapes.py:test_hio_update_runs_with_270d_history_and_45d_next_obs ... ok
+unittest.case.FunctionTestCase (test_existing_hio_checkpoint_matches_encoder_architecture)
+test_him_shapes.py:test_existing_hio_checkpoint_matches_encoder_architecture ... ok
+test_gae_and_terminal_bootstrap_values (test_native_walking.ConnectivityTests.test_gae_and_terminal_bootstrap_values) ... ok
+test_real_ppo_hio_updates_frozen_and_active (test_native_walking.ConnectivityTests.test_real_ppo_hio_updates_frozen_and_active) ... [HIM PPO] LR=2.250000e-05 | PPO KL=0.014213 | Post-HIO KL=0.014068
+CONNECTIVITY 0 {'value': 0.006464950507506728, 'surrogate': -0.026487212628126144, 'entropy': -8.41637396812439, 'ppo_kl': 0.01421279739588499, 'hio_velocity_mse': 0.008728026412427425, 'hio_swap_loss': 0.10792005062103271, 'hio_pairs': 39.0, 'post_hio_kl': 0.014068037271499634}
+[HIM PPO] HIO FROZEN; PPO KL=0.014213
+CONNECTIVITY 1 {'value': 0.006464950507506728, 'surrogate': -0.026487212628126144, 'entropy': -8.41637396812439, 'ppo_kl': 0.01421279739588499, 'hio_velocity_mse': 0.0, 'hio_swap_loss': 0.0, 'hio_pairs': 0.0, 'post_hio_kl': 0.01421279739588499}
+ok
+test_timeout_bootstrap_only_applies_to_timeouts (test_native_walking.ConnectivityTests.test_timeout_bootstrap_only_applies_to_timeouts) ... ok
+test_baseline_arithmetic_and_zero_weights (test_native_walking.RewardTests.test_baseline_arithmetic_and_zero_weights) ... ok
+test_cfg_validation (test_native_walking.RewardTests.test_cfg_validation) ... ok
+test_checkpoint_provenance (test_native_walking.RewardTests.test_checkpoint_provenance) ... ok
+test_first_contact_does_not_pay (test_native_walking.RewardTests.test_first_contact_does_not_pay) ... ok
+test_flight_invalidates_entire_swing (test_native_walking.RewardTests.test_flight_invalidates_entire_swing) ... ok
+test_force_threshold_shapes_and_pairing (test_native_walking.RewardTests.test_force_threshold_shapes_and_pairing) ... ok
+test_history_value_order_and_selective_reset (test_native_walking.RewardTests.test_history_value_order_and_selective_reset) ... ok
+test_minimum_and_maximum_swing (test_native_walking.RewardTests.test_minimum_and_maximum_swing) ... ok
+test_optional_terms_zero_and_sign (test_native_walking.RewardTests.test_optional_terms_zero_and_sign) ... ok
+test_per_env_reset_and_no_fake_touchdown (test_native_walking.RewardTests.test_per_env_reset_and_no_fake_touchdown) ... ok
+test_perpetual_air_never_pays (test_native_walking.RewardTests.test_perpetual_air_never_pays) ... ok
+test_reset_exclusion_disarms (test_native_walking.RewardTests.test_reset_exclusion_disarms) ... ok
+test_standing_or_unstable_command_invalidates (test_native_walking.RewardTests.test_standing_or_unstable_command_invalidates) ... ok
+test_touchdown_exactly_once_and_units (test_native_walking.RewardTests.test_touchdown_exactly_once_and_units) ... ok
+unittest.case.FunctionTestCase (test_task_registrations)
+test_registration.py:test_task_registrations ... ok
+unittest.case.FunctionTestCase (test_height_reward_peaks_at_the_requested_height)
+test_standing_math.py:test_height_reward_peaks_at_the_requested_height ... ERROR
+unittest.case.FunctionTestCase (test_undesired_contact_has_negative_rate_only_on_contact)
+test_standing_math.py:test_undesired_contact_has_negative_rate_only_on_contact ... ERROR
+unittest.case.FunctionTestCase (test_nonzero_leg_offset_is_penalized_weakly_but_not_forced_to_zero)
+test_standing_math.py:test_nonzero_leg_offset_is_penalized_weakly_but_not_forced_to_zero ... ERROR
+unittest.case.FunctionTestCase (test_mirrored_leg_offsets_cancel)
+test_standing_math.py:test_mirrored_leg_offsets_cancel ... ok
+
+======================================================================
+ERROR: unittest.case.FunctionTestCase (test_height_reward_peaks_at_the_requested_height)
+test_standing_math.py:test_height_reward_peaks_at_the_requested_height
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/poornaprasad/RL/Quadruped/grallator_rl/tests/test_standing_math.py", line 53, in test_height_reward_peaks_at_the_requested_height
+    at = module.compute_standing_terms(**inputs(target=0.50, base_height=0.50))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: compute_standing_terms() missing 1 required keyword-only argument: 'front_back_pairs'
+
+======================================================================
+ERROR: unittest.case.FunctionTestCase (test_undesired_contact_has_negative_rate_only_on_contact)
+test_standing_math.py:test_undesired_contact_has_negative_rate_only_on_contact
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/poornaprasad/RL/Quadruped/grallator_rl/tests/test_standing_math.py", line 61, in test_undesired_contact_has_negative_rate_only_on_contact
+    clear = module.compute_standing_terms(**inputs(contact=False))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: compute_standing_terms() missing 1 required keyword-only argument: 'front_back_pairs'
+
+======================================================================
+ERROR: unittest.case.FunctionTestCase (test_nonzero_leg_offset_is_penalized_weakly_but_not_forced_to_zero)
+test_standing_math.py:test_nonzero_leg_offset_is_penalized_weakly_but_not_forced_to_zero
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/poornaprasad/RL/Quadruped/grallator_rl/tests/test_standing_math.py", line 70, in test_nonzero_leg_offset_is_penalized_weakly_but_not_forced_to_zero
+    terms = module.compute_standing_terms(**values)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: compute_standing_terms() missing 1 required keyword-only argument: 'front_back_pairs'
+
+----------------------------------------------------------------------
+Ran 25 tests in 0.324s
+
+FAILED (errors=3)

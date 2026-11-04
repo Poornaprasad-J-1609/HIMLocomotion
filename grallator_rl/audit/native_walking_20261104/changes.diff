@@ -1,0 +1,1082 @@
+--- /dev/null
++++ grallator_rl/scripts/audit_walking_runtime.py
+@@ -0,0 +1,157 @@
++"""Real Newton contact/observation/reset preflight. No optimization; airtime off.
++
++Run before training after a sensor/backend/geometry change. Writes measured
++evidence, checks forced synchronous 599-step timeout, and isolates a lifted robot
++to distinguish contact force from a pose-based proxy.
++"""
++import argparse
++import json
++import os
++import sys
++from pathlib import Path
++
++import gymnasium as gym
++import torch
++from tensordict import TensorDict
++from isaaclab.app import launch_simulation
++
++os.environ.setdefault('GRALLATOR_TARGET_HEIGHT', '0.38')
++import grallator_rl.him.walking_registration  # noqa: E402,F401
++from grallator_rl.him.walking_env_adapter import WalkingHIMEnvCfg
++from grallator_rl.him.rsl_actor import HIMRslActorModel
++from grallator_rl.him.walking_ppo_cfg import WalkingPPORunnerCfg
++from grallator_rl.him.walking_checkpoint import WARM_START, verify_warm_start
++from grallator_rl.tasks.standing_direct.config.grallator.env import StandingEnv
++from grallator.config.observations import build_policy_observation
++
++
++def main():
++    parser=argparse.ArgumentParser(description=__doc__)
++    parser.add_argument('--num-envs',type=int,default=16)
++    parser.add_argument('--output',type=Path,required=True)
++    args=parser.parse_args()
++    provenance=verify_warm_start()
++    cfg=WalkingHIMEnvCfg(); cfg.scene.num_envs=args.num_envs
++    cfg.rewards.feet_air_time=0.0  # validate signal before enabling its reward
++    with launch_simulation(cfg, {'headless':True}):
++        env=gym.make('GrallatorRl-HIM-Walking-Direct',cfg=cfg).unwrapped
++        try:
++            with torch.inference_mode():
++                obs,_=env.reset()
++                assert obs['policy'].shape==(args.num_envs,271) and obs['critic'].shape==(args.num_envs,92)
++                rc=WalkingPPORunnerCfg()
++                actor=HIMRslActorModel(TensorDict(obs,[args.num_envs]),rc.obs_groups,'actor',12,
++                                      distribution_cfg=rc.actor.distribution_cfg.to_dict()).to(env.device)
++                actor.load_state_dict(torch.load(WARM_START,map_location=env.device,weights_only=True)['actor_state_dict'],strict=True)
++                env.velocity_commands[:]=torch.tensor([.2,.03,.04],device=env.device)
++                obs=env._get_observations()
++                current=obs['policy'][:,:45]
++                torch.testing.assert_close(current[:,6:9],env.velocity_commands)
++                torch.testing.assert_close(StandingEnv._get_observations(env)['policy'], current)
++                expected=build_policy_observation(env.robot.data.root_ang_vel_b.torch,
++                    env.robot.data.projected_gravity_b.torch,env.velocity_commands,
++                    env.robot.data.joint_pos.torch-env.middle_joint_pos,env.robot.data.joint_vel.torch,env.actions)
++                torch.testing.assert_close(current,expected)
++                torch.testing.assert_close(obs['critic'][:,:45],current)
++                torch.testing.assert_close(obs['critic'][:,45:48],env.robot.data.root_lin_vel_b.torch)
++                torch.testing.assert_close(obs['policy'][:,270],(env.height_command[:,0]-cfg.middle_base_height)/.1)
++                # Mapping is by actual tensor joint names, checked against original reference.
++                for name,angle in cfg.middle_joint_pos.items():
++                    idx=env.robot.joint_names.index(name)
++                    torch.testing.assert_close(env.middle_joint_pos[:,idx],torch.full_like(env.middle_joint_pos[:,idx],angle))
++                env._pre_physics_step(torch.ones_like(env.actions)*.1)
++                torch.testing.assert_close(env.joint_targets,env.middle_joint_pos+.1*env.action_scales)
++                env.reset()
++                max_force=0.; contact_samples=0; resets=0
++                for step in range(180):
++                    command_used=env.velocity_commands.clone()
++                    obs,reward,terminated,truncated,extras=env.step(actor(TensorDict(obs,[args.num_envs])))
++                    assert torch.isfinite(reward).all() and all(torch.isfinite(v).all() for v in obs.values())
++                    forces=env.contact_sensor.data.net_normal_forces_w.torch[:,env._foot_sensor_ids,:].norm(dim=-1)
++                    max_force=max(max_force,forces.max().item())
++                    contact_samples+=int((forces>cfg.rewards.contact_force_threshold_n).sum())
++                    resets+=int((terminated|truncated).sum())
++                    torch.testing.assert_close(obs['policy'][:,6:9],env.velocity_commands)
++                    expected_track=cfg.rewards.track_xy*torch.exp(
++                        -(env.robot.data.root_lin_vel_b.torch[:,:2]-command_used[:,:2]).square().sum(-1)
++                        / cfg.rewards.xy_sigma**2)
++                    torch.testing.assert_close(extras['log']['Reward_Rate/track_xy'],expected_track.mean())
++                assert contact_samples>0, 'No measured foot support in 180 control steps'
++                # Known free-flight state: lift away from flat ground, zero velocity.
++                pose=env.robot.data.root_pose_w.torch.clone(); pose[:,2]+=1.
++                ids=torch.arange(args.num_envs,device=env.device,dtype=torch.int32)
++                env.robot.write_root_pose_to_sim_index(root_pose=pose,env_ids=ids)
++                env.robot.write_root_velocity_to_sim_index(root_velocity=torch.zeros_like(env.robot.data.root_vel_w.torch),env_ids=ids)
++                for _ in range(3): env.step(torch.zeros_like(env.actions))
++                lifted_force=env.contact_sensor.data.net_normal_forces_w.torch[:,env._foot_sensor_ids,:].norm(dim=-1)
++                assert not (lifted_force>cfg.rewards.contact_force_threshold_n).any(), 'Lifted feet report contact'
++                env.reset()
++                # Synchronous 599/600 timeout regression: DirectRLEnv increments
++                # before dones and standing uses >= max_episode_length-1.
++                env.episode_length_buf[:]=env.max_episode_length-2
++                obs,reward,terminated,truncated,extras=env.step(torch.zeros_like(env.actions))
++                assert truncated.all() and (env.episode_length_buf==0).all()
++                assert not env.gait.valid_swing.any() and not env.gait.seen_contact.any()
++                h=obs['policy'][:,:270].reshape(args.num_envs,6,45)
++                torch.testing.assert_close(h,h[:,:1].expand_as(h))
++                assert 'Episode_Reward/feet_air_time' in extras['log']
++                assert extras['log']['Episode_Reward/feet_air_time']==0
++                assert 'Reward_Rate/feet_air_time' in extras['log']
++                total=sum(v for k,v in extras['log'].items()
++                          if k.startswith('Episode_Reward/') and k!='Episode_Reward/total')
++                torch.testing.assert_close(total,extras['log']['Episode_Reward/total'])
++                # Exercise the installed native logger with actual task extras
++                # from a controlled completed episode, then read its event file.
++                from rsl_rl.utils.logger import Logger
++                from tensorboard.backend.event_processing.event_accumulator import EventAccumulator
++                event_dir=args.output.parent / ('controlled_events_' + str(args.num_envs))
++                logger=Logger(str(event_dir), {'algorithm':{},'num_steps_per_env':1,'logger':'tensorboard'},
++                              {},args.num_envs,False,1,0,env.device)
++                logger.init_logging_writer()
++                logger.process_env_step(reward,terminated|truncated,extras)
++                logger.log(0,0,1,.02,.001,{},3e-4,torch.full((12,),.12),None,print_minimal=True)
++                logger.stop_logging_writer()
++                events=EventAccumulator(str(event_dir)).Reload()
++                tags=events.Tags()['scalars']
++                for tag in ('Reward_Rate/feet_air_time','Episode_Reward/feet_air_time',
++                            'Reward_Rate/total','Episode_Reward/total'):
++                    assert tag in tags,tag
++                # Repeated observation queries cannot resample a boundary twice.
++                env.episode_length_buf[:]=env._command_resample_steps
++                env._get_observations(); cmd=env.velocity_commands.clone();env._get_observations()
++                torch.testing.assert_close(env.velocity_commands,cmd)
++                from isaaclab.utils.math import quat_from_euler_xyz
++                root=env.robot.data.root_pose_w.torch.clone()
++                zero=torch.zeros(args.num_envs,device=env.device)
++                root[:,3:]=quat_from_euler_xyz(zero,zero,torch.full_like(zero,torch.pi/2))
++                velocity=torch.zeros_like(env.robot.data.root_vel_w.torch);velocity[:,1]=.2
++                env.robot.write_root_pose_to_sim_index(root_pose=root,env_ids=ids)
++                env.robot.write_root_velocity_to_sim_index(root_velocity=velocity,env_ids=ids)
++                torch.testing.assert_close(env.robot.data.root_lin_vel_b.torch,
++                    torch.tensor([.2,0.,0.],device=env.device).expand(args.num_envs,-1),atol=1e-6,rtol=1e-5)
++                # Python loads installed editable-package finders at startup;
++                # their presence is not an import/dependency on that package.
++                active_eureka=[name for name in sys.modules if name.startswith(
++                    ('isaaclab_eureka','eureka_grallator','grallator_rl.eureka_reward'))]
++                assert not active_eureka,active_eureka
++                evidence=dict(provenance=provenance,num_envs=args.num_envs,step_dt=env.step_dt,
++                    backend=type(cfg.sim.physics).__name__,solver=str(cfg.sim.physics.solver_cfg.class_type),
++                    physics_handles_decimation=env._physics_handles_decimation,
++                    sensor_update_period=cfg.scene.contact_forces.update_period,
++                    sensor_history_length=cfg.scene.contact_forces.history_length,
++                    sensor_names=list(env.contact_sensor.sensor_names),foot_ids=env._foot_sensor_ids,
++                    max_support_force_n=max_force,contact_samples=contact_samples,
++                    lifted_max_force_n=lifted_force.max().item(),resets_during_180_steps=resets,
++                    timeout_step=env.max_episode_length-1,timeout_all=True,
++                    observations_values='PASS',action_mapping='PASS',history_reset='PASS',
++                    contact_signal='PASS',body_frame_velocity='PASS',eureka_modules_loaded=False,
++                    reward_airtime_during_preflight=0.,
++                    tensorboard_tags=tags,event_dir=str(event_dir.resolve()))
++                args.output.parent.mkdir(parents=True,exist_ok=True)
++                args.output.write_text(json.dumps(evidence,indent=2)+'\n')
++                print('RUNTIME_PREFLIGHT_PASS',json.dumps(evidence),flush=True)
++        finally:
++            env.close()
++
++
++if __name__=='__main__': main()
+--- /dev/null
++++ grallator_rl/scripts/inspect_walking_run.py
+@@ -0,0 +1,46 @@
++"""Read native TensorBoard events and compare trained weights to warm-start."""
++import argparse
++import json
++from pathlib import Path
++import torch
++from tensorboard.backend.event_processing.event_accumulator import EventAccumulator
++from grallator_rl.him.walking_checkpoint import WARM_START, verify_warm_start
++
++
++def inspect_run(path):
++    events=EventAccumulator(str(path),size_guidance={'scalars':0}).Reload()
++    tags=events.Tags()['scalars']
++    for tag in ('Reward_Rate/feet_air_time','Loss/value','Loss/surrogate','Loss/entropy',
++                'Loss/ppo_kl','Loss/post_hio_kl'):
++        assert tag in tags,tag
++    scalars={tag:[{'step':e.step,'value':e.value} for e in events.Scalars(tag)] for tag in tags}
++    assert all(torch.isfinite(torch.tensor([e['value'] for e in points])).all()
++               for points in scalars.values()), 'Nonfinite event values'
++    checkpoints=sorted(path.glob('model_*.pt'),key=lambda p:int(p.stem.split('_')[-1]))
++    assert checkpoints,'No saved checkpoint'
++    model=torch.load(checkpoints[-1],map_location='cpu',weights_only=True)
++    warm=torch.load(WARM_START,map_location='cpu',weights_only=True)
++    changes={group:[name for name,value in warm[group].items() if not torch.equal(value,model[group][name])]
++             for group in ('actor_state_dict','critic_state_dict')}
++    return dict(log_dir=str(path.resolve()),checkpoint=str(checkpoints[-1].resolve()),
++                iteration=model['iter'],changed_tensors=changes,
++                optimizer_state_count=len(model['optimizer_state_dict']['state']),
++                hio_optimizer_state_count=len(model['hio_optimizer_state_dict']['state']),
++                scalar_count=len(tags),scalars=scalars)
++
++
++def main():
++    parser=argparse.ArgumentParser(description=__doc__)
++    parser.add_argument('--log-dir',type=Path,required=True)
++    parser.add_argument('--output',type=Path)
++    args=parser.parse_args()
++    result=inspect_run(args.log_dir)
++    result['provenance']=verify_warm_start()
++    encoded=json.dumps(result,indent=2)+'\n'
++    if args.output: args.output.write_text(encoded)
++    print(json.dumps({k:v for k,v in result.items() if k!='scalars'},indent=2))
++    for tag in ('Loss/ppo_kl','Loss/post_hio_kl','Reward_Rate/feet_air_time','Episode_Reward/feet_air_time'):
++        print(tag,result['scalars'].get(tag,'NO COMPLETED EPISODE IN THIS RUN'))
++
++
++if __name__=='__main__': main()
+--- /dev/null
++++ grallator_rl/scripts/run_walking_tests.py
+@@ -0,0 +1,29 @@
++"""Run focused walking unittest checks; --all also runs existing function tests."""
++import argparse
++import ast
++import importlib.util
++from pathlib import Path
++import unittest
++
++
++def main():
++    parser=argparse.ArgumentParser(description=__doc__)
++    parser.add_argument('--all',action='store_true')
++    args=parser.parse_args()
++    root=Path(__file__).resolve().parents[1]
++    for base in (root/'src',root/'scripts',root/'tests'):
++        for source in base.rglob('*.py'):
++            ast.parse(source.read_text(),filename=str(source))
++    suite=unittest.TestSuite()
++    for p in sorted((root/'tests').glob('test_*.py' if args.all else 'test_native_walking.py')):
++        spec=importlib.util.spec_from_file_location(p.stem,p)
++        module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
++        suite.addTests(unittest.defaultTestLoader.loadTestsFromModule(module))
++        for name,fn in vars(module).items():
++            if name.startswith('test_') and callable(fn):
++                suite.addTest(unittest.FunctionTestCase(fn,description=p.name+':'+name))
++    result=unittest.TextTestRunner(verbosity=2).run(suite)
++    raise SystemExit(not result.wasSuccessful())
++
++
++if __name__=='__main__': main()
+--- /home/poornaprasad/RL/Quadruped/grallator_rl/backups/native_audit_20261104_120926/scripts/train_walking.py
++++ grallator_rl/scripts/train_walking.py
+@@ -14,22 +14,28 @@
+ 
+ def main():
+     parser = argparse.ArgumentParser(description=__doc__)
+-    parser.add_argument('--height', type=float, default=0.40)
++    parser.add_argument('--height', type=float, default=0.38)
+     parser.add_argument('--iterations', type=int, default=100)
+     parser.add_argument('--num-envs', type=int, default=64)
+     parser.add_argument('--run-name', default='him_native_walking')
+     parser.add_argument('--viz', default=None)
+     parser.add_argument('--checkpoint', default=None)
++    parser.add_argument('--resume', action='store_true', help='Resume a walking run including optimizer and iteration state')
+     args = parser.parse_args()
+     if not math.isfinite(args.height) or args.height <= 0:
+         parser.error('--height must be positive and finite')
+     if args.iterations < 1 or args.num_envs < 1:
+         parser.error('--iterations and --num-envs must be positive')
+-    checkpoint = None
+-    if args.checkpoint:
+-        checkpoint = Path(args.checkpoint).expanduser().resolve(strict=True)
+-        if not checkpoint.is_file():
+-            parser.error('--checkpoint must point to a file')
++    from grallator_rl.him.walking_checkpoint import WARM_START, verify_warm_start
++    checkpoint = Path(args.checkpoint or WARM_START).expanduser().resolve(strict=True)
++    if not checkpoint.is_file():
++        parser.error('--checkpoint must point to a file')
++    if args.resume and not args.checkpoint:
++        parser.error('--resume requires an explicit walking --checkpoint')
++    if not args.resume:
++        print('Verified standing provenance:', verify_warm_start(checkpoint), flush=True)
++    os.environ.setdefault('GRALLATOR_FREEZE_HIO', '0')
++    os.environ.setdefault('GRALLATOR_HIO_LR_OVERRIDE', '1e-5')
+     os.environ['GRALLATOR_TARGET_HEIGHT'] = str(args.height)
+     import grallator_rl.him.walking_registration  # noqa: F401
+     from isaaclab_rl.entrypoints import run_train_cli
+@@ -42,6 +48,8 @@
+     ]
+     if checkpoint:
+         argv += ['--checkpoint', str(checkpoint)]
++    if not args.resume:
++        argv += ['--no-resume_optimizer_state']
+     if args.viz:
+         argv += ['--viz', args.viz]
+     print(f'Native walking: height={args.height:.3f} m, envs={args.num_envs}, iterations={args.iterations}')
+--- /dev/null
++++ grallator_rl/src/grallator_rl/him/walking_checkpoint.py
+@@ -0,0 +1,38 @@
++"""Read-only verification of standing-derived warm-start provenance."""
++import hashlib
++from pathlib import Path
++import torch
++
++PROJECT = Path(__file__).resolve().parents[4]
++SOURCE = PROJECT / 'IsaacLab/logs/rsl_rl/grallator_him_standing/2026-11-03_21-06-02_middle_pose_038_resume/model_1700.pt'
++SOURCE_SHA256 = '10c9f75518359d9206c66c42f0a51ba6a68f84fcadd4f26c2b323dfd142c8ced'
++WARM_START = PROJECT / 'grallator_rl/checkpoints/walking_from_standing.pt'
++
++
++def verify_warm_start(path=WARM_START):
++    digest = hashlib.sha256(SOURCE.read_bytes()).hexdigest()
++    if digest != SOURCE_SHA256:
++        raise ValueError('Trusted standing checkpoint checksum mismatch')
++    source = torch.load(SOURCE, map_location='cpu', weights_only=True)
++    warm = torch.load(path, map_location='cpu', weights_only=True)
++    for group in ('actor_state_dict', 'critic_state_dict'):
++        if source[group].keys() != warm[group].keys():
++            raise ValueError(f'{group} tensor keys differ')
++        for name, value in source[group].items():
++            candidate = warm[group][name]
++            if candidate.shape != value.shape:
++                raise ValueError(f'Shape differs: {group}/{name}')
++            if group == 'actor_state_dict' and name == 'distribution.std_param':
++                if not torch.allclose(candidate, torch.full_like(candidate, .12)):
++                    raise ValueError('Warm-start exploration std must be 0.12')
++            elif not torch.equal(candidate, value):
++                raise ValueError(f'Warm-start changed pretrained tensor: {group}/{name}')
++    if warm['iter'] != 0:
++        raise ValueError('Warm-start iteration must be zero')
++    for name in ('optimizer_state_dict', 'hio_optimizer_state_dict'):
++        if warm[name]['state']:
++            raise ValueError(f'Warm-start {name} is not fresh')
++    return {'source': str(SOURCE), 'source_sha256': digest, 'warm_start': str(Path(path).resolve()),
++            'original_std_mean': source['actor_state_dict']['distribution.std_param'].mean().item(),
++            'warm_std_mean': warm['actor_state_dict']['distribution.std_param'].mean().item(),
++            'iteration': warm['iter']}
+--- /dev/null
++++ grallator_rl/src/grallator_rl/him/walking_ppo.py
+@@ -0,0 +1,13 @@
++"""Walking-only gradient hygiene around the unchanged shared HIM/PPO update."""
++from .him_ppo import HIMPPO
++
++
++class WalkingPPO(HIMPPO):
++    def update(self):
++        # HIO leaves estimator gradients after its optimizer step. Estimator
++        # parameters are excluded from the PPO optimizer, so PPO.zero_grad()
++        # cannot clear them. Native PPO clips *all* actor parameters: stale HIO
++        # gradients would otherwise affect the next actor clipping norm even
++        # though get_latent() correctly detaches the estimator from PPO.
++        self._raw_actor.estimator.zero_grad(set_to_none=True)
++        return super().update()
+--- /dev/null
++++ grallator_rl/src/grallator_rl/him/walking_ppo_cfg.py
+@@ -0,0 +1,19 @@
++"""Walking-only logging and initial HIO settings; standing config is unchanged."""
++from isaaclab.utils import configclass
++from .him_ppo_cfg import HIMPPORunnerCfg
++
++
++@configclass
++class WalkingPPORunnerCfg(HIMPPORunnerCfg):
++    experiment_name = 'grallator_him_walking_native'
++    run_name = 'native_walking'
++
++    def __post_init__(self):
++        self.algorithm.class_name = 'grallator_rl.him.walking_ppo:WalkingPPO'
++        self.algorithm.hio_learning_rate = 1e-5
++        # The standing warm-start's first update at 3e-4 produced KL ~8 in
++        # the 16-env audit. Start conservatively; retain native adaptive PPO.
++        self.algorithm.learning_rate = 1e-5
++        # The full actor (including estimator) is loaded from the required
++        # standing-derived checkpoint, so a second estimator file is unnecessary.
++        self.actor.estimator_checkpoint_path = None
+--- /home/poornaprasad/RL/Quadruped/grallator_rl/backups/native_audit_20261104_120926/src/grallator_rl/him/walking_registration.py
++++ grallator_rl/src/grallator_rl/him/walking_registration.py
+@@ -8,7 +8,7 @@
+     disable_env_checker=True,
+     kwargs={
+         "env_cfg_entry_point": "grallator_rl.him.walking_env_adapter:WalkingHIMEnvCfg",
+-        "rsl_rl_cfg_entry_point": "grallator_rl.him.him_ppo_cfg:HIMPPORunnerCfg",
++        "rsl_rl_cfg_entry_point": "grallator_rl.him.walking_ppo_cfg:WalkingPPORunnerCfg",
+         "default_agent": "rsl_rl",
+     },
+ )
+--- /dev/null
++++ grallator_rl/src/grallator_rl/tasks/walking_direct/diagnostics.py
+@@ -0,0 +1,74 @@
++"""Tensor-only snapshots and eligible episode aggregates; no reward effects."""
++import torch
++
++
++class WalkingDiagnostics:
++    def __init__(self, num_envs, device):
++        self.quality_sum = torch.zeros(num_envs, device=device)
++        self.quality_count = torch.zeros_like(self.quality_sum)
++        self.air_steps = torch.zeros_like(self.quality_sum)
++        self.foot_steps = torch.zeros_like(self.quality_sum)
++        self.liftoffs = torch.zeros_like(self.quality_sum)
++
++    def reset(self, ids, log):
++        log['Walking/Tracking/episode_xy_error_mps'] = (
++            self.quality_sum[ids].sum() / self.quality_count[ids].sum().clamp_min(1))
++        log['Walking/Tracking/episode_valid_samples'] = self.quality_count[ids].sum()
++        for value in (self.quality_sum, self.quality_count, self.air_steps, self.foot_steps, self.liftoffs):
++            value[ids] = 0
++
++    def snapshot(self, *, terms, commands, lin_vel, ang_vel, eligible, contact,
++                 events, foot_velocity, height_error, undesired, actions, fallen):
++        error_xy = (lin_vel[:, :2] - commands[:, :2]).norm(dim=-1)
++        vx_error = (lin_vel[:, 0] - commands[:, 0]).abs()
++        self.quality_sum += error_xy * eligible
++        self.quality_count += eligible
++        self.air_steps += ((~contact) & eligible[:, None]).float().sum(-1)
++        self.foot_steps += 4 * eligible
++        self.liftoffs += events['liftoffs'].float().sum(-1)
++        count = eligible.sum().clamp_min(1)
++        slip = foot_velocity[..., :2].norm(dim=-1) * contact
++        log = {f'Reward_Rate/{name}': value.detach().mean() for name, value in terms.items()}
++        log['Reward_Rate/total'] = torch.stack(list(terms.values())).sum(0).detach().mean()
++        for i, name in enumerate(('vx_mps', 'vy_mps', 'yaw_radps')):
++            log[f'Walking/Commands/{name}'] = commands[:, i].mean()
++            log[f'Diagnostics/command_{name}'] = commands[:, i].mean()
++        for i, name in enumerate(('vx_mps', 'vy_mps')):
++            log[f'Walking/Tracking/actual_{name}'] = lin_vel[:, i].mean()
++            log[f'Diagnostics/actual_{name}'] = lin_vel[:, i].mean()
++        log.update({
++            'Walking/Tracking/actual_yaw_radps': ang_vel[:, 2].mean(),
++            'Walking/Tracking/vx_mae_mps': (vx_error * eligible).sum() / count,
++            'Walking/Tracking/xy_error_mps': (error_xy * eligible).sum() / count,
++            'Walking/Tracking/raw_xy_error_mps': error_xy.mean(),
++            'Walking/Tracking/valid_fraction': eligible.float().mean(),
++            'Walking/Gait/contact_count': contact.float().sum(-1).mean(),
++            'Walking/Gait/airborne_pct': (~contact).float().mean() * 100,
++            'Walking/Gait/liftoffs': events['liftoffs'].float().sum(-1).mean(),
++            'Walking/Gait/touchdowns': events['touchdowns'].float().sum(-1).mean(),
++            'Walking/Gait/qualified_airtime_s': events['qualified_airtime_s'].sum(-1).mean(),
++            'Walking/Gait/stance_slip_mps': slip.sum() / contact.sum().clamp_min(1),
++            'Walking/Stability/height_error_cm': height_error.abs().mean() * 100,
++            'Walking/Stability/undesired_contact_pct': undesired.float().mean() * 100,
++            'Walking/Stability/action_near_limit_pct': (actions.abs() > .95).float().mean() * 100,
++            'Walking/Stability/fall_fraction': fallen.float().mean(),
++            'Diagnostics/actual_yaw_radps': ang_vel[:, 2].mean(),
++            'Diagnostics/vx_mae_mps': vx_error.mean(),
++            'Diagnostics/vy_mae_mps': (lin_vel[:, 1] - commands[:, 1]).abs().mean(),
++            'Diagnostics/xy_vel_error_mps': error_xy.mean(),
++            'Diagnostics/yaw_error_radps': (ang_vel[:, 2] - commands[:, 2]).abs().mean(),
++            'Diagnostics/command_speed_mps': commands[:, :2].norm(dim=-1).mean(),
++            'Diagnostics/actual_speed_mps': lin_vel[:, :2].norm(dim=-1).mean(),
++            'Diagnostics/moving_xy_error_mps': (error_xy * eligible).sum() / count,
++            'Diagnostics/moving_command_pct': eligible.float().mean() * 100,
++            'Diagnostics/height_error_cm': height_error.abs().mean() * 100,
++            'Diagnostics/action_near_limit_pct': (actions.abs() > .95).float().mean() * 100,
++            'Diagnostics/undesired_contact_pct': undesired.float().mean() * 100,
++            'Diagnostics/feet_contact_count': contact.float().sum(-1).mean(),
++            'Diagnostics/all_feet_contact_pct': contact.all(-1).float().mean() * 100,
++            'Diagnostics/airborne_pct_cumulative': 100 * self.air_steps.sum() / self.foot_steps.sum().clamp_min(1),
++            'Diagnostics/liftoffs_per_1000_foot_steps': 1000 * self.liftoffs.sum() / self.foot_steps.sum().clamp_min(1),
++        })
++        # Fresh dictionary and scalar tensors each step: RSL-RL retains references
++        # until its iteration logger runs. Never mutate old snapshots in place.
++        return log
+--- /home/poornaprasad/RL/Quadruped/grallator_rl/backups/native_audit_20261104_120926/src/grallator_rl/tasks/walking_direct/env.py
++++ grallator_rl/src/grallator_rl/tasks/walking_direct/env.py
+@@ -10,7 +10,9 @@
+ 
+ from grallator_rl.tasks.standing_direct.config.grallator.env import StandingEnv
+ from .env_cfg import WalkingEnvCfg
+-from .rewards import compute_walking_terms
++from .rewards import compute_walking_terms, compute_feet_air_time_rate, compute_optional_terms
++from .gait_state import GaitState, FOOT_NAMES, contact_from_forces
++from .diagnostics import WalkingDiagnostics
+ 
+ 
+ class WalkingEnv(StandingEnv):
+@@ -21,15 +23,13 @@
+         self._command_resample_steps = max(
+             1, round(float(self.cfg.command_resample_time_s) / float(self.step_dt))
+         )
+-        foot_names = ('FR_foot', 'FL_foot', 'BR_foot', 'BL_foot')
+         sensor_names = list(self.contact_sensor.sensor_names)
+-        self._foot_sensor_ids = [sensor_names.index(name) for name in foot_names]
+-        self._air_steps = torch.zeros(self.num_envs, device=self.device)
+-        self._valid_foot_steps = torch.zeros(self.num_envs, device=self.device)
+-        self._liftoffs = torch.zeros(self.num_envs, device=self.device)
+-        self._previous_contact = torch.ones(
+-            self.num_envs, 4, dtype=torch.bool, device=self.device
+-        )
++        self._foot_sensor_ids = [sensor_names.index(name) for name in FOOT_NAMES]
++        self.gait = GaitState(self.num_envs, self.device)
++        self.diagnostics = WalkingDiagnostics(self.num_envs, self.device)
++        self._previous_joint_velocity = self.robot.data.joint_vel.torch.clone()
++        self._previous_vertical_velocity = self.robot.data.root_lin_vel_w.torch[:, 2].clone()
++        self._last_resample_step = torch.full_like(self.episode_length_buf, -1)
+         self._sample_commands(torch.arange(self.num_envs, device=self.device))
+ 
+     def _sample_commands(self, env_ids: torch.Tensor) -> None:
+@@ -49,15 +49,17 @@
+         commands[standing] = 0.0
+         self.velocity_commands[env_ids] = commands
+ 
+-    def _pre_physics_step(self, actions: torch.Tensor) -> None:
++    def _get_observations(self):
+         if hasattr(self, '_command_resample_steps'):
+             steps = self.episode_length_buf
+             ids = torch.nonzero(
+-                (steps > 0) & (steps % self._command_resample_steps == 0),
++                (steps > 0) & (steps % self._command_resample_steps == 0)
++                & (steps != self._last_resample_step),
+                 as_tuple=False,
+             ).flatten()
+             self._sample_commands(ids)
+-        super()._pre_physics_step(actions)
++            self._last_resample_step[ids] = steps[ids]
++        return super()._get_observations()
+ 
+     def _get_rewards(self) -> torch.Tensor:
+         base_height = (
+@@ -80,74 +82,64 @@
+             previous_actions=self.previous_actions,
+             undesired_contact=undesired,
+         )
+-        reward = torch.zeros(self.num_envs, device=self.device)
++        rc = self.cfg.rewards
++        foot_force = self.contact_sensor.data.net_normal_forces_w.torch[:, self._foot_sensor_ids, :]
++        contact = contact_from_forces(foot_force, rc.contact_force_threshold_n)
++        transient_free = (self.episode_length_buf > rc.reset_exclusion_steps) & ~self.reset_buf
++        moving = self.velocity_commands[:, :2].norm(dim=-1) > rc.moving_threshold_mps
++        stable = (self.robot.data.projected_gravity_b.torch[:, 2] < rc.stable_gravity_z_max) & ~undesired
++        events = self.gait.update(contact, transient_free & moving & stable, self.step_dt, rc)
++        feet_air_time_reward_rate = compute_feet_air_time_rate(
++            events['qualified_airtime_s'], rc.feet_air_time, self.step_dt)
++        terms['feet_air_time'] = feet_air_time_reward_rate
++        joint_vel = self.robot.data.joint_vel.torch
++        vertical_vel = self.robot.data.root_lin_vel_w.torch[:, 2]
++        joint_acc = (joint_vel - self._previous_joint_velocity) / self.step_dt
++        vertical_acc = (vertical_vel - self._previous_vertical_velocity) / self.step_dt
++        joint_acc = torch.where(transient_free[:, None], joint_acc, 0.0)
++        vertical_acc = torch.where(transient_free, vertical_acc, 0.0)
++        self._previous_joint_velocity.copy_(joint_vel)
++        self._previous_vertical_velocity.copy_(vertical_vel)
++        foot_vel = self.robot.data.body_link_lin_vel_w.torch[:, self.foot_body_ids, :]
++        terms.update(compute_optional_terms(
++            rc, contact=contact, air_time=self.gait.last_air_time,
++            contact_time=self.gait.last_contact_time, foot_velocity_w=foot_vel,
++            ang_vel_b=ang_vel, vertical_acceleration=vertical_acc,
++            joint_acceleration=joint_acc, joint_error=self.robot.data.joint_pos.torch - self.middle_joint_pos,
++            joint_velocity=joint_vel, joint_torque=self.robot.actuators.applied_effort.torch,
++            commands=self.velocity_commands))
++        # One asynchronous device assertion for all reward/contact signals, avoiding
++        # the previous per-term tensor-to-CPU synchronization on every step.
++        rates = torch.stack(list(terms.values()))
++        if rates.shape != (len(terms), self.num_envs):
++            raise RuntimeError('Unexpected reward tensor shape')
++        torch._assert_async(torch.isfinite(rates).all() & torch.isfinite(foot_force).all(),
++                            'Nonfinite walking reward/contact signal')
++        reward = rates.sum(0) * self.step_dt
+         for name, rate in terms.items():
+-            if rate.shape != (self.num_envs,) or not torch.isfinite(rate).all():
+-                raise RuntimeError(f'Invalid walking reward term: {name}')
+-            contribution = rate * self.step_dt  # ONCE, as in standing env.py
+-            reward += contribution
+             if name not in self.reward_sums:
+                 self.reward_sums[name] = torch.zeros(self.num_envs, device=self.device)
+-            self.reward_sums[name] += contribution
+-
+-        error_xy = torch.linalg.vector_norm(
+-            lin_vel[:, :2] - self.velocity_commands[:, :2], dim=1
+-        )
+-        error_yaw = (ang_vel[:, 2] - self.velocity_commands[:, 2]).abs()
+-        target_speed = torch.linalg.vector_norm(self.velocity_commands[:, :2], dim=1)
+-        actual_speed = torch.linalg.vector_norm(lin_vel[:, :2], dim=1)
+-        foot_force = self.contact_sensor.data.net_normal_forces_w.torch[
+-            :, self._foot_sensor_ids, :
+-        ]
+-        contact = torch.linalg.vector_norm(foot_force, dim=-1) > self.cfg.rewards.contact_force_threshold_n
+-        valid = (
+-            (self.episode_length_buf > 6)
+-            & (self.episode_length_buf < self.max_episode_length - 6)
+-            & (target_speed > 0.10)
+-        )
+-        self._air_steps += ((~contact) & valid[:, None]).float().sum(dim=1)
+-        self._valid_foot_steps += 4.0 * valid.float()
+-        liftoffs = self._previous_contact & (~contact) & valid[:, None]
+-        self._liftoffs += liftoffs.float().sum(dim=1)
+-        self._previous_contact.copy_(contact)
+-        total_foot_steps = self._valid_foot_steps.sum().clamp_min(1.0)
+-
+-        log = self.extras.setdefault('log', {})
+-        log['Diagnostics/command_vx_mps'] = self.velocity_commands[:, 0].mean()
+-        log['Diagnostics/command_vy_mps'] = self.velocity_commands[:, 1].mean()
+-        log['Diagnostics/command_yaw_radps'] = self.velocity_commands[:, 2].mean()
+-        log['Diagnostics/actual_vx_mps'] = lin_vel[:, 0].mean()
+-        log['Diagnostics/actual_vy_mps'] = lin_vel[:, 1].mean()
+-        log['Diagnostics/actual_yaw_radps'] = ang_vel[:, 2].mean()
+-        log['Diagnostics/vx_mae_mps'] = (lin_vel[:, 0] - self.velocity_commands[:, 0]).abs().mean()
+-        log['Diagnostics/vy_mae_mps'] = (lin_vel[:, 1] - self.velocity_commands[:, 1]).abs().mean()
+-        log['Diagnostics/xy_vel_error_mps'] = error_xy.mean()
+-        log['Diagnostics/yaw_error_radps'] = error_yaw.mean()
+-        log['Diagnostics/command_speed_mps'] = target_speed.mean()
+-        log['Diagnostics/actual_speed_mps'] = actual_speed.mean()
+-        moving = (target_speed > 0.10).float()
+-        log['Diagnostics/moving_xy_error_mps'] = (
+-            (error_xy * moving).sum() / moving.sum().clamp_min(1.0)
+-        )
+-        log['Diagnostics/moving_command_pct'] = moving.mean() * 100.0
+-        log['Diagnostics/height_error_cm'] = (
+-            base_height - self.height_command[:, 0]
+-        ).abs().mean() * 100.0
+-        log['Diagnostics/action_near_limit_pct'] = (
+-            (self.actions.abs() > 0.95).float().mean() * 100.0
+-        )
+-        log['Diagnostics/undesired_contact_pct'] = undesired.float().mean() * 100.0
+-        log['Diagnostics/feet_contact_count'] = contact.float().sum(dim=1).mean()
+-        log['Diagnostics/all_feet_contact_pct'] = contact.all(dim=1).float().mean() * 100.0
+-        log['Diagnostics/airborne_pct_cumulative'] = 100.0 * self._air_steps.sum() / total_foot_steps
+-        log['Diagnostics/liftoffs_per_1000_foot_steps'] = 1000.0 * self._liftoffs.sum() / total_foot_steps
++            self.reward_sums[name] += rate * self.step_dt
++        self.extras['log'] = self.diagnostics.snapshot(
++            terms=terms, commands=self.velocity_commands, lin_vel=lin_vel, ang_vel=ang_vel,
++            eligible=transient_free & moving, contact=contact, events=events,
++            foot_velocity=foot_vel, height_error=base_height - self.height_command[:, 0],
++            undesired=undesired, actions=self.actions, fallen=self.reset_terminated)
++        self.extras['log']['Walking/Tracking/reset_excluded_fraction'] = (~transient_free).float().mean()
+         return reward
+ 
+     def _reset_idx(self, env_ids: Sequence[int] | None):
+         if env_ids is None:
+             env_ids = torch.arange(self.num_envs, device=self.device, dtype=torch.long)
++        if hasattr(self, 'gait') and len(env_ids):
++            log = self.extras.setdefault('log', {})
++            if self.reward_sums:
++                log['Episode_Reward/total'] = torch.stack(list(self.reward_sums.values())).sum(0)[env_ids].mean()
++            self.diagnostics.reset(env_ids, log)
++            self.gait.reset(env_ids)
++            self._previous_joint_velocity[env_ids] = 0
++            self._previous_vertical_velocity[env_ids] = 0
++            self._last_resample_step[env_ids] = -1
+         super()._reset_idx(env_ids)
+         if hasattr(self, 'velocity_commands'):
+             self._sample_commands(env_ids)
+-        if hasattr(self, '_previous_contact'):
+-            self._previous_contact[env_ids] = True
+--- /home/poornaprasad/RL/Quadruped/grallator_rl/backups/native_audit_20261104_120926/src/grallator_rl/tasks/walking_direct/env_cfg.py
++++ grallator_rl/src/grallator_rl/tasks/walking_direct/env_cfg.py
+@@ -24,6 +24,10 @@
+ 
+     def __post_init__(self):
+         super().__post_init__()
++        self.rewards.validate_weights()
++        if self.rewards.joint_torque or self.rewards.mechanical_power:
++            raise ValueError('Torque/power costs need validated solver effort; current implicit-actuator '
++                             'applied_effort is shadow-PD telemetry. Leave these weights at 0.0.')
+         for lo, hi in (
+             (self.cmd_vx_min, self.cmd_vx_max),
+             (self.cmd_vy_min, self.cmd_vy_max),
+@@ -35,14 +39,3 @@
+             raise ValueError('stand_fraction must be within [0, 1]')
+         if not math.isfinite(self.command_resample_time_s) or self.command_resample_time_s <= 0:
+             raise ValueError('command_resample_time_s must be positive')
+-        for name in ('xy_sigma', 'yaw_sigma', 'height_sigma'):
+-            v = getattr(self.rewards, name)
+-            if not math.isfinite(v) or v <= 0:
+-                raise ValueError(f'{name} must be positive and finite')
+-        for name in (
+-            'track_xy', 'track_yaw', 'height', 'upright', 'vertical_velocity',
+-            'joint_velocity', 'action_rate', 'action_magnitude', 'undesired_contact',
+-        ):
+-            v = getattr(self.rewards, name)
+-            if not math.isfinite(v) or v < 0:
+-                raise ValueError(f'{name} must be finite and nonnegative')
+--- /dev/null
++++ grallator_rl/src/grallator_rl/tasks/walking_direct/gait_state.py
+@@ -0,0 +1,63 @@
++"""Control-sampled contact transitions; no module-global reward state.
++
++The sensor's current normal-force buffer is sampled once per control interval
++(0.02 s). Substep-only transitions are intentionally not reconstructed. A swing
++must start from observed support and remain supported/stable/moving throughout.
++"""
++import math
++import torch
++
++FOOT_NAMES = ('FR_foot', 'FL_foot', 'BR_foot', 'BL_foot')
++
++
++def contact_from_forces(forces, threshold):
++    if forces.ndim != 3 or forces.shape[1:] != (4, 3):
++        raise ValueError('Expected [N,4,3] foot normal forces')
++    return forces.norm(dim=-1) > threshold
++
++
++class GaitState:
++    def __init__(self, num_envs, device):
++        shape = (num_envs, 4)
++        self.contact = torch.zeros(shape, dtype=torch.bool, device=device)
++        self.seen_contact = torch.zeros_like(self.contact)
++        self.valid_swing = torch.zeros_like(self.contact)
++        self.air_time = torch.zeros(shape, device=device)
++        self.contact_time = torch.zeros_like(self.air_time)
++        self.last_air_time = torch.zeros_like(self.air_time)
++        self.last_contact_time = torch.zeros_like(self.air_time)
++
++    def reset(self, ids):
++        for tensor in (self.contact, self.seen_contact, self.valid_swing,
++                       self.air_time, self.contact_time, self.last_air_time,
++                       self.last_contact_time):
++            tensor[ids] = 0
++
++    def update(self, contact, eligible, dt, cfg):
++        if contact.shape != self.contact.shape or eligible.shape != contact.shape[:1]:
++            raise ValueError('Unexpected gait-state shapes')
++        if contact.dtype != torch.bool or eligible.dtype != torch.bool or not math.isfinite(dt) or dt <= 0:
++            raise ValueError('Expected boolean contact/gate and positive finite dt')
++        supported = contact.sum(-1) >= cfg.min_support_feet
++        gate = eligible & supported
++        liftoff = self.contact & ~contact & self.seen_contact
++        touchdown = ~self.contact & contact & self.seen_contact
++        self.valid_swing = torch.where(liftoff, gate[:, None], self.valid_swing)
++        self.valid_swing &= gate[:, None]
++        # air_time includes the first observed airborne interval, excludes the
++        # touchdown interval. Bounds apply to the actual completed swing.
++        valid = (touchdown & self.valid_swing
++                 & (self.air_time >= cfg.min_swing_s - 1e-6)
++                 & (self.air_time <= cfg.max_swing_s + 1e-6))
++        qualified = torch.where(valid, self.air_time.clamp(max=cfg.max_swing_s), 0.0)
++        self.last_air_time = torch.where(valid, self.air_time, self.last_air_time)
++        self.last_contact_time = torch.where(liftoff & gate[:, None], self.contact_time, self.last_contact_time)
++        self.air_time = torch.where(~contact & eligible[:, None], self.air_time + dt, 0.0)
++        self.contact_time = torch.where(contact & eligible[:, None], self.contact_time + dt, 0.0)
++        self.valid_swing &= ~contact
++        # Only contacts outside reset transients can arm a subsequent liftoff.
++        self.seen_contact |= contact & eligible[:, None]
++        self.seen_contact &= eligible[:, None]
++        self.contact.copy_(contact)
++        return {'qualified_airtime_s': qualified, 'liftoffs': liftoff & eligible[:, None],
++                'touchdowns': touchdown & eligible[:, None]}
+--- /home/poornaprasad/RL/Quadruped/grallator_rl/backups/native_audit_20261104_120926/src/grallator_rl/tasks/walking_direct/reward_cfg.py
++++ grallator_rl/src/grallator_rl/tasks/walking_direct/reward_cfg.py
+@@ -1,5 +1,6 @@
+ 
+ from isaaclab.utils import configclass
++import math
+ from grallator_rl.tasks.standing_direct.config.grallator.reward_cfg import StandingRewardCfg
+ 
+ 
+@@ -21,3 +22,49 @@
+     action_rate: float = 0.05
+     action_magnitude: float = 0.01
+     undesired_contact: float = 2.0
++
++    # A touchdown earns weight * completed swing seconds, once. env.py converts
++    # this event amount to a rate before the shared step_dt integration.
++    feet_air_time: float = 2.0
++    min_swing_s: float = 0.08
++    max_swing_s: float = 0.35
++    min_support_feet: int = 2
++    moving_threshold_mps: float = 0.10
++    reset_exclusion_steps: int = 6
++    stable_gravity_z_max: float = -0.85
++
++    # Optional research-task biases: positive cost weights, all off initially.
++    stance_slip: float = 0.0
++    trot_sync: float = 0.0
++    time_imbalance: float = 0.0
++    roll_pitch_velocity: float = 0.0
++    vertical_acceleration: float = 0.0
++    # Runtime-disabled placeholders: implicit-actuator telemetry is shadow PD,
++    # not validated solver torque. env_cfg rejects nonzero weights until a
++    # trustworthy effort signal is connected. Pure math remains CPU-testable.
++    joint_torque: float = 0.0
++    joint_acceleration: float = 0.0
++    joint_position: float = 0.0
++    mechanical_power: float = 0.0
++    standing_pose_multiplier: float = 5.0
++
++    def validate_weights(self):
++        for name in (
++            'track_xy', 'track_yaw', 'height', 'upright', 'vertical_velocity',
++            'joint_velocity', 'action_rate', 'action_magnitude', 'undesired_contact',
++            'feet_air_time', 'stance_slip', 'trot_sync', 'time_imbalance',
++            'roll_pitch_velocity', 'vertical_acceleration', 'joint_torque',
++            'joint_acceleration', 'joint_position', 'mechanical_power',
++        ):
++            if not math.isfinite(getattr(self, name)) or getattr(self, name) < 0:
++                raise ValueError(f'{name} must be finite and nonnegative')
++        for name in ('xy_sigma', 'yaw_sigma', 'height_sigma', 'contact_force_threshold_n',
++                     'moving_threshold_mps', 'standing_pose_multiplier'):
++            if not math.isfinite(getattr(self, name)) or getattr(self, name) <= 0:
++                raise ValueError(f'{name} must be positive and finite')
++        if not (0 < self.min_swing_s <= self.max_swing_s < float('inf')):
++            raise ValueError('Invalid swing duration bounds')
++        if self.min_support_feet not in (2, 3, 4) or self.reset_exclusion_steps < 1:
++            raise ValueError('Invalid support/reset gate')
++        if not -1 <= self.stable_gravity_z_max < 0:
++            raise ValueError('Invalid gravity stability gate')
+--- /home/poornaprasad/RL/Quadruped/grallator_rl/backups/native_audit_20261104_120926/src/grallator_rl/tasks/walking_direct/rewards.py
++++ grallator_rl/src/grallator_rl/tasks/walking_direct/rewards.py
+@@ -6,7 +6,9 @@
+ from __future__ import annotations
+ 
+ import torch
+-from .reward_cfg import WalkingRewardCfg
++from typing import TYPE_CHECKING
++if TYPE_CHECKING:
++    from .reward_cfg import WalkingRewardCfg
+ 
+ 
+ def compute_walking_terms(
+@@ -54,3 +56,43 @@
+         'action_magnitude': -rewards_cfg.action_magnitude * actions.square().mean(dim=-1),
+         'undesired_contact': -rewards_cfg.undesired_contact * undesired_contact.to(actions.dtype),
+     }
++
++
++def compute_feet_air_time_rate(qualified_airtime_s, weight, step_dt):
++    """[N,4] completed valid swings -> [N] rate; integral = weight * sum(s)."""
++    if step_dt <= 0 or qualified_airtime_s.ndim != 2 or qualified_airtime_s.shape[1] != 4:
++        raise ValueError('Expected positive dt and [N,4] qualified swing times')
++    return weight * qualified_airtime_s.sum(-1) / step_dt
++
++
++def diagonal_trot_cost(contact):
++    """FR, FL, BR, BL: synchronize FL+BR / FR+BL; oppose the two pairs."""
++    return ((contact[:, 1] != contact[:, 2]).float()
++            + (contact[:, 0] != contact[:, 3]).float()
++            + (contact[:, 0] == contact[:, 1]).float()) / 3.0
++
++
++def compute_optional_terms(cfg, *, contact, air_time, contact_time, foot_velocity_w,
++                           ang_vel_b, vertical_acceleration, joint_acceleration,
++                           joint_error, joint_velocity, joint_torque, commands):
++    """Pure per-second costs; torque math requires trustworthy joint-side efforts.
++
++    Acceleration uses control-interval finite differences with reset masking in
++    env.py. Power is sum(abs(tau*qdot)) in joint coordinates, not battery power.
++    env_cfg rejects nonzero torque/power weights with current shadow-PD telemetry.
++    No clearance/impact proxy: sole geometry and peak impulse are not validated.
++    """
++    moving = commands[:, :2].norm(dim=-1) > cfg.moving_threshold_mps
++    return {
++        'stance_slip': -cfg.stance_slip * (foot_velocity_w[..., :2].square().sum(-1) * contact).sum(-1),
++        'trot_sync': -cfg.trot_sync * diagonal_trot_cost(contact) * moving,
++        'time_imbalance': -cfg.time_imbalance * (air_time.var(-1, unbiased=False)
++                                               + contact_time.var(-1, unbiased=False)) * moving,
++        'roll_pitch_velocity': -cfg.roll_pitch_velocity * ang_vel_b[:, :2].square().sum(-1),
++        'vertical_acceleration': -cfg.vertical_acceleration * vertical_acceleration.square(),
++        'joint_acceleration': -cfg.joint_acceleration * joint_acceleration.square().sum(-1),
++        'joint_torque': -cfg.joint_torque * joint_torque.square().sum(-1),
++        'joint_position': -cfg.joint_position * joint_error.square().sum(-1)
++                          * torch.where(moving, 1.0, cfg.standing_pose_multiplier),
++        'mechanical_power': -cfg.mechanical_power * (joint_torque * joint_velocity).abs().sum(-1),
++    }
+--- /dev/null
++++ grallator_rl/tests/test_native_walking.py
+@@ -0,0 +1,234 @@
++"""Run with unittest; CPU tests need no Isaac Sim, pytest, or CUDA."""
++import copy
++import math
++import os
++from pathlib import Path
++import tempfile
++import unittest
++from unittest.mock import patch
++
++import torch
++from tensordict import TensorDict
++from grallator_rl.tasks.walking_direct.reward_cfg import WalkingRewardCfg
++from grallator_rl.tasks.walking_direct.rewards import (
++    compute_walking_terms, compute_feet_air_time_rate, compute_optional_terms, diagonal_trot_cost)
++from grallator_rl.tasks.walking_direct.gait_state import GaitState, contact_from_forces
++from grallator_rl.him.history import HIMHistory
++from grallator_rl.him.walking_checkpoint import verify_warm_start, WARM_START
++
++torch.set_num_threads(2)
++
++
++class RewardTests(unittest.TestCase):
++    def setUp(self):
++        self.cfg = WalkingRewardCfg()
++        self.g = GaitState(2, 'cpu')
++        self.contact = torch.ones(2, 4, dtype=torch.bool)
++        self.eligible = torch.ones(2, dtype=torch.bool)
++
++    def step(self, contact=None, eligible=None):
++        return self.g.update(self.contact if contact is None else contact,
++                             self.eligible if eligible is None else eligible, .02, self.cfg)
++
++    def swing(self, steps=5):
++        self.step()
++        c = self.contact.clone(); c[:, 0] = False
++        for _ in range(steps): self.step(c)
++        return self.step()['qualified_airtime_s']
++
++    def test_first_contact_does_not_pay(self):
++        self.assertEqual(self.step()['qualified_airtime_s'].sum(), 0)
++
++    def test_touchdown_exactly_once_and_units(self):
++        bonus = self.swing()
++        torch.testing.assert_close(bonus[:, 0], torch.full((2,), .1))
++        rate = compute_feet_air_time_rate(bonus, 2., .02)
++        torch.testing.assert_close(rate * .02, torch.full((2,), .2))
++        self.assertEqual(self.step()['qualified_airtime_s'].sum(), 0)
++
++    def test_minimum_and_maximum_swing(self):
++        for steps, expected in ((3, 0.), (4, .08), (17, .34), (18, 0.)):
++            self.g.reset([0, 1])
++            self.assertAlmostEqual(self.swing(steps)[0, 0].item(), expected, places=5)
++
++    def test_perpetual_air_never_pays(self):
++        c=self.contact.clone(); c[:, 0] = False
++        self.step()
++        for _ in range(30): self.assertEqual(self.step(c)['qualified_airtime_s'].sum(), 0)
++
++    def test_flight_invalidates_entire_swing(self):
++        self.step()
++        self.step(torch.zeros_like(self.contact))
++        c=self.contact.clone(); c[:,0]=False
++        for _ in range(5): self.step(c)
++        self.assertEqual(self.step()['qualified_airtime_s'].sum(), 0)
++
++    def test_standing_or_unstable_command_invalidates(self):
++        self.step()
++        c=self.contact.clone(); c[:, 0]=False
++        for _ in range(5): self.step(c, torch.zeros(2, dtype=torch.bool))
++        self.assertEqual(self.step()['qualified_airtime_s'].sum(), 0)
++
++    def test_per_env_reset_and_no_fake_touchdown(self):
++        self.step(); c=self.contact.clone(); c[:, 0]=False
++        for _ in range(5): self.step(c)
++        self.g.reset([0])
++        q=self.step()['qualified_airtime_s']
++        self.assertEqual(q[0].sum(), 0); self.assertAlmostEqual(q[1].sum().item(), .1, places=5)
++
++    def test_reset_exclusion_disarms(self):
++        self.swing(); self.step(eligible=torch.zeros(2, dtype=torch.bool))
++        c=self.contact.clone(); c[:,0]=False
++        for _ in range(5): self.step(c)
++        self.assertEqual(self.step()['qualified_airtime_s'].sum(), 0)
++
++    def test_force_threshold_shapes_and_pairing(self):
++        f=torch.zeros(2,4,3); f[0,:,2]=torch.tensor([0,2,2.01,10])
++        self.assertEqual(contact_from_forces(f,2)[0].tolist(), [False,False,True,True])
++        with self.assertRaises(ValueError): contact_from_forces(f[:,:,0],2)
++        c=torch.tensor([[True,False,False,True],[False,True,True,False],[True,True,False,False]])
++        torch.testing.assert_close(diagonal_trot_cost(c), torch.tensor([0.,0.,1.]))
++
++    def inputs(self):
++        z3=torch.zeros(2,3); z12=torch.zeros(2,12)
++        return dict(rewards_cfg=self.cfg, base_lin_vel_b=z3.clone(),base_ang_vel_b=z3.clone(),
++                    projected_gravity_b=torch.tensor([[0.,0.,-1.]]).repeat(2,1),
++                    velocity_commands=z3.clone(),base_height=torch.full((2,),.38),
++                    target_height=torch.full((2,),.38),joint_vel=z12.clone(),
++                    actions=z12.clone(),previous_actions=z12.clone(),undesired_contact=torch.zeros(2))
++
++    def test_baseline_arithmetic_and_zero_weights(self):
++        data=self.inputs(); t=compute_walking_terms(**data)
++        self.assertEqual(len(t), 9)
++        torch.testing.assert_close(sum(t.values()), torch.full((2,),5.5))
++        data['base_lin_vel_b'][:,0]=.15
++        torch.testing.assert_close(compute_walking_terms(**data)['track_xy'],torch.full((2,),4/math.e))
++        data['actions'][:]=1
++        self.assertTrue((compute_walking_terms(**data)['action_rate'] < 0).all())
++        self.cfg.track_xy=0
++        self.assertEqual(compute_walking_terms(**data)['track_xy'].sum(), 0)
++        data['actions']=torch.zeros(2,11)
++        with self.assertRaises(ValueError): compute_walking_terms(**data)
++
++    def test_optional_terms_zero_and_sign(self):
++        kwargs=dict(contact=self.contact,air_time=torch.rand(2,4),contact_time=torch.rand(2,4),
++                    foot_velocity_w=torch.ones(2,4,3),ang_vel_b=torch.ones(2,3),
++                    vertical_acceleration=torch.ones(2),joint_acceleration=torch.ones(2,12),
++                    joint_error=torch.ones(2,12),joint_velocity=torch.ones(2,12),
++                    joint_torque=torch.ones(2,12),commands=torch.zeros(2,3))
++        terms=compute_optional_terms(self.cfg,**kwargs)
++        self.assertTrue(all(t.shape==(2,) and torch.isfinite(t).all() and t.sum()==0 for t in terms.values()))
++        for name in terms: setattr(self.cfg,name,1.)
++        terms=compute_optional_terms(self.cfg,**kwargs)
++        self.assertTrue(all((t<=0).all() for t in terms.values()))
++        torch.testing.assert_close(terms['joint_position'],torch.full((2,),-60.))
++        kwargs['contact']=torch.zeros_like(self.contact)
++        self.assertEqual(compute_optional_terms(self.cfg,**kwargs)['stance_slip'].sum(),0)
++
++    def test_cfg_validation(self):
++        self.cfg.validate_weights()
++        self.cfg.feet_air_time=float('nan')
++        with self.assertRaises(ValueError): self.cfg.validate_weights()
++
++    def test_history_value_order_and_selective_reset(self):
++        h=HIMHistory(2,device='cpu'); a=torch.arange(90.).reshape(2,45)
++        torch.testing.assert_close(h.push(a).reshape(2,6,45), a[:,None,:].expand(-1,6,-1))
++        b=a+100; out=h.push(b).reshape(2,6,45)
++        torch.testing.assert_close(out[:,0],b); torch.testing.assert_close(out[:,1],a)
++        h.reset([0]); out=h.push(a).reshape(2,6,45)
++        torch.testing.assert_close(out[0],a[0].expand(6,-1)); torch.testing.assert_close(out[1,1],b[1])
++
++    def test_checkpoint_provenance(self):
++        self.assertEqual(verify_warm_start()['iteration'],0)
++
++
++def make_algorithm(n=8, steps=6):
++    from rsl_rl.models import MLPModel
++    from rsl_rl.storage import RolloutStorage
++    from grallator_rl.him.rsl_actor import HIMRslActorModel
++    from grallator_rl.him.walking_ppo import WalkingPPO
++    from grallator_rl.him.walking_ppo_cfg import WalkingPPORunnerCfg
++    cfg=WalkingPPORunnerCfg()
++    obs=TensorDict({'policy':torch.randn(n,271)*.1,'critic':torch.randn(n,92)*.1},[n])
++    groups=cfg.obs_groups
++    actor=HIMRslActorModel(obs,groups,'actor',12,distribution_cfg=cfg.actor.distribution_cfg.to_dict())
++    critic=MLPModel(obs,groups,'critic',1,hidden_dims=[512,256,128],activation='elu',obs_normalization=True)
++    st=RolloutStorage('rl',n,steps,obs,[12],'cpu')
++    alg=WalkingPPO(actor,critic,st,device='cpu',num_learning_epochs=2,num_mini_batches=2,
++               learning_rate=cfg.algorithm.learning_rate,hio_learning_rate=1e-5,hio_batch_size=128)
++    saved=torch.load(WARM_START,map_location='cpu',weights_only=True)
++    alg.load(saved,{'actor':True,'critic':True,'optimizer':False,'iteration':False},True)
++    return alg,obs
++
++
++class ConnectivityTests(unittest.TestCase):
++    def test_gae_and_terminal_bootstrap_values(self):
++        alg,obs=make_algorithm(steps=2)
++        alg.storage.values.fill_(2.)
++        alg.storage.rewards[0]=1.; alg.storage.rewards[1]=3.
++        alg.storage.dones.zero_(); alg.storage.dones[0,0]=1; alg.storage.dones[1,1]=1
++        with patch.object(alg.critic,'forward',return_value=torch.full((8,1),2.)):
++            alg.compute_returns(obs)
++        self.assertAlmostEqual(alg.storage.returns[0,0,0].item(),1.,places=5)
++        self.assertAlmostEqual(alg.storage.returns[0,1,0].item(),3.9205,places=5)
++        self.assertAlmostEqual(alg.storage.returns[0,2,0].item(),5.78269,places=5)
++
++    def test_timeout_bootstrap_only_applies_to_timeouts(self):
++        alg,obs=make_algorithm()
++        with torch.no_grad():
++            alg.act(obs); values=alg.transition.values[:,0].clone()
++            timeout=torch.zeros(8);timeout[0]=1
++            alg.process_env_step(obs,torch.ones(8),torch.ones(8),{'time_outs':timeout})
++        self.assertAlmostEqual(alg.storage.rewards[0,0,0].item(),1.+.99*values[0].item(),places=5)
++        self.assertEqual(alg.storage.rewards[0,1,0].item(),1.)
++
++    def test_real_ppo_hio_updates_frozen_and_active(self):
++        for freeze in ('0','1'):
++            torch.manual_seed(42)
++            alg,obs=make_algorithm()
++            actor_before=copy.deepcopy(alg.actor.state_dict()); critic_before=copy.deepcopy(alg.critic.state_dict())
++            ppo_ids={id(p) for g in alg.optimizer.param_groups for p in g['params']}
++            hio_ids={id(p) for g in alg.hio_trainer.optimizer.param_groups for p in g['params']}
++            self.assertFalse(ppo_ids & hio_ids)
++            self.assertTrue(all(id(p) in ppo_ids for p in alg.actor.mlp.parameters()))
++            self.assertTrue(all(id(p) in ppo_ids for p in alg.critic.parameters()))
++            for i in range(6):
++                with torch.no_grad():
++                    alg.act(obs)
++                    nxt=obs.clone(); nxt['policy']+=.01; nxt['critic']+=.01
++                    dones=torch.zeros(8); dones[0]=i==2
++                    timeouts=torch.zeros(8); timeouts[0]=i==2
++                    alg.process_env_step(nxt,torch.rand(8)*.1,dones,{'time_outs':timeouts})
++                    obs=nxt
++            alg.compute_returns(obs)
++            self.assertTrue(torch.isfinite(alg.storage.returns).all())
++            # Simulate residual gradients left by a preceding active HIO update.
++            # They must not participate in the next PPO actor clipping norm.
++            if freeze=='1':
++                for param in alg.actor.estimator.parameters(): param.grad=torch.ones_like(param)
++            with patch.dict(os.environ,{'GRALLATOR_FREEZE_HIO':freeze,'GRALLATOR_HIO_LR_OVERRIDE':'1e-5'}):
++                metrics=alg.update()
++            self.assertTrue(all(math.isfinite(v) for v in metrics.values()))
++            self.assertFalse(torch.equal(actor_before['mlp.0.weight'],alg.actor.state_dict()['mlp.0.weight']))
++            self.assertFalse(torch.equal(critic_before['mlp.0.weight'],alg.critic.state_dict()['mlp.0.weight']))
++            self.assertTrue(alg.actor.mlp[0].weight.grad.norm()>0)
++            self.assertTrue(alg.critic.mlp[0].weight.grad.norm()>0)
++            changed=not torch.equal(actor_before['estimator.encoder.0.weight'],alg.actor.state_dict()['estimator.encoder.0.weight'])
++            self.assertEqual(changed,freeze=='0')
++            if freeze=='0':
++                for module in (alg.actor.estimator.encoder,alg.actor.estimator.target,alg.actor.estimator.prototypes):
++                    self.assertTrue(any(p.grad is not None and p.grad.norm()>0 for p in module.parameters()))
++                self.assertGreater(metrics['hio_pairs'],0)
++                self.assertGreater(metrics['hio_swap_loss'],0)
++            else:
++                self.assertEqual(metrics['ppo_kl'],metrics['post_hio_kl'])
++                self.assertTrue(all(p.grad is None for p in alg.actor.estimator.parameters()))
++            saved=alg.save(); other,_=make_algorithm()
++            self.assertTrue(other.load(saved,None,True))
++            for k,v in alg.actor.state_dict().items(): torch.testing.assert_close(other.actor.state_dict()[k],v,rtol=0,atol=0)
++            self.assertEqual(len(other.optimizer.state),len(alg.optimizer.state))
++            self.assertEqual(len(other.hio_trainer.optimizer.state),len(alg.hio_trainer.optimizer.state))
++            print('CONNECTIVITY',freeze,metrics,flush=True)
++
++
++if __name__=='__main__': unittest.main(verbosity=2)

@@ -1,0 +1,63 @@
+I: Initializing Version 2.74.0-release.7316+gl.ec99a64b
+I: Client ID: N9EPWPG1
+I: ThreadId(02) hub_client::client::Client::new Launching client mode=Shared with_cleaner=false cache_path=None cache_size=None
+I: ThreadId(03) launch self=Launcher { discovery_lock: RwLock { lock: RwLock { inner: File { fd: 52, path: "/tmp/hub-poornaprasad.lock", read: false, write: true } } }, mode: Shared, with_cleaner: false, config_file: "/tmp/hub-poornaprasad-77E1B9F3.config.json" } cmd="hub" "--mode=shared" "--write-config" "/tmp/hub-poornaprasad-77E1B9F3.config.json" "--"
+I: Not using Hub: Hub not found
+I: Successfully created S3 provider for https://omniverse-content-production.s3-us-west-2.amazonaws.com
+I: Using CloudFront http://dcb18d6mfegct.cloudfront.net/, List = No
+Serving remote assets from the local cache under '/tmp'. Each copy is checked against the server before use; delete the directory to force a full re-download.
+/home/poornaprasad/RL/Quadruped/IsaacLab/source/isaaclab_newton/isaaclab_newton/cloner/newton_clone_utils.py:165: FutureWarning: Newton shape color replacement is enabled; this workaround will be deprecated in a future release.
+  replace_newton_builder_shape_colors(builder, stage)
+/home/poornaprasad/RL/Quadruped/IsaacLab/source/isaaclab_newton/isaaclab_newton/cloner/newton_clone_utils.py:165: FutureWarning: Newton shape color replacement is enabled; this workaround will be deprecated in a future release.
+  replace_newton_builder_shape_colors(builder, stage)
+[INFO]: Base environment:
+	Environment device    : cuda:0
+	Environment seed      : 42
+	Physics step-size     : 0.005
+	Rendering step-size   : 0.02
+	Environment step-size : 0.02
+[INFO]: Time taken for scene creation Last: 1.461806 s, Mean: 1.461806 s, Std: 0.000000 s, N: 1
+[INFO]: Scene manager:  <class InteractiveScene>
+	Number of environments: 8
+	Environment spacing   : 2.0
+	Source prim name      : /World/envs/env_0
+	Global prim paths     : []
+	Replicate physics     : True
+[INFO]: Starting the simulation. This may take a few seconds. Please wait...
+Finalize builder took: Last: 0.013555 s, Mean: 0.013555 s, Std: 0.000000 s, N: 1
+Contact sensor construction took: Last: 0.002110 s, Mean: 0.002110 s, Std: 0.000000 s, N: 1
+Initialize solver took: Last: 1.151624 s, Mean: 1.151624 s, Std: 0.000000 s, N: 1
+[INFO]: Time taken for simulation start Last: 1.277532 s, Mean: 1.277532 s, Std: 0.000000 s, N: 1
+[INFO]: Completed setting up the environment...
+MIDDLE_POSE joint order: ['BL_hip_joint', 'BL_thigh_joint', 'BL_calf_joint', 'BR_hip_joint', 'BR_thigh_joint', 'BR_calf_joint', 'FL_hip_joint', 'FL_thigh_joint', 'FL_calf_joint', 'FR_hip_joint', 'FR_thigh_joint', 'FR_calf_joint']
+Contact sensor body names: ['base_link', 'BL_hip', 'BL_thigh', 'BL_calf', 'BL_foot', 'BR_hip', 'BR_thigh', 'BR_calf', 'BR_foot', 'FL_hip', 'FL_thigh', 'FL_calf', 'FL_foot', 'FR_hip', 'FR_thigh', 'FR_calf', 'FR_foot']
+Non-foot contact bodies: ['base_link', 'BL_hip', 'BL_thigh', 'BL_calf', 'BR_hip', 'BR_thigh', 'BR_calf', 'FL_hip', 'FL_thigh', 'FL_calf', 'FR_hip', 'FR_thigh', 'FR_calf']
+MIDDLE_POSE reset z=0.270 m
+Single commanded standing z=0.380 m
+CUDA graph took: Last: 0.371104 s, Mean: 0.371104 s, Std: 0.000000 s, N: 1
+[INFO]: Base environment:
+	Environment device    : cuda:0
+	Environment seed      : 42
+	Physics step-size     : 0.005
+	Rendering step-size   : 0.02
+	Environment step-size : 0.02
+[INFO]: Time taken for scene creation Last: 0.149296 s, Mean: 0.805551 s, Std: 0.928084 s, N: 2
+[INFO]: Scene manager:  <class InteractiveScene>
+	Number of environments: 8
+	Environment spacing   : 2.0
+	Source prim name      : /World/envs/env_0
+	Global prim paths     : []
+	Replicate physics     : True
+[INFO]: Starting the simulation. This may take a few seconds. Please wait...
+Finalize builder took: Last: 0.008337 s, Mean: 0.010946 s, Std: 0.003689 s, N: 2
+Contact sensor construction took: Last: 0.000586 s, Mean: 0.001348 s, Std: 0.001078 s, N: 2
+Initialize solver took: Last: 0.051458 s, Mean: 0.601541 s, Std: 0.777935 s, N: 2
+[INFO]: Time taken for simulation start Last: 0.068768 s, Mean: 0.673150 s, Std: 0.854725 s, N: 2
+[INFO]: Completed setting up the environment...
+MIDDLE_POSE joint order: ['BL_hip_joint', 'BL_thigh_joint', 'BL_calf_joint', 'BR_hip_joint', 'BR_thigh_joint', 'BR_calf_joint', 'FL_hip_joint', 'FL_thigh_joint', 'FL_calf_joint', 'FR_hip_joint', 'FR_thigh_joint', 'FR_calf_joint']
+Contact sensor body names: ['base_link', 'BL_hip', 'BL_thigh', 'BL_calf', 'BL_foot', 'BR_hip', 'BR_thigh', 'BR_calf', 'BR_foot', 'FL_hip', 'FL_thigh', 'FL_calf', 'FL_foot', 'FR_hip', 'FR_thigh', 'FR_calf', 'FR_foot']
+Non-foot contact bodies: ['base_link', 'BL_hip', 'BL_thigh', 'BL_calf', 'BR_hip', 'BR_thigh', 'BR_calf', 'FL_hip', 'FL_thigh', 'FL_calf', 'FR_hip', 'FR_thigh', 'FR_calf']
+MIDDLE_POSE reset z=0.270 m
+Single commanded standing z=0.380 m
+CUDA graph took: Last: 0.338056 s, Mean: 0.354580 s, Std: 0.023368 s, N: 2
+TORQUE_RUNTIME_PASS {"baseline": {"enabled": false, "physics_dt": 0.005, "control_dt": 0.02, "collection_seconds": [0.1384304470002462, 0.12323309400017024, 0.12403256600009627, 0.11740796100002626, 0.11352022000028228], "summary_seconds": [], "largest_solver_torque_nm": 0.0, "largest_estimated_unclipped_nm": 0.0, "mapping": null, "runtime_mapping": null, "solver_force_reconstruction": null, "final_public_applied": [11.423287391662598, 20.95488929748535, -52.06627655029297, -15.081076622009277, -14.395092964172363, 32.81666946411133, -6.122258186340332, 3.1632022857666016, -22.779653549194336, 6.400558948516846, -5.861224174499512, 26.111343383789062], "final_solver_qfrc": null}, "monitored": {"enabled": true, "physics_dt": 0.005, "control_dt": 0.02, "collection_seconds": [0.1227068739999595, 0.12088558100003866, 0.1164774570006557, 0.11426219799977844, 0.10865439500048524], "summary_seconds": [0.05692050099969492, 0.0004712710006060661, 0.0004709799995907815, 0.00047836399971856736, 0.00048402500033262186], "largest_solver_torque_nm": 100.0, "largest_estimated_unclipped_nm": 110.39189147949219, "mapping": {"FR_hip_joint": 15, "FR_thigh_joint": 16, "FR_calf_joint": 17, "FL_hip_joint": 12, "FL_thigh_joint": 13, "FL_calf_joint": 14, "BR_hip_joint": 9, "BR_thigh_joint": 10, "BR_calf_joint": 11, "BL_hip_joint": 6, "BL_thigh_joint": 7, "BL_calf_joint": 8}, "runtime_mapping": {"FR_hip_joint": 9, "FR_thigh_joint": 10, "FR_calf_joint": 11, "FL_hip_joint": 6, "FL_thigh_joint": 7, "FL_calf_joint": 8, "BR_hip_joint": 3, "BR_thigh_joint": 4, "BR_calf_joint": 5, "BL_hip_joint": 0, "BL_thigh_joint": 1, "BL_calf_joint": 2}, "solver_force_reconstruction": "PASS", "final_public_applied": [11.42328929901123, 20.954891204833984, -52.0662841796875, -15.081075668334961, -14.395109176635742, 32.81668472290039, -6.122254371643066, 3.1632046699523926, -22.779661178588867, 6.400557994842529, -5.861199378967285, 26.11134910583496], "final_solver_qfrc": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 11.42328929901123, 20.954891204833984, -52.066280364990234, -15.081074714660645, -14.395110130310059, 32.816688537597656, -6.122255325317383, 3.1632044315338135, -22.779659271240234, 6.400557994842529, -5.8611979484558105, 26.111356735229492]}, "mean_24_control_steps_ms": {"baseline": 123.32485760016425, "monitored": 116.5973010001835, "summary": 11.765028199988592}, "collection_overhead_pct": -5.455150511336804, "independent_rollouts_bitwise_equal": false, "independent_rollout_max_reward_difference": 0.040010131895542145, "independent_rollout_max_observation_difference": 0.011668726801872253}

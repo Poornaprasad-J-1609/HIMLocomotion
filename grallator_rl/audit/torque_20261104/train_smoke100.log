@@ -1,0 +1,591 @@
+Verified standing provenance: {'source': '/home/poornaprasad/RL/Quadruped/IsaacLab/logs/rsl_rl/grallator_him_standing/2026-11-03_21-06-02_middle_pose_038_resume/model_1700.pt', 'source_sha256': '10c9f75518359d9206c66c42f0a51ba6a68f84fcadd4f26c2b323dfd142c8ced', 'warm_start': '/home/poornaprasad/RL/Quadruped/grallator_rl/checkpoints/walking_from_standing.pt', 'original_std_mean': 0.019551029428839684, 'warm_std_mean': 0.11999999731779099, 'iteration': 0}
+Native walking: height=0.380 m, envs=100, iterations=3
+Starting checkpoint: /home/poornaprasad/RL/Quadruped/grallator_rl/checkpoints/walking_from_standing.pt
+Rewards: grallator_rl/tasks/walking_direct/reward_cfg.py
+[INFO]: Parsing configuration from: grallator_rl.him.walking_env_adapter:WalkingHIMEnvCfg
+[INFO]: Parsing configuration from: grallator_rl.him.walking_ppo_cfg:WalkingPPORunnerCfg
+
+╭─ Isaac Lab · train ────────────────────────────╮      [0m         [0m[38;2;118;185;0m▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄[0m
+│ Task          GrallatorRl-HIM-Walking-Direct   │      [0m      [0m[38;2;118;185;0m▄▄▄▛▀[0m[38;2;118;185;0m[48;2;118;185;0m             [0m
+│ Workflow      direct                           │      [0m  [0m[38;2;118;185;0m▗▄[0m[38;2;118;185;0m[48;2;118;185;0m  [0m[38;2;118;185;0m▀▀▜[0m[38;2;118;185;0m[48;2;118;185;0m   [0m[38;2;118;185;0m▄▄▀▜[0m[38;2;118;185;0m[48;2;118;185;0m        [0m
+│ RL library    rsl_rl                           │      [0m[38;2;118;185;0m▄[0m[38;2;118;185;0m[48;2;118;185;0m  [0m[38;2;118;185;0m▀▚▄[0m[38;2;118;185;0m[48;2;118;185;0m  [0m[38;2;118;185;0m▀▙▖[0m [0m[38;2;118;185;0m▀[0m[38;2;118;185;0m[48;2;118;185;0m  [0m[38;2;118;185;0m▄[0m [0m[38;2;118;185;0m▀[0m[38;2;118;185;0m[48;2;118;185;0m      [0m
+│ Physics       newton_mjwarp                    │      [0m[38;2;118;185;0m▝[0m[38;2;118;185;0m[48;2;118;185;0m  [0m[38;2;118;185;0m▖▝[0m[38;2;118;185;0m[48;2;118;185;0m [0m[38;2;118;185;0m▙[0m  [0m[38;2;118;185;0m[48;2;118;185;0m  [0m[38;2;118;185;0m▙▟[0m[38;2;118;185;0m[48;2;118;185;0m [0m[38;2;118;185;0m▛▘▄[0m[38;2;118;185;0m[48;2;118;185;0m       [0m
+│ Renderer      n/a (no camera sensors)          │      [0m [0m[38;2;118;185;0m▝[0m[38;2;118;185;0m[48;2;118;185;0m  [0m[38;2;118;185;0m▄▝▜[0m[38;2;118;185;0m[48;2;118;185;0m [0m[38;2;118;185;0m▄[0m[38;2;118;185;0m[48;2;118;185;0m  [0m[38;2;118;185;0m▛▀▚▄[0m[38;2;118;185;0m[48;2;118;185;0m  [0m[38;2;118;185;0m▛▘[0m [0m[38;2;118;185;0m▝▜[0m[38;2;118;185;0m[48;2;118;185;0m  [0m
+│ Visualizer    none (headless)                  │      [0m   [0m[38;2;118;185;0m▀[0m[38;2;118;185;0m[48;2;118;185;0m  [0m[38;2;118;185;0m▄▄[0m[38;2;118;185;0m[48;2;118;185;0m     [0m[38;2;118;185;0m▛▀▀▗▄▄▟[0m[38;2;118;185;0m[48;2;118;185;0m    [0m
+│ Device        cuda:0                           │      [0m      [0m[38;2;118;185;0m▀▀▀▙▄▄▄▟[0m[38;2;118;185;0m[48;2;118;185;0m          [0m
+│ Environments  100                              │      [0m         [0m[38;2;118;185;0m▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀[0m
+╰────────────────────────────────────────────────╯
+
+[1/3] Launching simulation
+[INFO] Logging experiment in directory: /home/poornaprasad/RL/Quadruped/IsaacLab/logs/rsl_rl/grallator_him_walking_native
+Exact experiment name requested from command line: 2026-11-04_13-03-46
+[2/3] Creating environment
+I: Initializing Version 2.74.0-release.7316+gl.ec99a64b
+I: Client ID: RL5USA1S
+I: ThreadId(02) hub_client::client::Client::new Launching client mode=Shared with_cleaner=false cache_path=None cache_size=None
+I: ThreadId(03) launch self=Launcher { discovery_lock: RwLock { lock: RwLock { inner: File { fd: 52, path: "/tmp/hub-poornaprasad.lock", read: false, write: true } } }, mode: Shared, with_cleaner: false, config_file: "/tmp/hub-poornaprasad-2081550D.config.json" } cmd="hub" "--mode=shared" "--write-config" "/tmp/hub-poornaprasad-2081550D.config.json" "--"
+I: Not using Hub: Hub not found
+I: Successfully created S3 provider for https://omniverse-content-production.s3-us-west-2.amazonaws.com
+I: Using CloudFront http://dcb18d6mfegct.cloudfront.net/, List = No
+Serving remote assets from the local cache under '/tmp'. Each copy is checked against the server before use; delete the directory to force a full re-download.
+/home/poornaprasad/RL/Quadruped/IsaacLab/source/isaaclab_newton/isaaclab_newton/cloner/newton_clone_utils.py:165: FutureWarning: Newton shape color replacement is enabled; this workaround will be deprecated in a future release.
+  replace_newton_builder_shape_colors(builder, stage)
+[INFO]: Base environment:
+	Environment device    : cuda:0
+	Environment seed      : 42
+	Physics step-size     : 0.005
+	Rendering step-size   : 0.02
+	Environment step-size : 0.02
+[INFO]: Time taken for scene creation Last: 6.626841 s, Mean: 6.626841 s, Std: 0.000000 s, N: 1
+[INFO]: Scene manager:  <class InteractiveScene>
+	Number of environments: 100
+	Environment spacing   : 2.0
+	Source prim name      : /World/envs/env_0
+	Global prim paths     : []
+	Replicate physics     : True
+[INFO]: Starting the simulation. This may take a few seconds. Please wait...
+Finalize builder took: Last: 0.033702 s, Mean: 0.033702 s, Std: 0.000000 s, N: 1
+Contact sensor construction took: Last: 0.002558 s, Mean: 0.002558 s, Std: 0.000000 s, N: 1
+Initialize solver took: Last: 0.906806 s, Mean: 0.906806 s, Std: 0.000000 s, N: 1
+[INFO]: Time taken for simulation start Last: 1.053587 s, Mean: 1.053587 s, Std: 0.000000 s, N: 1
+[INFO]: Completed setting up the environment...
+MIDDLE_POSE joint order: ['BL_hip_joint', 'BL_thigh_joint', 'BL_calf_joint', 'BR_hip_joint', 'BR_thigh_joint', 'BR_calf_joint', 'FL_hip_joint', 'FL_thigh_joint', 'FL_calf_joint', 'FR_hip_joint', 'FR_thigh_joint', 'FR_calf_joint']
+Contact sensor body names: ['base_link', 'BL_hip', 'BL_thigh', 'BL_calf', 'BL_foot', 'BR_hip', 'BR_thigh', 'BR_calf', 'BR_foot', 'FL_hip', 'FL_thigh', 'FL_calf', 'FL_foot', 'FR_hip', 'FR_thigh', 'FR_calf', 'FR_foot']
+Non-foot contact bodies: ['base_link', 'BL_hip', 'BL_thigh', 'BL_calf', 'BR_hip', 'BR_thigh', 'BR_calf', 'FL_hip', 'FL_thigh', 'FL_calf', 'FR_hip', 'FR_thigh', 'FR_calf']
+MIDDLE_POSE reset z=0.270 m
+Single commanded standing z=0.380 m
+[3/3] Preparing agent
+--------------------------------------------------------------------------------
+Resolved observation sets: 
+	 actor :  ['policy']
+	 critic :  ['critic']
+--------------------------------------------------------------------------------
+Actor Model: HIMRslActorModel(
+  (obs_normalizer): Identity()
+  (distribution): GaussianDistribution()
+  (mlp): MLP(
+    (0): Linear(in_features=65, out_features=512, bias=True)
+    (1): ELU(alpha=1.0)
+    (2): Linear(in_features=512, out_features=256, bias=True)
+    (3): ELU(alpha=1.0)
+    (4): Linear(in_features=256, out_features=128, bias=True)
+    (5): ELU(alpha=1.0)
+    (6): Linear(in_features=128, out_features=12, bias=True)
+  )
+  (estimator): HIMEstimator(
+    (encoder): Sequential(
+      (0): Linear(in_features=270, out_features=128, bias=True)
+      (1): ELU(alpha=1.0)
+      (2): Linear(in_features=128, out_features=64, bias=True)
+      (3): ELU(alpha=1.0)
+      (4): Linear(in_features=64, out_features=19, bias=True)
+    )
+    (target): Sequential(
+      (0): Linear(in_features=45, out_features=128, bias=True)
+      (1): ELU(alpha=1.0)
+      (2): Linear(in_features=128, out_features=64, bias=True)
+      (3): ELU(alpha=1.0)
+      (4): Linear(in_features=64, out_features=16, bias=True)
+    )
+    (prototypes): Embedding(32, 16)
+  )
+)
+Critic Model: MLPModel(
+  (obs_normalizer): EmpiricalNormalization()
+  (mlp): MLP(
+    (0): Linear(in_features=92, out_features=512, bias=True)
+    (1): ELU(alpha=1.0)
+    (2): Linear(in_features=512, out_features=256, bias=True)
+    (3): ELU(alpha=1.0)
+    (4): Linear(in_features=256, out_features=128, bias=True)
+    (5): ELU(alpha=1.0)
+    (6): Linear(in_features=128, out_features=1, bias=True)
+  )
+)
+[INFO]: Loading model checkpoint from: /home/poornaprasad/RL/Quadruped/grallator_rl/checkpoints/walking_from_standing.pt
+Storing git diff for 'IsaacLab' in: /home/poornaprasad/RL/Quadruped/IsaacLab/logs/rsl_rl/grallator_him_walking_native/2026-11-04_13-03-46_torque_smoke100/git/IsaacLab.diff
+CUDA graph took: Last: 0.412564 s, Mean: 0.412564 s, Std: 0.000000 s, N: 1
+[HIM PPO] LR=1.500000e-05 | PPO KL=0.018580 | Post-HIO KL=0.019082
+################################################################################
+[1m                             Learning iteration 0/3                             [0m 
+
+                               Run name: torque_smoke100
+                            Total steps: 2400 
+                       Steps per second: 1742 
+                        Collection time: 1.066s 
+                          Learning time: 0.311s 
+                        Mean value loss: 0.0362
+                    Mean surrogate loss: -0.0195
+                      Mean entropy loss: -8.4181
+                       Mean ppo_kl loss: 0.0186
+             Mean hio_velocity_mse loss: 0.0064
+                Mean hio_swap_loss loss: 0.0986
+                    Mean hio_pairs loss: 2300.0000
+                  Mean post_hio_kl loss: 0.0191
+                        Mean action std: 0.12
+                   Reward_Rate/track_xy: 0.3205
+                  Reward_Rate/track_yaw: 0.8848
+                     Reward_Rate/height: 0.1901
+                    Reward_Rate/upright: -0.0014
+          Reward_Rate/vertical_velocity: -0.1813
+             Reward_Rate/joint_velocity: -0.0545
+                Reward_Rate/action_rate: -0.0173
+           Reward_Rate/action_magnitude: -0.0025
+          Reward_Rate/undesired_contact: -1.3608
+              Reward_Rate/feet_air_time: 0.0000
+                Reward_Rate/stance_slip: 0.0000
+                  Reward_Rate/trot_sync: 0.0000
+             Reward_Rate/time_imbalance: 0.0000
+        Reward_Rate/roll_pitch_velocity: 0.0000
+      Reward_Rate/vertical_acceleration: 0.0000
+         Reward_Rate/joint_acceleration: 0.0000
+               Reward_Rate/joint_torque: 0.0000
+             Reward_Rate/joint_position: 0.0000
+           Reward_Rate/mechanical_power: 0.0000
+                      Reward_Rate/total: -0.2225
+                Walking/Commands/vx_mps: 0.1869
+             Diagnostics/command_vx_mps: 0.1869
+                Walking/Commands/vy_mps: 0.0000
+             Diagnostics/command_vy_mps: 0.0000
+             Walking/Commands/yaw_radps: 0.0000
+          Diagnostics/command_yaw_radps: 0.0000
+         Walking/Tracking/actual_vx_mps: -0.1351
+              Diagnostics/actual_vx_mps: -0.1351
+         Walking/Tracking/actual_vy_mps: 0.0073
+              Diagnostics/actual_vy_mps: 0.0073
+      Walking/Tracking/actual_yaw_radps: 0.0664
+            Walking/Tracking/vx_mae_mps: 0.2386
+          Walking/Tracking/xy_error_mps: 0.2415
+      Walking/Tracking/raw_xy_error_mps: 0.3257
+        Walking/Tracking/valid_fraction: 0.6825
+             Walking/Gait/contact_count: 2.6904
+              Walking/Gait/airborne_pct: 32.7396
+                  Walking/Gait/liftoffs: 0.0675
+                Walking/Gait/touchdowns: 0.0096
+       Walking/Gait/qualified_airtime_s: 0.0000
+           Walking/Gait/stance_slip_mps: 0.3174
+      Walking/Stability/height_error_cm: 4.7289
+Walking/Stability/undesired_contact_pct: 68.0417
+Walking/Stability/action_near_limit_pct: 8.6354
+        Walking/Stability/fall_fraction: 0.0000
+           Diagnostics/actual_yaw_radps: 0.0664
+                 Diagnostics/vx_mae_mps: 0.3222
+                 Diagnostics/vy_mae_mps: 0.0327
+           Diagnostics/xy_vel_error_mps: 0.3257
+            Diagnostics/yaw_error_radps: 0.1166
+          Diagnostics/command_speed_mps: 0.1869
+           Diagnostics/actual_speed_mps: 0.1477
+        Diagnostics/moving_xy_error_mps: 0.2415
+         Diagnostics/moving_command_pct: 68.2500
+            Diagnostics/height_error_cm: 4.7289
+      Diagnostics/action_near_limit_pct: 8.6354
+      Diagnostics/undesired_contact_pct: 68.0417
+         Diagnostics/feet_contact_count: 2.6904
+       Diagnostics/all_feet_contact_pct: 47.9167
+    Diagnostics/airborne_pct_cumulative: 46.3765
+Diagnostics/liftoffs_per_1000_foot_steps: 32.1083
+Walking/Tracking/reset_excluded_fraction: 0.2500
+         Torque/PeakAbs_Nm/FR_hip_joint: 78.4146
+         Torque/MaxEver_Nm/FR_hip_joint: 78.4146
+         Torque/MeanAbs_Nm/FR_hip_joint: 11.4730
+          Torque/P95Abs_Nm/FR_hip_joint: 30.8352
+Torque/EffortLimitFraction/FR_hip_joint: 0.0000
+EstimatedTorque/UnclippedComputedPeakAbs_Nm/FR_hip_joint: 78.4146
+       Torque/PeakAbs_Nm/FR_thigh_joint: 100.0000
+       Torque/MaxEver_Nm/FR_thigh_joint: 100.0000
+       Torque/MeanAbs_Nm/FR_thigh_joint: 29.5301
+        Torque/P95Abs_Nm/FR_thigh_joint: 77.9134
+Torque/EffortLimitFraction/FR_thigh_joint: 0.0111
+EstimatedTorque/UnclippedComputedPeakAbs_Nm/FR_thigh_joint: 123.1787
+        Torque/PeakAbs_Nm/FR_calf_joint: 100.0000
+        Torque/MaxEver_Nm/FR_calf_joint: 100.0000
+        Torque/MeanAbs_Nm/FR_calf_joint: 35.3139
+         Torque/P95Abs_Nm/FR_calf_joint: 100.0000
+Torque/EffortLimitFraction/FR_calf_joint: 0.0972
+EstimatedTorque/UnclippedComputedPeakAbs_Nm/FR_calf_joint: 154.2725
+         Torque/PeakAbs_Nm/FL_hip_joint: 80.6553
+         Torque/MaxEver_Nm/FL_hip_joint: 80.6553
+         Torque/MeanAbs_Nm/FL_hip_joint: 12.5237
+          Torque/P95Abs_Nm/FL_hip_joint: 35.8150
+Torque/EffortLimitFraction/FL_hip_joint: 0.0000
+EstimatedTorque/UnclippedComputedPeakAbs_Nm/FL_hip_joint: 80.6553
+       Torque/PeakAbs_Nm/FL_thigh_joint: 100.0000
+       Torque/MaxEver_Nm/FL_thigh_joint: 100.0000
+       Torque/MeanAbs_Nm/FL_thigh_joint: 28.2361
+        Torque/P95Abs_Nm/FL_thigh_joint: 73.3627
+Torque/EffortLimitFraction/FL_thigh_joint: 0.0157
+EstimatedTorque/UnclippedComputedPeakAbs_Nm/FL_thigh_joint: 131.7817
+        Torque/PeakAbs_Nm/FL_calf_joint: 100.0000
+        Torque/MaxEver_Nm/FL_calf_joint: 100.0000
+        Torque/MeanAbs_Nm/FL_calf_joint: 31.7965
+         Torque/P95Abs_Nm/FL_calf_joint: 100.0000
+Torque/EffortLimitFraction/FL_calf_joint: 0.0876
+EstimatedTorque/UnclippedComputedPeakAbs_Nm/FL_calf_joint: 155.1779
+         Torque/PeakAbs_Nm/BR_hip_joint: 75.1290
+         Torque/MaxEver_Nm/BR_hip_joint: 75.1290
+         Torque/MeanAbs_Nm/BR_hip_joint: 13.5830
+          Torque/P95Abs_Nm/BR_hip_joint: 36.0633
+Torque/EffortLimitFraction/BR_hip_joint: 0.0000
+EstimatedTorque/UnclippedComputedPeakAbs_Nm/BR_hip_joint: 75.1290
+       Torque/PeakAbs_Nm/BR_thigh_joint: 93.2609
+       Torque/MaxEver_Nm/BR_thigh_joint: 93.2609
+       Torque/MeanAbs_Nm/BR_thigh_joint: 19.7450
+        Torque/P95Abs_Nm/BR_thigh_joint: 47.2803
+Torque/EffortLimitFraction/BR_thigh_joint: 0.0000
+EstimatedTorque/UnclippedComputedPeakAbs_Nm/BR_thigh_joint: 93.2609
+        Torque/PeakAbs_Nm/BR_calf_joint: 100.0000
+        Torque/MaxEver_Nm/BR_calf_joint: 100.0000
+        Torque/MeanAbs_Nm/BR_calf_joint: 39.6427
+         Torque/P95Abs_Nm/BR_calf_joint: 100.0000
+Torque/EffortLimitFraction/BR_calf_joint: 0.0994
+EstimatedTorque/UnclippedComputedPeakAbs_Nm/BR_calf_joint: 156.1252
+         Torque/PeakAbs_Nm/BL_hip_joint: 100.0000
+         Torque/MaxEver_Nm/BL_hip_joint: 100.0000
+         Torque/MeanAbs_Nm/BL_hip_joint: 16.8839
+          Torque/P95Abs_Nm/BL_hip_joint: 42.3665
+Torque/EffortLimitFraction/BL_hip_joint: 0.0005
+EstimatedTorque/UnclippedComputedPeakAbs_Nm/BL_hip_joint: 103.5739
+       Torque/PeakAbs_Nm/BL_thigh_joint: 73.5766
+       Torque/MaxEver_Nm/BL_thigh_joint: 73.5766
+       Torque/MeanAbs_Nm/BL_thigh_joint: 13.0773
+        Torque/P95Abs_Nm/BL_thigh_joint: 32.9413
+Torque/EffortLimitFraction/BL_thigh_joint: 0.0000
+EstimatedTorque/UnclippedComputedPeakAbs_Nm/BL_thigh_joint: 73.5766
+        Torque/PeakAbs_Nm/BL_calf_joint: 100.0000
+        Torque/MaxEver_Nm/BL_calf_joint: 100.0000
+        Torque/MeanAbs_Nm/BL_calf_joint: 37.2187
+         Torque/P95Abs_Nm/BL_calf_joint: 100.0000
+Torque/EffortLimitFraction/BL_calf_joint: 0.0938
+EstimatedTorque/UnclippedComputedPeakAbs_Nm/BL_calf_joint: 158.9269
+               Torque/OverallPeakAbs_Nm: 100.0000
+               Torque/OverallMaxEver_Nm: 100.0000
+                Torque/SampleInterval_s: 0.0050
+          Torque/PhysicsSamplesPerJoint: 9600.0000
+--------------------------------------------------------------------------------
+                         Iteration time: 1.38s
+                           Time elapsed: 0:00:01
+                                    ETA: 0:00:02
+
+[HIM PPO] LR=7.593750e-05 | PPO KL=0.017733 | Post-HIO KL=0.017558
+################################################################################
+[1m                             Learning iteration 1/3                             [0m 
+
+                               Run name: torque_smoke100
+                            Total steps: 4800 
+                       Steps per second: 9113 
+                        Collection time: 0.149s 
+                          Learning time: 0.114s 
+                        Mean value loss: 0.0336
+                    Mean surrogate loss: -0.0109
+                      Mean entropy loss: -8.4203
+                       Mean ppo_kl loss: 0.0177
+             Mean hio_velocity_mse loss: 0.0010
+                Mean hio_swap_loss loss: 0.1019
+                    Mean hio_pairs loss: 2300.0000
+                  Mean post_hio_kl loss: 0.0176
+                        Mean action std: 0.12
+                   Reward_Rate/track_xy: 0.8917
+                  Reward_Rate/track_yaw: 0.9724
+                     Reward_Rate/height: 0.3859
+                    Reward_Rate/upright: -0.0003
+          Reward_Rate/vertical_velocity: -0.0006
+             Reward_Rate/joint_velocity: -0.0017
+                Reward_Rate/action_rate: -0.0025
+           Reward_Rate/action_magnitude: -0.0011
+          Reward_Rate/undesired_contact: -0.7092
+              Reward_Rate/feet_air_time: 0.0000
+                Reward_Rate/stance_slip: 0.0000
+                  Reward_Rate/trot_sync: 0.0000
+             Reward_Rate/time_imbalance: 0.0000
+        Reward_Rate/roll_pitch_velocity: 0.0000
+      Reward_Rate/vertical_acceleration: 0.0000
+         Reward_Rate/joint_acceleration: 0.0000
+               Reward_Rate/joint_torque: 0.0000
+             Reward_Rate/joint_position: 0.0000
+           Reward_Rate/mechanical_power: 0.0000
+                      Reward_Rate/total: 1.5347
+                Walking/Commands/vx_mps: 0.1869
+             Diagnostics/command_vx_mps: 0.1869
+                Walking/Commands/vy_mps: 0.0000
+             Diagnostics/command_vy_mps: 0.0000
+             Walking/Commands/yaw_radps: 0.0000
+          Diagnostics/command_yaw_radps: 0.0000
+         Walking/Tracking/actual_vx_mps: -0.0118
+              Diagnostics/actual_vx_mps: -0.0118
+         Walking/Tracking/actual_vy_mps: 0.0078
+              Diagnostics/actual_vy_mps: 0.0078
+      Walking/Tracking/actual_yaw_radps: 0.0109
+            Walking/Tracking/vx_mae_mps: 0.2168
+          Walking/Tracking/xy_error_mps: 0.2206
+      Walking/Tracking/raw_xy_error_mps: 0.2044
+        Walking/Tracking/valid_fraction: 0.9100
+             Walking/Gait/contact_count: 3.9975
+              Walking/Gait/airborne_pct: 0.0625
+                  Walking/Gait/liftoffs: 0.0004
+                Walking/Gait/touchdowns: 0.0004
+       Walking/Gait/qualified_airtime_s: 0.0000
+           Walking/Gait/stance_slip_mps: 0.0572
+      Walking/Stability/height_error_cm: 2.0270
+Walking/Stability/undesired_contact_pct: 35.4583
+Walking/Stability/action_near_limit_pct: 0.1111
+        Walking/Stability/fall_fraction: 0.0000
+           Diagnostics/actual_yaw_radps: 0.0109
+                 Diagnostics/vx_mae_mps: 0.2000
+                 Diagnostics/vy_mae_mps: 0.0291
+           Diagnostics/xy_vel_error_mps: 0.2044
+            Diagnostics/yaw_error_radps: 0.0542
+          Diagnostics/command_speed_mps: 0.1869
+           Diagnostics/actual_speed_mps: 0.0470
+        Diagnostics/moving_xy_error_mps: 0.2206
+         Diagnostics/moving_command_pct: 91.0000
+            Diagnostics/height_error_cm: 2.0270
+      Diagnostics/action_near_limit_pct: 0.1111
+      Diagnostics/undesired_contact_pct: 35.4583
+         Diagnostics/feet_contact_count: 3.9975
+       Diagnostics/all_feet_contact_pct: 99.7500
+    Diagnostics/airborne_pct_cumulative: 24.6260
+Diagnostics/liftoffs_per_1000_foot_steps: 15.4946
+Walking/Tracking/reset_excluded_fraction: 0.0000
+         Torque/PeakAbs_Nm/FR_hip_joint: 37.8446
+         Torque/MaxEver_Nm/FR_hip_joint: 78.4146
+         Torque/MeanAbs_Nm/FR_hip_joint: 8.8442
+          Torque/P95Abs_Nm/FR_hip_joint: 20.3449
+Torque/EffortLimitFraction/FR_hip_joint: 0.0000
+EstimatedTorque/UnclippedComputedPeakAbs_Nm/FR_hip_joint: 37.8446
+       Torque/PeakAbs_Nm/FR_thigh_joint: 52.5526
+       Torque/MaxEver_Nm/FR_thigh_joint: 100.0000
+       Torque/MeanAbs_Nm/FR_thigh_joint: 9.6375
+        Torque/P95Abs_Nm/FR_thigh_joint: 23.0729
+Torque/EffortLimitFraction/FR_thigh_joint: 0.0000
+EstimatedTorque/UnclippedComputedPeakAbs_Nm/FR_thigh_joint: 52.5526
+        Torque/PeakAbs_Nm/FR_calf_joint: 59.1056
+        Torque/MaxEver_Nm/FR_calf_joint: 100.0000
+        Torque/MeanAbs_Nm/FR_calf_joint: 26.3029
+         Torque/P95Abs_Nm/FR_calf_joint: 40.2961
+Torque/EffortLimitFraction/FR_calf_joint: 0.0000
+EstimatedTorque/UnclippedComputedPeakAbs_Nm/FR_calf_joint: 59.1056
+         Torque/PeakAbs_Nm/FL_hip_joint: 38.7111
+         Torque/MaxEver_Nm/FL_hip_joint: 80.6553
+         Torque/MeanAbs_Nm/FL_hip_joint: 8.1628
+          Torque/P95Abs_Nm/FL_hip_joint: 19.2688
+Torque/EffortLimitFraction/FL_hip_joint: 0.0000
+EstimatedTorque/UnclippedComputedPeakAbs_Nm/FL_hip_joint: 38.7111
+       Torque/PeakAbs_Nm/FL_thigh_joint: 54.8728
+       Torque/MaxEver_Nm/FL_thigh_joint: 100.0000
+       Torque/MeanAbs_Nm/FL_thigh_joint: 10.7588
+        Torque/P95Abs_Nm/FL_thigh_joint: 26.6605
+Torque/EffortLimitFraction/FL_thigh_joint: 0.0000
+EstimatedTorque/UnclippedComputedPeakAbs_Nm/FL_thigh_joint: 54.8728
+        Torque/PeakAbs_Nm/FL_calf_joint: 58.8633
+        Torque/MaxEver_Nm/FL_calf_joint: 100.0000
+        Torque/MeanAbs_Nm/FL_calf_joint: 25.3631
+         Torque/P95Abs_Nm/FL_calf_joint: 40.3445
+Torque/EffortLimitFraction/FL_calf_joint: 0.0000
+EstimatedTorque/UnclippedComputedPeakAbs_Nm/FL_calf_joint: 58.8633
+         Torque/PeakAbs_Nm/BR_hip_joint: 36.8543
+         Torque/MaxEver_Nm/BR_hip_joint: 75.1290
+         Torque/MeanAbs_Nm/BR_hip_joint: 8.2386
+          Torque/P95Abs_Nm/BR_hip_joint: 19.5715
+Torque/EffortLimitFraction/BR_hip_joint: 0.0000
+EstimatedTorque/UnclippedComputedPeakAbs_Nm/BR_hip_joint: 36.8543
+       Torque/PeakAbs_Nm/BR_thigh_joint: 42.4937
+       Torque/MaxEver_Nm/BR_thigh_joint: 93.2609
+       Torque/MeanAbs_Nm/BR_thigh_joint: 11.1147
+        Torque/P95Abs_Nm/BR_thigh_joint: 25.5749
+Torque/EffortLimitFraction/BR_thigh_joint: 0.0000
+EstimatedTorque/UnclippedComputedPeakAbs_Nm/BR_thigh_joint: 42.4937
+        Torque/PeakAbs_Nm/BR_calf_joint: 70.0042
+        Torque/MaxEver_Nm/BR_calf_joint: 100.0000
+        Torque/MeanAbs_Nm/BR_calf_joint: 34.2272
+         Torque/P95Abs_Nm/BR_calf_joint: 50.5974
+Torque/EffortLimitFraction/BR_calf_joint: 0.0000
+EstimatedTorque/UnclippedComputedPeakAbs_Nm/BR_calf_joint: 70.0042
+         Torque/PeakAbs_Nm/BL_hip_joint: 40.1592
+         Torque/MaxEver_Nm/BL_hip_joint: 100.0000
+         Torque/MeanAbs_Nm/BL_hip_joint: 9.4847
+          Torque/P95Abs_Nm/BL_hip_joint: 22.1155
+Torque/EffortLimitFraction/BL_hip_joint: 0.0000
+EstimatedTorque/UnclippedComputedPeakAbs_Nm/BL_hip_joint: 40.1592
+       Torque/PeakAbs_Nm/BL_thigh_joint: 39.3643
+       Torque/MaxEver_Nm/BL_thigh_joint: 73.5766
+       Torque/MeanAbs_Nm/BL_thigh_joint: 8.2754
+        Torque/P95Abs_Nm/BL_thigh_joint: 20.5519
+Torque/EffortLimitFraction/BL_thigh_joint: 0.0000
+EstimatedTorque/UnclippedComputedPeakAbs_Nm/BL_thigh_joint: 39.3643
+        Torque/PeakAbs_Nm/BL_calf_joint: 73.3063
+        Torque/MaxEver_Nm/BL_calf_joint: 100.0000
+        Torque/MeanAbs_Nm/BL_calf_joint: 31.2174
+         Torque/P95Abs_Nm/BL_calf_joint: 46.4960
+Torque/EffortLimitFraction/BL_calf_joint: 0.0000
+EstimatedTorque/UnclippedComputedPeakAbs_Nm/BL_calf_joint: 73.3063
+               Torque/OverallPeakAbs_Nm: 73.3063
+               Torque/OverallMaxEver_Nm: 100.0000
+                Torque/SampleInterval_s: 0.0050
+          Torque/PhysicsSamplesPerJoint: 9600.0000
+--------------------------------------------------------------------------------
+                         Iteration time: 0.26s
+                           Time elapsed: 0:00:01
+                                    ETA: 0:00:00
+
+[HIM PPO] LR=5.062500e-05 | PPO KL=0.010854 | Post-HIO KL=0.010467
+################################################################################
+[1m                             Learning iteration 2/3                             [0m 
+
+                               Run name: torque_smoke100
+                            Total steps: 7200 
+                       Steps per second: 8415 
+                        Collection time: 0.157s 
+                          Learning time: 0.129s 
+                        Mean value loss: 0.0318
+                    Mean surrogate loss: -0.0080
+                      Mean entropy loss: -8.4217
+                       Mean ppo_kl loss: 0.0109
+             Mean hio_velocity_mse loss: 0.0008
+                Mean hio_swap_loss loss: 0.1025
+                    Mean hio_pairs loss: 2300.0000
+                  Mean post_hio_kl loss: 0.0105
+                        Mean action std: 0.12
+                   Reward_Rate/track_xy: 1.0124
+                  Reward_Rate/track_yaw: 0.9763
+                     Reward_Rate/height: 0.3968
+                    Reward_Rate/upright: -0.0002
+          Reward_Rate/vertical_velocity: -0.0004
+             Reward_Rate/joint_velocity: -0.0016
+                Reward_Rate/action_rate: -0.0025
+           Reward_Rate/action_magnitude: -0.0011
+          Reward_Rate/undesired_contact: -0.4208
+              Reward_Rate/feet_air_time: 0.0000
+                Reward_Rate/stance_slip: 0.0000
+                  Reward_Rate/trot_sync: 0.0000
+             Reward_Rate/time_imbalance: 0.0000
+        Reward_Rate/roll_pitch_velocity: 0.0000
+      Reward_Rate/vertical_acceleration: 0.0000
+         Reward_Rate/joint_acceleration: 0.0000
+               Reward_Rate/joint_torque: 0.0000
+             Reward_Rate/joint_position: 0.0000
+           Reward_Rate/mechanical_power: 0.0000
+                      Reward_Rate/total: 1.9588
+                Walking/Commands/vx_mps: 0.1869
+             Diagnostics/command_vx_mps: 0.1869
+                Walking/Commands/vy_mps: 0.0000
+             Diagnostics/command_vy_mps: 0.0000
+             Walking/Commands/yaw_radps: 0.0000
+          Diagnostics/command_yaw_radps: 0.0000
+         Walking/Tracking/actual_vx_mps: 0.0030
+              Diagnostics/actual_vx_mps: 0.0030
+         Walking/Tracking/actual_vy_mps: -0.0014
+              Diagnostics/actual_vy_mps: -0.0014
+      Walking/Tracking/actual_yaw_radps: -0.0031
+            Walking/Tracking/vx_mae_mps: 0.2023
+          Walking/Tracking/xy_error_mps: 0.2037
+      Walking/Tracking/raw_xy_error_mps: 0.1879
+        Walking/Tracking/valid_fraction: 0.9100
+             Walking/Gait/contact_count: 3.9992
+              Walking/Gait/airborne_pct: 0.0208
+                  Walking/Gait/liftoffs: 0.0008
+                Walking/Gait/touchdowns: 0.0004
+       Walking/Gait/qualified_airtime_s: 0.0000
+           Walking/Gait/stance_slip_mps: 0.0505
+      Walking/Stability/height_error_cm: 1.9200
+Walking/Stability/undesired_contact_pct: 21.0417
+Walking/Stability/action_near_limit_pct: 0.0625
+        Walking/Stability/fall_fraction: 0.0000
+           Diagnostics/actual_yaw_radps: -0.0031
+                 Diagnostics/vx_mae_mps: 0.1856
+                 Diagnostics/vy_mae_mps: 0.0183
+           Diagnostics/xy_vel_error_mps: 0.1879
+            Diagnostics/yaw_error_radps: 0.0500
+          Diagnostics/command_speed_mps: 0.1869
+           Diagnostics/actual_speed_mps: 0.0282
+        Diagnostics/moving_xy_error_mps: 0.2037
+         Diagnostics/moving_command_pct: 91.0000
+            Diagnostics/height_error_cm: 1.9200
+      Diagnostics/action_near_limit_pct: 0.0625
+      Diagnostics/undesired_contact_pct: 21.0417
+         Diagnostics/feet_contact_count: 3.9992
+       Diagnostics/all_feet_contact_pct: 99.9167
+    Diagnostics/airborne_pct_cumulative: 13.2676
+Diagnostics/liftoffs_per_1000_foot_steps: 8.4043
+Walking/Tracking/reset_excluded_fraction: 0.0000
+         Torque/PeakAbs_Nm/FR_hip_joint: 39.8114
+         Torque/MaxEver_Nm/FR_hip_joint: 78.4146
+         Torque/MeanAbs_Nm/FR_hip_joint: 9.7725
+          Torque/P95Abs_Nm/FR_hip_joint: 21.5701
+Torque/EffortLimitFraction/FR_hip_joint: 0.0000
+EstimatedTorque/UnclippedComputedPeakAbs_Nm/FR_hip_joint: 39.8114
+       Torque/PeakAbs_Nm/FR_thigh_joint: 42.5956
+       Torque/MaxEver_Nm/FR_thigh_joint: 100.0000
+       Torque/MeanAbs_Nm/FR_thigh_joint: 9.1708
+        Torque/P95Abs_Nm/FR_thigh_joint: 22.2680
+Torque/EffortLimitFraction/FR_thigh_joint: 0.0000
+EstimatedTorque/UnclippedComputedPeakAbs_Nm/FR_thigh_joint: 42.5956
+        Torque/PeakAbs_Nm/FR_calf_joint: 58.4048
+        Torque/MaxEver_Nm/FR_calf_joint: 100.0000
+        Torque/MeanAbs_Nm/FR_calf_joint: 27.5122
+         Torque/P95Abs_Nm/FR_calf_joint: 40.9374
+Torque/EffortLimitFraction/FR_calf_joint: 0.0000
+EstimatedTorque/UnclippedComputedPeakAbs_Nm/FR_calf_joint: 58.4048
+         Torque/PeakAbs_Nm/FL_hip_joint: 38.4933
+         Torque/MaxEver_Nm/FL_hip_joint: 80.6553
+         Torque/MeanAbs_Nm/FL_hip_joint: 9.5193
+          Torque/P95Abs_Nm/FL_hip_joint: 21.7078
+Torque/EffortLimitFraction/FL_hip_joint: 0.0000
+EstimatedTorque/UnclippedComputedPeakAbs_Nm/FL_hip_joint: 38.4933
+       Torque/PeakAbs_Nm/FL_thigh_joint: 48.8076
+       Torque/MaxEver_Nm/FL_thigh_joint: 100.0000
+       Torque/MeanAbs_Nm/FL_thigh_joint: 9.7912
+        Torque/P95Abs_Nm/FL_thigh_joint: 24.2165
+Torque/EffortLimitFraction/FL_thigh_joint: 0.0000
+EstimatedTorque/UnclippedComputedPeakAbs_Nm/FL_thigh_joint: 48.8076
+        Torque/PeakAbs_Nm/FL_calf_joint: 58.5821
+        Torque/MaxEver_Nm/FL_calf_joint: 100.0000
+        Torque/MeanAbs_Nm/FL_calf_joint: 26.2538
+         Torque/P95Abs_Nm/FL_calf_joint: 39.4402
+Torque/EffortLimitFraction/FL_calf_joint: 0.0000
+EstimatedTorque/UnclippedComputedPeakAbs_Nm/FL_calf_joint: 58.5821
+         Torque/PeakAbs_Nm/BR_hip_joint: 37.9560
+         Torque/MaxEver_Nm/BR_hip_joint: 75.1290
+         Torque/MeanAbs_Nm/BR_hip_joint: 9.3552
+          Torque/P95Abs_Nm/BR_hip_joint: 21.3027
+Torque/EffortLimitFraction/BR_hip_joint: 0.0000
+EstimatedTorque/UnclippedComputedPeakAbs_Nm/BR_hip_joint: 37.9560
+       Torque/PeakAbs_Nm/BR_thigh_joint: 37.9601
+       Torque/MaxEver_Nm/BR_thigh_joint: 93.2609
+       Torque/MeanAbs_Nm/BR_thigh_joint: 8.3832
+        Torque/P95Abs_Nm/BR_thigh_joint: 20.0512
+Torque/EffortLimitFraction/BR_thigh_joint: 0.0000
+EstimatedTorque/UnclippedComputedPeakAbs_Nm/BR_thigh_joint: 37.9601
+        Torque/PeakAbs_Nm/BR_calf_joint: 71.1833
+        Torque/MaxEver_Nm/BR_calf_joint: 100.0000
+        Torque/MeanAbs_Nm/BR_calf_joint: 32.4211
+         Torque/P95Abs_Nm/BR_calf_joint: 47.8835
+Torque/EffortLimitFraction/BR_calf_joint: 0.0000
+EstimatedTorque/UnclippedComputedPeakAbs_Nm/BR_calf_joint: 71.1833
+         Torque/PeakAbs_Nm/BL_hip_joint: 45.8482
+         Torque/MaxEver_Nm/BL_hip_joint: 100.0000
+         Torque/MeanAbs_Nm/BL_hip_joint: 9.9484
+          Torque/P95Abs_Nm/BL_hip_joint: 22.0310
+Torque/EffortLimitFraction/BL_hip_joint: 0.0000
+EstimatedTorque/UnclippedComputedPeakAbs_Nm/BL_hip_joint: 45.8482
+       Torque/PeakAbs_Nm/BL_thigh_joint: 41.6329
+       Torque/MaxEver_Nm/BL_thigh_joint: 73.5766
+       Torque/MeanAbs_Nm/BL_thigh_joint: 7.9413
+        Torque/P95Abs_Nm/BL_thigh_joint: 19.2758
+Torque/EffortLimitFraction/BL_thigh_joint: 0.0000
+EstimatedTorque/UnclippedComputedPeakAbs_Nm/BL_thigh_joint: 41.6329
+        Torque/PeakAbs_Nm/BL_calf_joint: 61.1746
+        Torque/MaxEver_Nm/BL_calf_joint: 100.0000
+        Torque/MeanAbs_Nm/BL_calf_joint: 29.5533
+         Torque/P95Abs_Nm/BL_calf_joint: 42.8898
+Torque/EffortLimitFraction/BL_calf_joint: 0.0000
+EstimatedTorque/UnclippedComputedPeakAbs_Nm/BL_calf_joint: 61.1746
+               Torque/OverallPeakAbs_Nm: 71.1833
+               Torque/OverallMaxEver_Nm: 100.0000
+                Torque/SampleInterval_s: 0.0050
+          Torque/PhysicsSamplesPerJoint: 9600.0000
+--------------------------------------------------------------------------------
+                         Iteration time: 0.29s
+                           Time elapsed: 0:00:01
+                                    ETA: 0:00:00
+
+Training time: 2.2 seconds

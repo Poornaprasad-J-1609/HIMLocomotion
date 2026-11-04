@@ -1,0 +1,26 @@
+test_gae_and_terminal_bootstrap_values (test_native_walking.ConnectivityTests.test_gae_and_terminal_bootstrap_values) ... ok
+test_real_ppo_hio_updates_frozen_and_active (test_native_walking.ConnectivityTests.test_real_ppo_hio_updates_frozen_and_active) ... [HIM PPO] LR=2.250000e-05 | PPO KL=0.014213 | Post-HIO KL=0.014068
+CONNECTIVITY 0 {'value': 0.006464950507506728, 'surrogate': -0.026487212628126144, 'entropy': -8.41637396812439, 'ppo_kl': 0.01421279739588499, 'hio_velocity_mse': 0.008728026412427425, 'hio_swap_loss': 0.10792005062103271, 'hio_pairs': 39.0, 'post_hio_kl': 0.014068037271499634}
+[HIM PPO] HIO FROZEN; PPO KL=0.014213
+CONNECTIVITY 1 {'value': 0.006464950507506728, 'surrogate': -0.026487212628126144, 'entropy': -8.41637396812439, 'ppo_kl': 0.01421279739588499, 'hio_velocity_mse': 0.0, 'hio_swap_loss': 0.0, 'hio_pairs': 0.0, 'post_hio_kl': 0.01421279739588499}
+ok
+test_timeout_bootstrap_only_applies_to_timeouts (test_native_walking.ConnectivityTests.test_timeout_bootstrap_only_applies_to_timeouts) ... ok
+test_baseline_arithmetic_and_zero_weights (test_native_walking.RewardTests.test_baseline_arithmetic_and_zero_weights) ... ok
+test_cfg_validation (test_native_walking.RewardTests.test_cfg_validation) ... ok
+test_checkpoint_provenance (test_native_walking.RewardTests.test_checkpoint_provenance) ... ok
+test_first_contact_does_not_pay (test_native_walking.RewardTests.test_first_contact_does_not_pay) ... ok
+test_flight_invalidates_entire_swing (test_native_walking.RewardTests.test_flight_invalidates_entire_swing) ... ok
+test_force_threshold_shapes_and_pairing (test_native_walking.RewardTests.test_force_threshold_shapes_and_pairing) ... ok
+test_history_value_order_and_selective_reset (test_native_walking.RewardTests.test_history_value_order_and_selective_reset) ... ok
+test_minimum_and_maximum_swing (test_native_walking.RewardTests.test_minimum_and_maximum_swing) ... ok
+test_optional_terms_zero_and_sign (test_native_walking.RewardTests.test_optional_terms_zero_and_sign) ... ok
+test_per_env_reset_and_no_fake_touchdown (test_native_walking.RewardTests.test_per_env_reset_and_no_fake_touchdown) ... ok
+test_perpetual_air_never_pays (test_native_walking.RewardTests.test_perpetual_air_never_pays) ... ok
+test_reset_exclusion_disarms (test_native_walking.RewardTests.test_reset_exclusion_disarms) ... ok
+test_standing_or_unstable_command_invalidates (test_native_walking.RewardTests.test_standing_or_unstable_command_invalidates) ... ok
+test_touchdown_exactly_once_and_units (test_native_walking.RewardTests.test_touchdown_exactly_once_and_units) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.214s
+
+OK

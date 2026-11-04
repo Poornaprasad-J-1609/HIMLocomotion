@@ -1,0 +1,498 @@
+--- /dev/null
++++ grallator_rl/scripts/audit_torque_runtime.py
+@@ -0,0 +1,116 @@
++"""Controlled torque validation and warmed monitoring overhead comparison."""
++import argparse
++import json
++import os
++from pathlib import Path
++import time
++
++import gymnasium as gym
++import torch
++import warp as wp
++from isaaclab.app import launch_simulation
++
++os.environ.setdefault('GRALLATOR_TARGET_HEIGHT', '0.38')
++import grallator_rl.him.walking_registration  # noqa: E402,F401
++from grallator_rl.him.walking_env_adapter import WalkingHIMEnvCfg
++from grallator_rl.tasks.walking_direct.diagnostics import WalkingDiagnostics
++from grallator_rl.tasks.walking_direct.torque_diagnostics import JOINT_NAMES
++from isaaclab_newton.physics import NewtonManager
++
++
++def run(enabled):
++    original=WalkingDiagnostics.attach_torque
++    if not enabled:
++        # Benchmark-only baseline. Production configuration/actuators unchanged.
++        WalkingDiagnostics.attach_torque=lambda *args:None
++    cfg=WalkingHIMEnvCfg();cfg.scene.num_envs=8;cfg.seed=42
++    rewards=[];observations=[]
++    try:
++        with launch_simulation(cfg,{'headless':True}):
++            env=gym.make('GrallatorRl-HIM-Walking-Direct',cfg=cfg).unwrapped
++            try:
++                env.reset()
++                monitor=env.diagnostics.torque
++                accumulator=monitor.accumulator if monitor else None
++                solver=NewtonManager._solver
++                # Warm CUDA graph and compiled kernels; discard startup statistics.
++                for _ in range(24):env.step(torch.ones_like(env.actions)*.2)
++                if accumulator:
++                    accumulator.finish_interval()  # warm quantile/reduction initialization too
++                    accumulator.reset_run()
++                durations=[];summary_durations=[];largest=0.;computed_largest=0.
++                last_metrics=None
++                for block in range(5):
++                    torch.cuda.synchronize();start=time.perf_counter()
++                    for _ in range(24):
++                        obs,reward,*_=env.step(torch.ones_like(env.actions)*.2)
++                        rewards.append(reward.clone());observations.append(obs['policy'].clone())
++                    torch.cuda.synchronize();durations.append(time.perf_counter()-start)
++                    if accumulator:
++                        assert int(accumulator.count.item())==96
++                        start=time.perf_counter();last_metrics=accumulator.finish_interval()
++                        torch.cuda.synchronize();summary_durations.append(time.perf_counter()-start)
++                        largest=max(largest,float(last_metrics['Torque/OverallMaxEver_Nm']))
++                        computed_largest=max(computed_largest,max(float(v) for k,v in last_metrics.items() if k.startswith('EstimatedTorque/')))
++                        assert last_metrics['Torque/OverallPeakAbs_Nm']<=100.001
++                        for name in JOINT_NAMES:
++                            assert 0<=last_metrics['Torque/EffortLimitFraction/'+name]<=1
++                        if block==0:
++                            ever=accumulator.running.clone()
++                            env._reset_idx(torch.tensor([0],device=env.device))
++                            torch.testing.assert_close(accumulator.running,ever)
++                    elif block==0:
++                        env._reset_idx(torch.tensor([0],device=env.device))
++                if accumulator:
++                    assert largest>0, 'Controlled command produced no solver effort'
++                    # Solver output agrees with its native scalar actuator moments;
++                    # avoid treating the public PD estimate as validation ground truth.
++                    qfrc=wp.to_torch(solver.mjw_data.qfrc_actuator)
++                    force=wp.to_torch(solver.mjw_data.actuator_force)
++                    model=solver.mj_model
++                    for name,col in monitor.mapping.items():
++                        joint=next(i for i in range(model.njnt) if int(model.jnt_dofadr[i])==col)
++                        actuator_ids=[i for i in range(model.nu) if int(model.actuator_trnid[i,0])==joint]
++                        assert len(actuator_ids)==2
++                        moments=torch.as_tensor(model.actuator_gear[actuator_ids,0],device=env.device,dtype=torch.float32)
++                        expected=(force[:,actuator_ids]*moments).sum(-1).clamp(-100,100)
++                        torch.testing.assert_close(qfrc[:,col],expected,atol=2e-4,rtol=1e-5)
++                    accumulator.reset_run()
++                    assert accumulator.finish_interval()['Torque/OverallMaxEver_Nm']==0
++                return dict(enabled=enabled,physics_dt=cfg.sim.dt,control_dt=env.step_dt,
++                            collection_seconds=durations,summary_seconds=summary_durations,
++                            largest_solver_torque_nm=largest,largest_estimated_unclipped_nm=computed_largest,
++                            mapping=monitor.mapping if monitor else None,
++                            runtime_mapping=monitor.runtime_mapping if monitor else None,
++                            solver_force_reconstruction='PASS' if monitor else None,
++                            final_public_applied=env.robot.actuators.applied_effort.torch[0].tolist(),
++                            final_solver_qfrc=qfrc[0].tolist() if monitor else None),torch.stack(rewards).cpu(),torch.stack(observations).cpu()
++            finally:env.close()
++    finally:WalkingDiagnostics.attach_torque=original
++
++
++def main():
++    parser=argparse.ArgumentParser(description=__doc__)
++    parser.add_argument('--output',type=Path,required=True)
++    args=parser.parse_args()
++    # Fresh envs use the same seed and scripted actions; monitoring consumes no RNG.
++    baseline,base_rewards,base_obs=run(False)
++    monitored,torque_rewards,torque_obs=run(True)
++    # Independent contact-solver rollouts need not be bitwise deterministic.
++    # Report this comparison; never turn monitoring validation into a claim of
++    # deterministic physics. Source/optimizer regression tests cover interfaces.
++    equal=torch.equal(torque_rewards,base_rewards) and torch.equal(torque_obs,base_obs)
++    baseline_ms=1000*sum(baseline['collection_seconds'])/5
++    monitored_ms=1000*sum(monitored['collection_seconds'])/5
++    summary_ms=1000*sum(monitored['summary_seconds'])/5
++    result=dict(baseline=baseline,monitored=monitored,
++                mean_24_control_steps_ms={'baseline':baseline_ms,'monitored':monitored_ms,'summary':summary_ms},
++                collection_overhead_pct=100*(monitored_ms/baseline_ms-1),
++                independent_rollouts_bitwise_equal=equal,
++                independent_rollout_max_reward_difference=(torque_rewards-base_rewards).abs().max().item(),
++                independent_rollout_max_observation_difference=(torque_obs-base_obs).abs().max().item())
++    args.output.write_text(json.dumps(result,indent=2)+'\n')
++    print('TORQUE_RUNTIME_PASS',json.dumps(result),flush=True)
++
++
++if __name__=='__main__':main()
+--- /home/poornaprasad/RL/Quadruped/grallator_rl/backups/torque_20261104_125903/src/grallator_rl/him/walking_ppo.py
++++ grallator_rl/src/grallator_rl/him/walking_ppo.py
+@@ -3,6 +3,13 @@
+ 
+ 
+ class WalkingPPO(HIMPPO):
++    @staticmethod
++    def construct_algorithm(obs, env, cfg, device):
++        algorithm = HIMPPO.construct_algorithm(obs, env, cfg, device)
++        algorithm._torque_env = env.unwrapped
++        algorithm._torque_env.diagnostics.torque.accumulator.reset_run()
++        return algorithm
++
+     def update(self):
+         # HIO leaves estimator gradients after its optimizer step. Estimator
+         # parameters are excluded from the PPO optimizer, so PPO.zero_grad()
+@@ -10,4 +17,7 @@
+         # gradients would otherwise affect the next actor clipping norm even
+         # though get_latent() correctly detaches the estimator from PPO.
+         self._raw_actor.estimator.zero_grad(set_to_none=True)
+-        return super().update()
++        metrics = super().update()
++        if hasattr(self, '_torque_env'):
++            self._torque_env.diagnostics.publish_torque_iteration(self._torque_env.extras['log'])
++        return metrics
+--- /home/poornaprasad/RL/Quadruped/grallator_rl/backups/torque_20261104_125903/src/grallator_rl/tasks/walking_direct/diagnostics.py
++++ grallator_rl/src/grallator_rl/tasks/walking_direct/diagnostics.py
+@@ -4,11 +4,22 @@
+ 
+ class WalkingDiagnostics:
+     def __init__(self, num_envs, device):
++        self.torque = None
+         self.quality_sum = torch.zeros(num_envs, device=device)
+         self.quality_count = torch.zeros_like(self.quality_sum)
+         self.air_steps = torch.zeros_like(self.quality_sum)
+         self.foot_steps = torch.zeros_like(self.quality_sum)
+         self.liftoffs = torch.zeros_like(self.quality_sum)
++
++    def attach_torque(self, robot, sim):
++        from .torque_diagnostics import NewtonTorqueDiagnostics
++        self.torque = NewtonTorqueDiagnostics(robot, sim)
++
++    def publish_torque_iteration(self, log):
++        if self.torque is not None:
++            # Native RSL-RL already retains this last-step dictionary. Insert
++            # each interval statistic ONCE so Logger.log does not average peaks.
++            log.update(self.torque.accumulator.finish_interval())
+ 
+     def reset(self, ids, log):
+         log['Walking/Tracking/episode_xy_error_mps'] = (
+--- /home/poornaprasad/RL/Quadruped/grallator_rl/backups/torque_20261104_125903/src/grallator_rl/tasks/walking_direct/env.py
++++ grallator_rl/src/grallator_rl/tasks/walking_direct/env.py
+@@ -31,6 +31,12 @@
+         self._previous_vertical_velocity = self.robot.data.root_lin_vel_w.torch[:, 2].clone()
+         self._last_resample_step = torch.full_like(self.episode_length_buf, -1)
+         self._sample_commands(torch.arange(self.num_envs, device=self.device))
++        self.diagnostics.attach_torque(self.robot, self.sim)
++
++    def close(self):
++        if hasattr(self, 'diagnostics') and self.diagnostics.torque is not None:
++            self.diagnostics.torque.close()
++        super().close()
+ 
+     def _sample_commands(self, env_ids: torch.Tensor) -> None:
+         n = len(env_ids)
+--- /dev/null
++++ grallator_rl/src/grallator_rl/tasks/walking_direct/torque_diagnostics.py
+@@ -0,0 +1,179 @@
++"""Read-only MJWarp joint-side torque monitoring, independent of rewards.
++
++The public implicit-actuator effort telemetry is an estimate. This adapter reads
++MJWarp qfrc_actuator *after* solving instead; it is solver-reported generalized
++actuation torque, not hardware measurement or four-bar motor shaft torque.
++"""
++from __future__ import annotations
++
++import torch
++import warp as wp
++
++JOINT_NAMES = tuple(f'{leg}_{part}_joint' for leg in ('FR', 'FL', 'BR', 'BL')
++                    for part in ('hip', 'thigh', 'calf'))
++
++
++def joint_indices(names):
++    """Reject missing, duplicated or extra joints; never assume tensor order."""
++    if len(names) != 12 or len(set(names)) != 12 or set(names) != set(JOINT_NAMES):
++        raise ValueError(f'Expected exactly the 12 Grallator joints, got {names}')
++    return [names.index(name) for name in JOINT_NAMES]
++
++
++@wp.kernel(enable_backward=False)
++def _sample(source: wp.array2d(dtype=wp.float32), columns: wp.array(dtype=wp.int32),
++            computed: wp.array2d(dtype=wp.float32), computed_columns: wp.array(dtype=wp.int32),
++            limits: wp.array2d(dtype=wp.float32), count: wp.array(dtype=wp.int32),
++            samples: wp.array2d(dtype=wp.float32), peaks: wp.array2d(dtype=wp.float32),
++            sums: wp.array2d(dtype=wp.float32), near: wp.array2d(dtype=wp.float32),
++            computed_peaks: wp.array2d(dtype=wp.float32), invalid: wp.array(dtype=wp.int32)):
++    env, joint = wp.tid()
++    value = wp.abs(source[env, columns[joint]])
++    estimate = wp.abs(computed[env, computed_columns[joint]])
++    if not wp.isfinite(value) or not wp.isfinite(estimate):
++        wp.atomic_max(invalid, 0, 1)
++    if count[0] < samples.shape[0]:
++        samples[count[0], env * 12 + joint] = value
++    else:
++        wp.atomic_max(invalid, 0, 2)
++    peaks[env, joint] = wp.max(peaks[env, joint], value)
++    computed_peaks[env, joint] = wp.max(computed_peaks[env, joint], estimate)
++    sums[env, joint] += value
++    if value >= 0.95 * limits[env, joint]:
++        near[env, joint] += 1.0
++
++
++@wp.kernel(enable_backward=False)
++def _advance(count: wp.array(dtype=wp.int32)):
++    count[0] += 1
++
++
++class TorqueAccumulator:
++    """GPU interval statistics; episode resets deliberately do not clear them.
++
++    All sample buffers have fixed addresses for CUDA graph replay. P95 is exact
++    (linear interpolation) over all env/time samples, computed once per rollout.
++    Capacity overflow and nonfinite samples fail at the logging boundary.
++    """
++    def __init__(self, num_envs, limits, *, capacity=256, sample_dt=.005, sampled_peak=False,
++                 include_computed=True):
++        if limits.shape != (num_envs, 12) or limits.dtype != torch.float32:
++            raise ValueError('Expected float32 effort limits [num_envs,12] in reporting order')
++        if not torch.isfinite(limits).all() or not (limits > 0).all() or capacity < 1 or sample_dt <= 0:
++            raise ValueError('Invalid effort limits, sample capacity or sample interval')
++        self.num_envs, self.capacity, self.sample_dt = num_envs, capacity, sample_dt
++        self.sampled_peak = sampled_peak
++        self.include_computed = include_computed
++        self.limits = limits.detach().clone().contiguous()
++        self.samples = limits.new_zeros((capacity, num_envs * 12))
++        self.peaks = torch.zeros_like(limits)
++        self.sums = torch.zeros_like(limits)
++        self.near = torch.zeros_like(limits)
++        self.computed_peaks = torch.zeros_like(limits)
++        self.running = limits.new_zeros(12)
++        self.count = torch.zeros(1, dtype=torch.int32, device=limits.device)
++        self.invalid = torch.zeros_like(self.count)
++
++    def sample(self, source, columns, computed, computed_columns):
++        """Graph-safe launch; no host readbacks or Torch allocations per sample."""
++        wp.launch(_sample, dim=(self.num_envs, 12), inputs=[
++            source, columns, computed, computed_columns, wp.from_torch(self.limits),
++            wp.from_torch(self.count), wp.from_torch(self.samples), wp.from_torch(self.peaks),
++            wp.from_torch(self.sums), wp.from_torch(self.near), wp.from_torch(self.computed_peaks),
++            wp.from_torch(self.invalid)], device=str(self.limits.device))
++        wp.launch(_advance, dim=1, inputs=[wp.from_torch(self.count)], device=str(self.limits.device))
++
++    def reset_interval(self):
++        for value in (self.count, self.invalid, self.peaks, self.sums, self.near, self.computed_peaks):
++            value.zero_()
++
++    def reset_run(self):
++        self.reset_interval()
++        self.running.zero_()
++
++    @torch.no_grad()
++    def finish_interval(self):
++        # The only monitoring readback is here, once per PPO iteration.
++        count, invalid = int(self.count.item()), int(self.invalid.item())
++        if invalid or count > self.capacity:
++            raise RuntimeError(f'Torque telemetry invalid/overflow: code={invalid}, steps={count}, capacity={self.capacity}')
++        peak = self.peaks.amax(0)
++        self.running.copy_(torch.maximum(self.running, peak))
++        running = self.running.clone()
++        mean = self.sums.sum(0) / max(1, count * self.num_envs)
++        fraction = self.near.sum(0) / max(1, count * self.num_envs)
++        p95 = (torch.quantile(self.samples[:count].reshape(-1, 12), .95, dim=0)
++               if count else torch.zeros_like(peak))
++        computed_peak = self.computed_peaks.amax(0)
++        peak_name = 'SampledPeakAbs_Nm' if self.sampled_peak else 'PeakAbs_Nm'
++        ever_name = 'SampledMaxEver_Nm' if self.sampled_peak else 'MaxEver_Nm'
++        metrics = {}
++        for j, name in enumerate(JOINT_NAMES):
++            for group, value in ((peak_name, peak), (ever_name, running), ('MeanAbs_Nm', mean),
++                                 ('P95Abs_Nm', p95), ('EffortLimitFraction', fraction)):
++                metrics[f'Torque/{group}/{name}'] = value[j]
++            if self.include_computed:
++                computed_group = ('UnclippedComputedSampledPeakAbs_Nm' if self.sampled_peak
++                                  else 'UnclippedComputedPeakAbs_Nm')
++                metrics[f'EstimatedTorque/{computed_group}/{name}'] = computed_peak[j]
++        metrics[f'Torque/Overall{peak_name}'] = peak.amax()
++        metrics[f'Torque/Overall{ever_name}'] = running.amax()
++        metrics['Torque/SampleInterval_s'] = peak.new_tensor(self.sample_dt)
++        metrics['Torque/PhysicsSamplesPerJoint'] = peak.new_tensor(count * self.num_envs)
++        self.reset_interval()
++        return metrics
++
++
++class NewtonTorqueDiagnostics:
++    """Layout-checked, read-only adapter to the installed MJWarp solver.
++
++    MJWarp's 24 scalar P/D actuator entries are not the 12 reported joints.
++    qfrc_actuator already combines those entries into 12 hinge DOF torques.
++    """
++    def __init__(self, robot, sim):
++        from isaaclab_newton.physics import NewtonManager
++        self.manager = NewtonManager
++        solver = self.manager._solver  # Backend-specific API, verified against installed Newton 1.6.1.
++        if solver is None or solver.use_mujoco_cpu:
++            raise RuntimeError('Torque monitoring requires the verified Newton MJWarp GPU backend')
++        runtime_ids = joint_indices(list(robot.joint_names))
++        model = solver.mj_model
++        mj_ids = []
++        for name in JOINT_NAMES:
++            matches = [i for i in range(model.njnt) if model.joint(i).name.endswith('_' + name)]
++            if len(matches) != 1 or int(model.jnt_type[matches[0]]) != 3:  # MuJoCo hinge
++                raise ValueError(f'Expected exactly one MJWarp hinge for {name}: {matches}')
++            mj_ids.append(int(model.jnt_dofadr[matches[0]]))
++        self.source = solver.mjw_data.qfrc_actuator
++        self.computed = robot.actuators.computed_effort.warp
++        if self.source.shape != (robot.num_instances, model.nv) or len(set(mj_ids)) != 12:
++            raise ValueError('Unexpected MJWarp world/DOF layout')
++        if self.computed.shape != (robot.num_instances, 12) or not robot.actuators.has_implicit_actuators:
++            raise ValueError('Unexpected Grallator implicit-actuator layout')
++        # Validate the actual solver's joint-level force limits, not just config values.
++        limits = robot.data.joint_effort_limits.torch[:, runtime_ids].contiguous()
++        for j, name in enumerate(JOINT_NAMES):
++            idx = next(i for i in range(model.njnt) if int(model.jnt_dofadr[i]) == mj_ids[j])
++            if not model.jnt_actfrclimited[idx]:
++                raise ValueError(f'Solver force limiting is disabled for {name}')
++            actual = torch.as_tensor(model.jnt_actfrcrange[idx], device=limits.device)
++            if not torch.allclose(actual, torch.stack((-limits[0, j], limits[0, j])).to(actual.dtype)):
++                raise ValueError(f'Solver effort range differs for {name}')
++        self.columns = wp.array(mj_ids, dtype=wp.int32, device=str(limits.device))
++        self.computed_columns = wp.array(runtime_ids, dtype=wp.int32, device=str(limits.device))
++        self.accumulator = TorqueAccumulator(
++            robot.num_instances, limits, sample_dt=float(sim.cfg.dt) * self.manager._decimation,
++            sampled_peak=self.manager._decimation != 1)
++        self.mapping = dict(zip(JOINT_NAMES, mj_ids))
++        self.runtime_mapping = dict(zip(JOINT_NAMES, runtime_ids))
++        self._callback = self._sample
++        # Fixed buffers are registered before the first training-step capture.
++        if self.manager._graph is not None:
++            raise RuntimeError('Torque callback must be installed before CUDA graph capture')
++        self.manager.register_post_step_callback(self._callback)
++
++    def _sample(self):
++        self.accumulator.sample(self.source, self.columns, self.computed, self.computed_columns)
++
++    def close(self):
++        self.manager.unregister_post_step_callback(self._callback)
+--- /dev/null
++++ grallator_rl/tests/test_torque_diagnostics.py
+@@ -0,0 +1,129 @@
++"""CPU tests of the actual Warp collector and native RSL-RL event routing."""
++import tempfile
++import importlib.util
++import os
++from pathlib import Path
++from types import SimpleNamespace
++import unittest
++from unittest.mock import patch
++
++import torch
++import warp as wp
++
++from grallator_rl.tasks.walking_direct.torque_diagnostics import (
++    JOINT_NAMES, TorqueAccumulator, joint_indices)
++
++
++class TorqueTests(unittest.TestCase):
++    def test_monitoring_does_not_change_policy_gradients_or_checkpoint(self):
++        helper=Path(__file__).with_name('test_native_walking.py')
++        spec=importlib.util.spec_from_file_location('torque_test_ppo_helper',helper)
++        module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
++        torch.manual_seed(42);base,obs=module.make_algorithm()
++        torch.manual_seed(42);monitored,_=module.make_algorithm()
++        accumulator=TorqueAccumulator(8,torch.full((8,12),100.))
++        self.sample(accumulator,torch.ones(8,12))
++        from grallator_rl.tasks.walking_direct.diagnostics import WalkingDiagnostics
++        diagnostics=WalkingDiagnostics(8,'cpu')
++        diagnostics.torque=SimpleNamespace(accumulator=accumulator)
++        monitored._torque_env=SimpleNamespace(diagnostics=diagnostics,extras={'log':{}})
++        outcomes=[]
++        for algorithm in (base,monitored):
++            torch.manual_seed(123)
++            for _ in range(6):
++                with torch.no_grad():
++                    algorithm.act(obs)
++                    algorithm.process_env_step(obs,torch.arange(8)*.01,torch.zeros(8),{})
++            algorithm.compute_returns(obs)
++            with patch.dict(os.environ,{'GRALLATOR_FREEZE_HIO':'0','GRALLATOR_HIO_LR_OVERRIDE':'1e-5'}):
++                outcomes.append(algorithm.update())
++        self.assertEqual(outcomes[0],outcomes[1])
++        for original,logged in ((base.actor,monitored.actor),(base.critic,monitored.critic)):
++            for name,value in original.state_dict().items():
++                torch.testing.assert_close(value,logged.state_dict()[name],atol=0,rtol=0)
++            for first,second in zip(original.parameters(),logged.parameters()):
++                if first.grad is not None:torch.testing.assert_close(first.grad,second.grad,atol=0,rtol=0)
++        self.assertEqual(base.save().keys(),monitored.save().keys())
++        self.assertIn('Torque/OverallPeakAbs_Nm',monitored._torque_env.extras['log'])
++
++    def make(self, capacity=8):
++        return TorqueAccumulator(2, torch.full((2, 12), 10.), capacity=capacity)
++
++    def sample(self, accumulator, value, columns=None):
++        value=value.float().contiguous()
++        columns=wp.array(list(range(12)) if columns is None else columns, dtype=wp.int32,device='cpu')
++        accumulator.sample(wp.from_torch(value), columns, wp.from_torch(value * 2), columns)
++        wp.synchronize()
++
++    def test_actual_names_exact_mapping(self):
++        self.assertEqual(joint_indices(list(reversed(JOINT_NAMES))), list(reversed(range(12))))
++        for invalid in (list(JOINT_NAMES)[:-1],list(JOINT_NAMES)+['other'],[JOINT_NAMES[0]]*12):
++            with self.assertRaises(ValueError): joint_indices(invalid)
++
++    def test_signed_peaks_mean_p95_fraction_and_time_accumulation(self):
++        a=self.make()
++        x=torch.arange(24.).reshape(2,12)-12
++        y=-torch.arange(24.).reshape(2,12)/2
++        columns=list(reversed(range(12)))
++        self.sample(a,x,columns);self.sample(a,y,columns)
++        expected=torch.cat((x[:,columns].abs(),y[:,columns].abs()))
++        metrics=a.finish_interval()
++        for j,name in enumerate(JOINT_NAMES):
++            self.assertAlmostEqual(metrics[f'Torque/PeakAbs_Nm/{name}'].item(),expected[:,j].max().item())
++            self.assertAlmostEqual(metrics[f'Torque/MeanAbs_Nm/{name}'].item(),expected[:,j].mean().item())
++            self.assertAlmostEqual(metrics[f'Torque/P95Abs_Nm/{name}'].item(),torch.quantile(expected[:,j],.95).item(),places=5)
++            self.assertEqual(metrics[f'Torque/EffortLimitFraction/{name}'],(expected[:,j]>=9.5).float().mean())
++        self.assertEqual(metrics['Torque/OverallPeakAbs_Nm'],12.)
++        self.assertEqual(metrics['Torque/PhysicsSamplesPerJoint'],4.)
++        self.assertEqual(metrics[f'EstimatedTorque/UnclippedComputedPeakAbs_Nm/{JOINT_NAMES[0]}'],23.)
++
++    def test_interval_and_run_boundaries_and_immutable_snapshots(self):
++        a=self.make();self.sample(a,torch.full((2,12),-7.));old=a.finish_interval()
++        self.sample(a,torch.ones(2,12));new=a.finish_interval()
++        self.assertEqual(new['Torque/OverallPeakAbs_Nm'],1.)
++        self.assertEqual(new['Torque/OverallMaxEver_Nm'],7.)
++        self.assertEqual(old['Torque/OverallPeakAbs_Nm'],7.)
++        a.reset_run();empty=a.finish_interval()
++        self.assertEqual(empty['Torque/OverallMaxEver_Nm'],0.)
++        self.assertEqual(empty['Torque/PhysicsSamplesPerJoint'],0.)
++
++    def test_nonfinite_and_overflow_fail_at_boundary(self):
++        a=self.make();x=torch.ones(2,12);x[0,0]=float('nan');self.sample(a,x)
++        with self.assertRaises(RuntimeError):a.finish_interval()
++        a=self.make(capacity=1);self.sample(a,torch.ones(2,12));self.sample(a,torch.ones(2,12))
++        with self.assertRaises(RuntimeError):a.finish_interval()
++
++    def test_sampled_peak_labels_when_decimation_prevents_substeps(self):
++        a=TorqueAccumulator(2,torch.ones(2,12),sample_dt=.02,sampled_peak=True)
++        metrics=a.finish_interval()
++        self.assertIn('Torque/SampledPeakAbs_Nm/'+JOINT_NAMES[0],metrics)
++        self.assertNotIn('Torque/PeakAbs_Nm/'+JOINT_NAMES[0],metrics)
++
++    def test_native_logger_exact_peak_not_mean_of_step_maxima(self):
++        from rsl_rl.utils.logger import Logger
++        from tensorboard.backend.event_processing.event_accumulator import EventAccumulator
++        from grallator_rl.tasks.walking_direct.diagnostics import WalkingDiagnostics
++        a=self.make();self.sample(a,torch.ones(2,12));self.sample(a,torch.full((2,12),-9.))
++        with tempfile.TemporaryDirectory() as path:
++            logger=Logger(path,{'algorithm':{},'num_steps_per_env':2,'logger':'tensorboard'}, {},2,False,1,0,'cpu')
++            logger.init_logging_writer()
++            first={'Reward_Rate/total':torch.tensor(1.)};last={'Reward_Rate/total':torch.tensor(2.)}
++            for snapshot in (first,last):logger.process_env_step(torch.ones(2),torch.zeros(2),{'log':snapshot})
++            diagnostics=WalkingDiagnostics(2,'cpu')
++            class Adapter:accumulator=a
++            diagnostics.torque=Adapter()
++            diagnostics.reset([0],{})  # episode reset must not lose interval peaks
++            diagnostics.publish_torque_iteration(last)
++            self.assertFalse(any(key.startswith('Torque/') for key in first))
++            logger.log(0,0,1,.01,.01,{},1e-5,torch.ones(12),None,print_minimal=True)
++            logger.stop_logging_writer()
++            events=EventAccumulator(path).Reload()
++            expected={f'Torque/{group}/{joint}' for group in
++                      ('PeakAbs_Nm','MaxEver_Nm','MeanAbs_Nm','P95Abs_Nm','EffortLimitFraction') for joint in JOINT_NAMES}
++            expected|={'Torque/OverallPeakAbs_Nm','Torque/OverallMaxEver_Nm'}
++            self.assertTrue(expected.issubset(events.Tags()['scalars']))
++            self.assertEqual(events.Scalars('Torque/OverallPeakAbs_Nm')[0].value,9.)
++            self.assertEqual(events.Scalars('Torque/MeanAbs_Nm/'+JOINT_NAMES[0])[0].value,5.)
++
++
++if __name__=='__main__':unittest.main(verbosity=2)

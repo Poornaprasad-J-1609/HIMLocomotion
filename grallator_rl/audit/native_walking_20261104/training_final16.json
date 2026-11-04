@@ -1,0 +1,1108 @@
+{
+  "log_dir": "/home/poornaprasad/RL/Quadruped/IsaacLab/logs/rsl_rl/grallator_him_walking_native/2026-11-04_12-44-44_audit_final16",
+  "checkpoint": "/home/poornaprasad/RL/Quadruped/IsaacLab/logs/rsl_rl/grallator_him_walking_native/2026-11-04_12-44-44_audit_final16/model_2.pt",
+  "iteration": 2,
+  "changed_tensors": {
+    "actor_state_dict": [
+      "distribution.std_param",
+      "mlp.0.weight",
+      "mlp.0.bias",
+      "mlp.2.weight",
+      "mlp.2.bias",
+      "mlp.4.weight",
+      "mlp.4.bias",
+      "mlp.6.weight",
+      "mlp.6.bias",
+      "estimator.encoder.0.weight",
+      "estimator.encoder.0.bias",
+      "estimator.encoder.2.weight",
+      "estimator.encoder.2.bias",
+      "estimator.encoder.4.weight",
+      "estimator.encoder.4.bias",
+      "estimator.target.0.weight",
+      "estimator.target.0.bias",
+      "estimator.target.2.weight",
+      "estimator.target.2.bias",
+      "estimator.target.4.weight",
+      "estimator.target.4.bias",
+      "estimator.prototypes.weight"
+    ],
+    "critic_state_dict": [
+      "obs_normalizer._mean",
+      "obs_normalizer._var",
+      "obs_normalizer._std",
+      "obs_normalizer.count",
+      "mlp.0.weight",
+      "mlp.0.bias",
+      "mlp.2.weight",
+      "mlp.2.bias",
+      "mlp.4.weight",
+      "mlp.4.bias",
+      "mlp.6.weight",
+      "mlp.6.bias"
+    ]
+  },
+  "optimizer_state_count": 17,
+  "hio_optimizer_state_count": 13,
+  "scalar_count": 75,
+  "scalars": {
+    "Reward_Rate/track_xy": [
+      {
+        "step": 0,
+        "value": 0.3534242808818817
+      },
+      {
+        "step": 1,
+        "value": 0.8601991534233093
+      },
+      {
+        "step": 2,
+        "value": 1.0674633979797363
+      }
+    ],
+    "Reward_Rate/track_yaw": [
+      {
+        "step": 0,
+        "value": 0.891882061958313
+      },
+      {
+        "step": 1,
+        "value": 0.9722766876220703
+      },
+      {
+        "step": 2,
+        "value": 0.9761565923690796
+      }
+    ],
+    "Reward_Rate/height": [
+      {
+        "step": 0,
+        "value": 0.1876215636730194
+      },
+      {
+        "step": 1,
+        "value": 0.37806734442710876
+      },
+      {
+        "step": 2,
+        "value": 0.3972439765930176
+      }
+    ],
+    "Reward_Rate/upright": [
+      {
+        "step": 0,
+        "value": -0.001409253105521202
+      },
+      {
+        "step": 1,
+        "value": -0.0003317307564429939
+      },
+      {
+        "step": 2,
+        "value": -0.0001561527606099844
+      }
+    ],
+    "Reward_Rate/vertical_velocity": [
+      {
+        "step": 0,
+        "value": -0.1813974827528
+      },
+      {
+        "step": 1,
+        "value": -0.000541560584679246
+      },
+      {
+        "step": 2,
+        "value": -0.0004010385018773377
+      }
+    ],
+    "Reward_Rate/joint_velocity": [
+      {
+        "step": 0,
+        "value": -0.05213598534464836
+      },
+      {
+        "step": 1,
+        "value": -0.0019213473424315453
+      },
+      {
+        "step": 2,
+        "value": -0.001667069154791534
+      }
+    ],
+    "Reward_Rate/action_rate": [
+      {
+        "step": 0,
+        "value": -0.016889920458197594
+      },
+      {
+        "step": 1,
+        "value": -0.002818119479343295
+      },
+      {
+        "step": 2,
+        "value": -0.002547714626416564
+      }
+    ],
+    "Reward_Rate/action_magnitude": [
+      {
+        "step": 0,
+        "value": -0.0024674341548234224
+      },
+      {
+        "step": 1,
+        "value": -0.0011838991194963455
+      },
+      {
+        "step": 2,
+        "value": -0.0010801933240145445
+      }
+    ],
+    "Reward_Rate/undesired_contact": [
+      {
+        "step": 0,
+        "value": -1.4479167461395264
+      },
+      {
+        "step": 1,
+        "value": -0.7760416865348816
+      },
+      {
+        "step": 2,
+        "value": -0.34375
+      }
+    ],
+    "Reward_Rate/feet_air_time": [
+      {
+        "step": 0,
+        "value": 0.0
+      },
+      {
+        "step": 1,
+        "value": 0.0
+      },
+      {
+        "step": 2,
+        "value": 0.0
+      }
+    ],
+    "Reward_Rate/stance_slip": [
+      {
+        "step": 0,
+        "value": 0.0
+      },
+      {
+        "step": 1,
+        "value": 0.0
+      },
+      {
+        "step": 2,
+        "value": 0.0
+      }
+    ],
+    "Reward_Rate/trot_sync": [
+      {
+        "step": 0,
+        "value": 0.0
+      },
+      {
+        "step": 1,
+        "value": 0.0
+      },
+      {
+        "step": 2,
+        "value": 0.0
+      }
+    ],
+    "Reward_Rate/time_imbalance": [
+      {
+        "step": 0,
+        "value": 0.0
+      },
+      {
+        "step": 1,
+        "value": 0.0
+      },
+      {
+        "step": 2,
+        "value": 0.0
+      }
+    ],
+    "Reward_Rate/roll_pitch_velocity": [
+      {
+        "step": 0,
+        "value": 0.0
+      },
+      {
+        "step": 1,
+        "value": 0.0
+      },
+      {
+        "step": 2,
+        "value": 0.0
+      }
+    ],
+    "Reward_Rate/vertical_acceleration": [
+      {
+        "step": 0,
+        "value": 0.0
+      },
+      {
+        "step": 1,
+        "value": 0.0
+      },
+      {
+        "step": 2,
+        "value": 0.0
+      }
+    ],
+    "Reward_Rate/joint_acceleration": [
+      {
+        "step": 0,
+        "value": 0.0
+      },
+      {
+        "step": 1,
+        "value": 0.0
+      },
+      {
+        "step": 2,
+        "value": 0.0
+      }
+    ],
+    "Reward_Rate/joint_torque": [
+      {
+        "step": 0,
+        "value": 0.0
+      },
+      {
+        "step": 1,
+        "value": 0.0
+      },
+      {
+        "step": 2,
+        "value": 0.0
+      }
+    ],
+    "Reward_Rate/joint_position": [
+      {
+        "step": 0,
+        "value": 0.0
+      },
+      {
+        "step": 1,
+        "value": 0.0
+      },
+      {
+        "step": 2,
+        "value": 0.0
+      }
+    ],
+    "Reward_Rate/mechanical_power": [
+      {
+        "step": 0,
+        "value": 0.0
+      },
+      {
+        "step": 1,
+        "value": 0.0
+      },
+      {
+        "step": 2,
+        "value": 0.0
+      }
+    ],
+    "Reward_Rate/total": [
+      {
+        "step": 0,
+        "value": -0.26928889751434326
+      },
+      {
+        "step": 1,
+        "value": 1.4277050495147705
+      },
+      {
+        "step": 2,
+        "value": 2.091261625289917
+      }
+    ],
+    "Walking/Commands/vx_mps": [
+      {
+        "step": 0,
+        "value": 0.18222510814666748
+      },
+      {
+        "step": 1,
+        "value": 0.18222510814666748
+      },
+      {
+        "step": 2,
+        "value": 0.18222510814666748
+      }
+    ],
+    "Diagnostics/command_vx_mps": [
+      {
+        "step": 0,
+        "value": 0.18222510814666748
+      },
+      {
+        "step": 1,
+        "value": 0.18222510814666748
+      },
+      {
+        "step": 2,
+        "value": 0.18222510814666748
+      }
+    ],
+    "Walking/Commands/vy_mps": [
+      {
+        "step": 0,
+        "value": 0.0
+      },
+      {
+        "step": 1,
+        "value": 0.0
+      },
+      {
+        "step": 2,
+        "value": 0.0
+      }
+    ],
+    "Diagnostics/command_vy_mps": [
+      {
+        "step": 0,
+        "value": 0.0
+      },
+      {
+        "step": 1,
+        "value": 0.0
+      },
+      {
+        "step": 2,
+        "value": 0.0
+      }
+    ],
+    "Walking/Commands/yaw_radps": [
+      {
+        "step": 0,
+        "value": 0.0
+      },
+      {
+        "step": 1,
+        "value": 0.0
+      },
+      {
+        "step": 2,
+        "value": 0.0
+      }
+    ],
+    "Diagnostics/command_yaw_radps": [
+      {
+        "step": 0,
+        "value": 0.0
+      },
+      {
+        "step": 1,
+        "value": 0.0
+      },
+      {
+        "step": 2,
+        "value": 0.0
+      }
+    ],
+    "Walking/Tracking/actual_vx_mps": [
+      {
+        "step": 0,
+        "value": -0.1435253620147705
+      },
+      {
+        "step": 1,
+        "value": -0.021202024072408676
+      },
+      {
+        "step": 2,
+        "value": 0.0005139223649166524
+      }
+    ],
+    "Diagnostics/actual_vx_mps": [
+      {
+        "step": 0,
+        "value": -0.1435253620147705
+      },
+      {
+        "step": 1,
+        "value": -0.021202024072408676
+      },
+      {
+        "step": 2,
+        "value": 0.0005139223649166524
+      }
+    ],
+    "Walking/Tracking/actual_vy_mps": [
+      {
+        "step": 0,
+        "value": 0.008696182630956173
+      },
+      {
+        "step": 1,
+        "value": 0.009161711670458317
+      },
+      {
+        "step": 2,
+        "value": 0.0018810108304023743
+      }
+    ],
+    "Diagnostics/actual_vy_mps": [
+      {
+        "step": 0,
+        "value": 0.008696182630956173
+      },
+      {
+        "step": 1,
+        "value": 0.009161711670458317
+      },
+      {
+        "step": 2,
+        "value": 0.0018810108304023743
+      }
+    ],
+    "Walking/Tracking/actual_yaw_radps": [
+      {
+        "step": 0,
+        "value": 0.05926768481731415
+      },
+      {
+        "step": 1,
+        "value": 0.016449999064207077
+      },
+      {
+        "step": 2,
+        "value": -0.004396948963403702
+      }
+    ],
+    "Walking/Tracking/vx_mae_mps": [
+      {
+        "step": 0,
+        "value": 0.25060200691223145
+      },
+      {
+        "step": 1,
+        "value": 0.23164992034435272
+      },
+      {
+        "step": 2,
+        "value": 0.2077711671590805
+      }
+    ],
+    "Walking/Tracking/xy_error_mps": [
+      {
+        "step": 0,
+        "value": 0.2538319528102875
+      },
+      {
+        "step": 1,
+        "value": 0.2367745339870453
+      },
+      {
+        "step": 2,
+        "value": 0.20945724844932556
+      }
+    ],
+    "Walking/Tracking/raw_xy_error_mps": [
+      {
+        "step": 0,
+        "value": 0.32983407378196716
+      },
+      {
+        "step": 1,
+        "value": 0.211964413523674
+      },
+      {
+        "step": 2,
+        "value": 0.18620669841766357
+      }
+    ],
+    "Walking/Tracking/valid_fraction": [
+      {
+        "step": 0,
+        "value": 0.65625
+      },
+      {
+        "step": 1,
+        "value": 0.875
+      },
+      {
+        "step": 2,
+        "value": 0.875
+      }
+    ],
+    "Walking/Gait/contact_count": [
+      {
+        "step": 0,
+        "value": 2.6848959922790527
+      },
+      {
+        "step": 1,
+        "value": 3.9921875
+      },
+      {
+        "step": 2,
+        "value": 4.0
+      }
+    ],
+    "Walking/Gait/airborne_pct": [
+      {
+        "step": 0,
+        "value": 32.87760543823242
+      },
+      {
+        "step": 1,
+        "value": 0.1953125
+      },
+      {
+        "step": 2,
+        "value": 0.0
+      }
+    ],
+    "Walking/Gait/liftoffs": [
+      {
+        "step": 0,
+        "value": 0.0572916679084301
+      },
+      {
+        "step": 1,
+        "value": 0.0
+      },
+      {
+        "step": 2,
+        "value": 0.0
+      }
+    ],
+    "Walking/Gait/touchdowns": [
+      {
+        "step": 0,
+        "value": 0.0
+      },
+      {
+        "step": 1,
+        "value": 0.0
+      },
+      {
+        "step": 2,
+        "value": 0.0
+      }
+    ],
+    "Walking/Gait/qualified_airtime_s": [
+      {
+        "step": 0,
+        "value": 0.0
+      },
+      {
+        "step": 1,
+        "value": 0.0
+      },
+      {
+        "step": 2,
+        "value": 0.0
+      }
+    ],
+    "Walking/Gait/stance_slip_mps": [
+      {
+        "step": 0,
+        "value": 0.3141326904296875
+      },
+      {
+        "step": 1,
+        "value": 0.06138467788696289
+      },
+      {
+        "step": 2,
+        "value": 0.052162863314151764
+      }
+    ],
+    "Walking/Stability/height_error_cm": [
+      {
+        "step": 0,
+        "value": 4.768893718719482
+      },
+      {
+        "step": 1,
+        "value": 2.10721492767334
+      },
+      {
+        "step": 2,
+        "value": 1.9141836166381836
+      }
+    ],
+    "Walking/Stability/undesired_contact_pct": [
+      {
+        "step": 0,
+        "value": 72.39583587646484
+      },
+      {
+        "step": 1,
+        "value": 38.802085876464844
+      },
+      {
+        "step": 2,
+        "value": 17.1875
+      }
+    ],
+    "Walking/Stability/action_near_limit_pct": [
+      {
+        "step": 0,
+        "value": 8.289931297302246
+      },
+      {
+        "step": 1,
+        "value": 0.0868055671453476
+      },
+      {
+        "step": 2,
+        "value": 0.0434027835726738
+      }
+    ],
+    "Walking/Stability/fall_fraction": [
+      {
+        "step": 0,
+        "value": 0.0
+      },
+      {
+        "step": 1,
+        "value": 0.0
+      },
+      {
+        "step": 2,
+        "value": 0.0
+      }
+    ],
+    "Diagnostics/actual_yaw_radps": [
+      {
+        "step": 0,
+        "value": 0.05926768481731415
+      },
+      {
+        "step": 1,
+        "value": 0.016449999064207077
+      },
+      {
+        "step": 2,
+        "value": -0.004396948963403702
+      }
+    ],
+    "Diagnostics/vx_mae_mps": [
+      {
+        "step": 0,
+        "value": 0.3257961571216583
+      },
+      {
+        "step": 1,
+        "value": 0.20639336109161377
+      },
+      {
+        "step": 2,
+        "value": 0.18394741415977478
+      }
+    ],
+    "Diagnostics/vy_mae_mps": [
+      {
+        "step": 0,
+        "value": 0.03392404317855835
+      },
+      {
+        "step": 1,
+        "value": 0.0357290655374527
+      },
+      {
+        "step": 2,
+        "value": 0.020219743251800537
+      }
+    ],
+    "Diagnostics/xy_vel_error_mps": [
+      {
+        "step": 0,
+        "value": 0.32983407378196716
+      },
+      {
+        "step": 1,
+        "value": 0.211964413523674
+      },
+      {
+        "step": 2,
+        "value": 0.18620669841766357
+      }
+    ],
+    "Diagnostics/yaw_error_radps": [
+      {
+        "step": 0,
+        "value": 0.11042709648609161
+      },
+      {
+        "step": 1,
+        "value": 0.055506229400634766
+      },
+      {
+        "step": 2,
+        "value": 0.04969680309295654
+      }
+    ],
+    "Diagnostics/command_speed_mps": [
+      {
+        "step": 0,
+        "value": 0.18222510814666748
+      },
+      {
+        "step": 1,
+        "value": 0.18222510814666748
+      },
+      {
+        "step": 2,
+        "value": 0.18222510814666748
+      }
+    ],
+    "Diagnostics/actual_speed_mps": [
+      {
+        "step": 0,
+        "value": 0.1547996550798416
+      },
+      {
+        "step": 1,
+        "value": 0.05660712718963623
+      },
+      {
+        "step": 2,
+        "value": 0.0302287545055151
+      }
+    ],
+    "Diagnostics/moving_xy_error_mps": [
+      {
+        "step": 0,
+        "value": 0.2538319528102875
+      },
+      {
+        "step": 1,
+        "value": 0.2367745339870453
+      },
+      {
+        "step": 2,
+        "value": 0.20945724844932556
+      }
+    ],
+    "Diagnostics/moving_command_pct": [
+      {
+        "step": 0,
+        "value": 65.625
+      },
+      {
+        "step": 1,
+        "value": 87.5
+      },
+      {
+        "step": 2,
+        "value": 87.5
+      }
+    ],
+    "Diagnostics/height_error_cm": [
+      {
+        "step": 0,
+        "value": 4.768893718719482
+      },
+      {
+        "step": 1,
+        "value": 2.10721492767334
+      },
+      {
+        "step": 2,
+        "value": 1.9141836166381836
+      }
+    ],
+    "Diagnostics/action_near_limit_pct": [
+      {
+        "step": 0,
+        "value": 8.289931297302246
+      },
+      {
+        "step": 1,
+        "value": 0.0868055671453476
+      },
+      {
+        "step": 2,
+        "value": 0.0434027835726738
+      }
+    ],
+    "Diagnostics/undesired_contact_pct": [
+      {
+        "step": 0,
+        "value": 72.39583587646484
+      },
+      {
+        "step": 1,
+        "value": 38.802085876464844
+      },
+      {
+        "step": 2,
+        "value": 17.1875
+      }
+    ],
+    "Diagnostics/feet_contact_count": [
+      {
+        "step": 0,
+        "value": 2.6848959922790527
+      },
+      {
+        "step": 1,
+        "value": 3.9921875
+      },
+      {
+        "step": 2,
+        "value": 4.0
+      }
+    ],
+    "Diagnostics/all_feet_contact_pct": [
+      {
+        "step": 0,
+        "value": 47.395835876464844
+      },
+      {
+        "step": 1,
+        "value": 99.21875
+      },
+      {
+        "step": 2,
+        "value": 100.0
+      }
+    ],
+    "Diagnostics/airborne_pct_cumulative": [
+      {
+        "step": 0,
+        "value": 46.81440353393555
+      },
+      {
+        "step": 1,
+        "value": 25.036550521850586
+      },
+      {
+        "step": 2,
+        "value": 13.490484237670898
+      }
+    ],
+    "Diagnostics/liftoffs_per_1000_foot_steps": [
+      {
+        "step": 0,
+        "value": 27.6070556640625
+      },
+      {
+        "step": 1,
+        "value": 13.613067626953125
+      },
+      {
+        "step": 2,
+        "value": 7.328164577484131
+      }
+    ],
+    "Walking/Tracking/reset_excluded_fraction": [
+      {
+        "step": 0,
+        "value": 0.25
+      },
+      {
+        "step": 1,
+        "value": 0.0
+      },
+      {
+        "step": 2,
+        "value": 0.0
+      }
+    ],
+    "Loss/value": [
+      {
+        "step": 0,
+        "value": 0.04959341511130333
+      },
+      {
+        "step": 1,
+        "value": 0.042135246098041534
+      },
+      {
+        "step": 2,
+        "value": 0.04813579469919205
+      }
+    ],
+    "Loss/surrogate": [
+      {
+        "step": 0,
+        "value": -0.0498492605984211
+      },
+      {
+        "step": 1,
+        "value": -0.027979109436273575
+      },
+      {
+        "step": 2,
+        "value": -0.02601734735071659
+      }
+    ],
+    "Loss/entropy": [
+      {
+        "step": 0,
+        "value": -8.416346549987793
+      },
+      {
+        "step": 1,
+        "value": -8.420759201049805
+      },
+      {
+        "step": 2,
+        "value": -8.438971519470215
+      }
+    ],
+    "Loss/ppo_kl": [
+      {
+        "step": 0,
+        "value": 0.04197382926940918
+      },
+      {
+        "step": 1,
+        "value": 0.02116589993238449
+      },
+      {
+        "step": 2,
+        "value": 0.03856480494141579
+      }
+    ],
+    "Loss/hio_velocity_mse": [
+      {
+        "step": 0,
+        "value": 0.0069475979544222355
+      },
+      {
+        "step": 1,
+        "value": 0.0014174148673191667
+      },
+      {
+        "step": 2,
+        "value": 0.0009355653892271221
+      }
+    ],
+    "Loss/hio_swap_loss": [
+      {
+        "step": 0,
+        "value": 0.09871991723775864
+      },
+      {
+        "step": 1,
+        "value": 0.10103064030408859
+      },
+      {
+        "step": 2,
+        "value": 0.10390303283929825
+      }
+    ],
+    "Loss/hio_pairs": [
+      {
+        "step": 0,
+        "value": 368.0
+      },
+      {
+        "step": 1,
+        "value": 368.0
+      },
+      {
+        "step": 2,
+        "value": 368.0
+      }
+    ],
+    "Loss/post_hio_kl": [
+      {
+        "step": 0,
+        "value": 0.041870057582855225
+      },
+      {
+        "step": 1,
+        "value": 0.021040787920355797
+      },
+      {
+        "step": 2,
+        "value": 0.03888707980513573
+      }
+    ],
+    "Loss/learning_rate": [
+      {
+        "step": 0,
+        "value": 9.999999747378752e-06
+      },
+      {
+        "step": 1,
+        "value": 9.999999747378752e-06
+      },
+      {
+        "step": 2,
+        "value": 9.999999747378752e-06
+      }
+    ],
+    "Policy/mean_std": [
+      {
+        "step": 0,
+        "value": 0.11999914795160294
+      },
+      {
+        "step": 1,
+        "value": 0.11989983171224594
+      },
+      {
+        "step": 2,
+        "value": 0.11969339847564697
+      }
+    ],
+    "Perf/total_fps": [
+      {
+        "step": 0,
+        "value": 268.0
+      },
+      {
+        "step": 1,
+        "value": 1744.0
+      },
+      {
+        "step": 2,
+        "value": 1817.0
+      }
+    ],
+    "Perf/collection_time": [
+      {
+        "step": 0,
+        "value": 1.156980276107788
+      },
+      {
+        "step": 1,
+        "value": 0.14442777633666992
+      },
+      {
+        "step": 2,
+        "value": 0.14301323890686035
+      }
+    ],
+    "Perf/learning_time": [
+      {
+        "step": 0,
+        "value": 0.2727317810058594
+      },
+      {
+        "step": 1,
+        "value": 0.07575345039367676
+      },
+      {
+        "step": 2,
+        "value": 0.06823110580444336
+      }
+    ]
+  },
+  "provenance": {
+    "source": "/home/poornaprasad/RL/Quadruped/IsaacLab/logs/rsl_rl/grallator_him_standing/2026-11-03_21-06-02_middle_pose_038_resume/model_1700.pt",
+    "source_sha256": "10c9f75518359d9206c66c42f0a51ba6a68f84fcadd4f26c2b323dfd142c8ced",
+    "warm_start": "/home/poornaprasad/RL/Quadruped/grallator_rl/checkpoints/walking_from_standing.pt",
+    "original_std_mean": 0.019551029428839684,
+    "warm_std_mean": 0.11999999731779099,
+    "iteration": 0
+  }
+}

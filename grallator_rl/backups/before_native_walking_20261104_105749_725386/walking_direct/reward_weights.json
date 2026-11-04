@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "task": "grallator_flat_walking",
+  "parameters": {
+    "track_xy": 4.0,
+    "track_yaw": 1.0,
+    "upright": 0.6,
+    "height": 0.5,
+    "vertical_velocity": 0.4,
+    "joint_velocity": 0.01,
+    "action_rate": 0.05,
+    "action_magnitude": 0.01,
+    "undesired_contact": 2.0,
+    "xy_sigma": 0.15,
+    "yaw_sigma": 0.4,
+    "height_sigma": 0.04
+  }
+}

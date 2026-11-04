@@ -1,0 +1,96 @@
+Warp CUDA error 100: no CUDA-capable device is detected (in function init_cuda_driver, /builds/omniverse/warp/warp/native/cuda_util.cpp:333)
+Native walking: height=0.380 m, envs=16, iterations=2
+Starting checkpoint: /home/poornaprasad/RL/Quadruped/grallator_rl/checkpoints/walking_from_standing.pt
+Rewards: grallator_rl/tasks/walking_direct/reward_cfg.py
+[INFO]: Parsing configuration from: grallator_rl.him.walking_env_adapter:WalkingHIMEnvCfg
+[INFO]: Parsing configuration from: grallator_rl.him.him_ppo_cfg:HIMPPORunnerCfg
+
+╭─ Isaac Lab · train ────────────────────────────╮      [0m
+│ Task          GrallatorRl-HIM-Walking-Direct   │      [0m
+│ Workflow      direct                           │      [0m          [38;2;118;185;0m\[0m   [38;2;118;185;0m/[0m
+│ RL library    rsl_rl                           │      [0m        [38;2;232;228;214m.-------.[0m
+│ Physics       newton_mjwarp                    │      [0m        [38;2;232;228;214m|[0m [38;2;77;217;232mo[0m   [38;2;77;217;232mo[0m [38;2;232;228;214m|[0m
+│ Renderer      n/a (no camera sensors)          │      [0m        [38;2;232;228;214m|[0m   [38;2;232;228;214m_[0m   [38;2;232;228;214m|[0m
+│ Visualizer    none (headless)                  │      [0m        [38;2;232;228;214m'-------'[0m
+│ Device        cuda:0                           │      [0m
+│ Environments  16                               │      [0m[38;2;150;154;160mWelcome[0m [38;2;150;154;160mto[0m [38;2;150;154;160mIsaac[0m [38;2;150;154;160mLab[0m [38;2;150;154;160m3![0m
+╰────────────────────────────────────────────────╯      [0m
+                                                        [0m
+                                                        [0m
+
+[1/3] Launching simulation
+[INFO] Logging experiment in directory: /home/poornaprasad/RL/Quadruped/IsaacLab/logs/rsl_rl/grallator_him_standing
+Exact experiment name requested from command line: 2026-11-04_12-07-51
+[2/3] Creating environment
+Traceback (most recent call last):
+  File "/home/poornaprasad/RL/Quadruped/IsaacLab/source/isaaclab/isaaclab/app/sim_launcher.py", line 677, in launch_simulation
+    yield physics_cfg
+  File "/home/poornaprasad/RL/Quadruped/IsaacLab/source/isaaclab_rl/isaaclab_rl/entrypoints/backends/train_rsl_rl.py", line 163, in _run
+    env = create_isaaclab_env(
+          ^^^^^^^^^^^^^^^^^^^^
+  File "/home/poornaprasad/RL/Quadruped/IsaacLab/source/isaaclab_rl/isaaclab_rl/entrypoints/common.py", line 552, in create_isaaclab_env
+    env = gym.make(task, cfg=env_cfg)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/poornaprasad/RL/Quadruped/IsaacLab/.venv/lib/python3.12/site-packages/gymnasium/envs/registration.py", line 735, in make
+    env = env_creator(**env_spec_kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/poornaprasad/RL/Quadruped/grallator_rl/src/grallator_rl/him/walking_env_adapter.py", line 29, in __init__
+    super().__init__(cfg, render_mode=render_mode, **kwargs)
+  File "/home/poornaprasad/RL/Quadruped/grallator_rl/src/grallator_rl/tasks/walking_direct/env.py", line 20, in __init__
+    super().__init__(cfg, render_mode=render_mode, **kwargs)
+  File "/home/poornaprasad/RL/Quadruped/grallator_rl/src/grallator_rl/tasks/standing_direct/config/grallator/env.py", line 34, in __init__
+    super().__init__(cfg, render_mode, **kwargs)
+  File "/home/poornaprasad/RL/Quadruped/IsaacLab/source/isaaclab/isaaclab/envs/direct_rl_env.py", line 106, in __init__
+    self.sim: SimulationContext = SimulationContext(self.cfg.sim)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/poornaprasad/RL/Quadruped/IsaacLab/source/isaaclab/isaaclab/sim/simulation_context.py", line 164, in __init__
+    self._init_usd_physics_scene()
+  File "/home/poornaprasad/RL/Quadruped/IsaacLab/source/isaaclab/isaaclab/sim/simulation_context.py", line 276, in _init_usd_physics_scene
+    gravity = torch.tensor(cfg.gravity, dtype=torch.float32, device=self.cfg.device)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/poornaprasad/RL/Quadruped/IsaacLab/.venv/lib/python3.12/site-packages/torch/cuda/__init__.py", line 478, in _lazy_init
+    torch._C._cuda_init()
+RuntimeError: No CUDA GPUs are available
+Traceback (most recent call last):
+  File "/home/poornaprasad/RL/Quadruped/IsaacLab/../grallator_rl/scripts/train_walking.py", line 54, in <module>
+    main()
+  File "/home/poornaprasad/RL/Quadruped/IsaacLab/../grallator_rl/scripts/train_walking.py", line 50, in main
+    raise SystemExit(run_train_cli(argv))
+                     ^^^^^^^^^^^^^^^^^^^
+  File "/home/poornaprasad/RL/Quadruped/IsaacLab/source/isaaclab_rl/isaaclab_rl/entrypoints/dispatch.py", line 50, in run_train_cli
+    return run_cli("train", argv)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/poornaprasad/RL/Quadruped/IsaacLab/source/isaaclab_rl/isaaclab_rl/entrypoints/dispatch.py", line 105, in run_cli
+    status = _run_backend(backends[library], backend_argv)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/poornaprasad/RL/Quadruped/IsaacLab/source/isaaclab_rl/isaaclab_rl/entrypoints/dispatch.py", line 176, in _run_backend
+    return module.run(argv)
+           ^^^^^^^^^^^^^^^^
+  File "/home/poornaprasad/RL/Quadruped/IsaacLab/source/isaaclab_rl/isaaclab_rl/entrypoints/backends/train_rsl_rl.py", line 120, in run
+    _run(args_cli)
+  File "/home/poornaprasad/RL/Quadruped/IsaacLab/source/isaaclab_rl/isaaclab_rl/entrypoints/backends/train_rsl_rl.py", line 163, in _run
+    env = create_isaaclab_env(
+          ^^^^^^^^^^^^^^^^^^^^
+  File "/home/poornaprasad/RL/Quadruped/IsaacLab/source/isaaclab_rl/isaaclab_rl/entrypoints/common.py", line 552, in create_isaaclab_env
+    env = gym.make(task, cfg=env_cfg)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/poornaprasad/RL/Quadruped/IsaacLab/.venv/lib/python3.12/site-packages/gymnasium/envs/registration.py", line 735, in make
+    env = env_creator(**env_spec_kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/poornaprasad/RL/Quadruped/grallator_rl/src/grallator_rl/him/walking_env_adapter.py", line 29, in __init__
+    super().__init__(cfg, render_mode=render_mode, **kwargs)
+  File "/home/poornaprasad/RL/Quadruped/grallator_rl/src/grallator_rl/tasks/walking_direct/env.py", line 20, in __init__
+    super().__init__(cfg, render_mode=render_mode, **kwargs)
+  File "/home/poornaprasad/RL/Quadruped/grallator_rl/src/grallator_rl/tasks/standing_direct/config/grallator/env.py", line 34, in __init__
+    super().__init__(cfg, render_mode, **kwargs)
+  File "/home/poornaprasad/RL/Quadruped/IsaacLab/source/isaaclab/isaaclab/envs/direct_rl_env.py", line 106, in __init__
+    self.sim: SimulationContext = SimulationContext(self.cfg.sim)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/poornaprasad/RL/Quadruped/IsaacLab/source/isaaclab/isaaclab/sim/simulation_context.py", line 164, in __init__
+    self._init_usd_physics_scene()
+  File "/home/poornaprasad/RL/Quadruped/IsaacLab/source/isaaclab/isaaclab/sim/simulation_context.py", line 276, in _init_usd_physics_scene
+    gravity = torch.tensor(cfg.gravity, dtype=torch.float32, device=self.cfg.device)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/poornaprasad/RL/Quadruped/IsaacLab/.venv/lib/python3.12/site-packages/torch/cuda/__init__.py", line 478, in _lazy_init
+    torch._C._cuda_init()
+RuntimeError: No CUDA GPUs are available

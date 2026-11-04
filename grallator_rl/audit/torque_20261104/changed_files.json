@@ -1,0 +1,32 @@
+[
+  {
+    "path": "grallator_rl/scripts/audit_torque_runtime.py",
+    "status": "new",
+    "sha256": "314a19675087d34aca020a46caa3c0700e1bdda114a96ce20f4db689fbce5cc8"
+  },
+  {
+    "path": "grallator_rl/src/grallator_rl/him/walking_ppo.py",
+    "status": "modified",
+    "sha256": "901057b5fd5a30949a888631e3e0cb209899bb3227a7afa892f76bb625578442"
+  },
+  {
+    "path": "grallator_rl/src/grallator_rl/tasks/walking_direct/diagnostics.py",
+    "status": "modified",
+    "sha256": "d1e9f50e4831304d0577478a7287028097471300e30396c5d9843129a1b7f68d"
+  },
+  {
+    "path": "grallator_rl/src/grallator_rl/tasks/walking_direct/env.py",
+    "status": "modified",
+    "sha256": "de22aaed46cb7206d11c7c1a956f6be79ee06ce359c3c380cd6796a8d26c7539"
+  },
+  {
+    "path": "grallator_rl/src/grallator_rl/tasks/walking_direct/torque_diagnostics.py",
+    "status": "new",
+    "sha256": "cd2af23bb376d338c40614673d95708de069cb721be66160736be6ec58a8e8d1"
+  },
+  {
+    "path": "grallator_rl/tests/test_torque_diagnostics.py",
+    "status": "new",
+    "sha256": "0199281e936a1706a651e57c887f6c941a9c3c942b4a755b7b7f8769c2b13fed"
+  }
+]

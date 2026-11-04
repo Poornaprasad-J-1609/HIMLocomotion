@@ -1,0 +1,48 @@
+Seed not set for the environment. The environment creation may not be deterministic.
+I: Initializing Version 2.74.0-release.7316+gl.ec99a64b
+I: Client ID: SP97HOVH
+I: ThreadId(02) hub_client::client::Client::new Launching client mode=Shared with_cleaner=false cache_path=None cache_size=None
+I: ThreadId(03) launch self=Launcher { discovery_lock: RwLock { lock: RwLock { inner: File { fd: 52, path: "/tmp/hub-poornaprasad.lock", read: false, write: true } } }, mode: Shared, with_cleaner: false, config_file: "/tmp/hub-poornaprasad-5458ACCB.config.json" } cmd="hub" "--mode=shared" "--write-config" "/tmp/hub-poornaprasad-5458ACCB.config.json" "--"
+I: Not using Hub: Hub not found
+I: Successfully created S3 provider for https://omniverse-content-production.s3-us-west-2.amazonaws.com
+I: Using CloudFront http://dcb18d6mfegct.cloudfront.net/, List = No
+Serving remote assets from the local cache under '/tmp'. Each copy is checked against the server before use; delete the directory to force a full re-download.
+/home/poornaprasad/RL/Quadruped/IsaacLab/source/isaaclab_newton/isaaclab_newton/cloner/newton_clone_utils.py:165: FutureWarning: Newton shape color replacement is enabled; this workaround will be deprecated in a future release.
+  replace_newton_builder_shape_colors(builder, stage)
+[INFO]: Base environment:
+	Environment device    : cuda:0
+	Environment seed      : None
+	Physics step-size     : 0.005
+	Rendering step-size   : 0.02
+	Environment step-size : 0.02
+[INFO]: Time taken for scene creation Last: 1.546349 s, Mean: 1.546349 s, Std: 0.000000 s, N: 1
+[INFO]: Scene manager:  <class InteractiveScene>
+	Number of environments: 2
+	Environment spacing   : 2.0
+	Source prim name      : /World/envs/env_0
+	Global prim paths     : []
+	Replicate physics     : True
+[INFO]: Starting the simulation. This may take a few seconds. Please wait...
+Finalize builder took: Last: 0.012109 s, Mean: 0.012109 s, Std: 0.000000 s, N: 1
+Contact sensor construction took: Last: 0.002451 s, Mean: 0.002451 s, Std: 0.000000 s, N: 1
+Initialize solver took: Last: 1.130147 s, Mean: 1.130147 s, Std: 0.000000 s, N: 1
+[INFO]: Time taken for simulation start Last: 1.254472 s, Mean: 1.254472 s, Std: 0.000000 s, N: 1
+[INFO]: Completed setting up the environment...
+MIDDLE_POSE joint order: ['BL_hip_joint', 'BL_thigh_joint', 'BL_calf_joint', 'BR_hip_joint', 'BR_thigh_joint', 'BR_calf_joint', 'FL_hip_joint', 'FL_thigh_joint', 'FL_calf_joint', 'FR_hip_joint', 'FR_thigh_joint', 'FR_calf_joint']
+Contact sensor body names: ['base_link', 'BL_hip', 'BL_thigh', 'BL_calf', 'BL_foot', 'BR_hip', 'BR_thigh', 'BR_calf', 'BR_foot', 'FL_hip', 'FL_thigh', 'FL_calf', 'FL_foot', 'FR_hip', 'FR_thigh', 'FR_calf', 'FR_foot']
+Non-foot contact bodies: ['base_link', 'BL_hip', 'BL_thigh', 'BL_calf', 'BR_hip', 'BR_thigh', 'BR_calf', 'FL_hip', 'FL_thigh', 'FL_calf', 'FR_hip', 'FR_thigh', 'FR_calf']
+MIDDLE_POSE reset z=0.270 m
+Single commanded standing z=0.410 m
+PROBE joint_names ['BL_hip_joint', 'BL_thigh_joint', 'BL_calf_joint', 'BR_hip_joint', 'BR_thigh_joint', 'BR_calf_joint', 'FL_hip_joint', 'FL_thigh_joint', 'FL_calf_joint', 'FR_hip_joint', 'FR_thigh_joint', 'FR_calf_joint']
+PROBE implicit True native False
+PROBE mode False managerdecimation 1
+PROBE solverfields ['body_free_qd_start', 'mj_q_start', 'mj_qd_start']
+PROBE mjjoints [('_World_envs_env_0_Robot_Geometry_base_link_free_joint', 0, 0), ('_World_envs_env_0_Robot_Physics_BL_hip_joint', 6, 3), ('_World_envs_env_0_Robot_Physics_BL_thigh_joint', 7, 3), ('_World_envs_env_0_Robot_Physics_BL_calf_joint', 8, 3), ('_World_envs_env_0_Robot_Physics_BR_hip_joint', 9, 3), ('_World_envs_env_0_Robot_Physics_BR_thigh_joint', 10, 3), ('_World_envs_env_0_Robot_Physics_BR_calf_joint', 11, 3), ('_World_envs_env_0_Robot_Physics_FL_hip_joint', 12, 3), ('_World_envs_env_0_Robot_Physics_FL_thigh_joint', 13, 3), ('_World_envs_env_0_Robot_Physics_FL_calf_joint', 14, 3), ('_World_envs_env_0_Robot_Physics_FR_hip_joint', 15, 3), ('_World_envs_env_0_Robot_Physics_FR_thigh_joint', 16, 3), ('_World_envs_env_0_Robot_Physics_FR_calf_joint', 17, 3)]
+PROBE mj data (2, 18) (2, 24)
+PROBE state attr None
+CUDA graph took: Last: 0.349283 s, Mean: 0.349283 s, Std: 0.000000 s, N: 1
+PROBE step 0 applied [15.927350997924805, -21.04856300354004, -63.866764068603516, 15.818251609802246, 41.19318389892578, 81.37382507324219, 4.231532096862793, -22.95221710205078, -65.7845230102539, 6.024242401123047, 44.64146041870117, 87.04328155517578] computed [15.927350997924805, -21.04856300354004, -63.866764068603516, 15.818251609802246, 41.19318389892578, 81.37382507324219, 4.231532096862793, -22.95221710205078, -65.7845230102539, 6.024242401123047, 44.64146041870117, 87.04328155517578] actual [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 15.927350997924805, -21.048561096191406, -63.86676788330078, 15.818252563476562, 41.19318389892578, 81.37382507324219, 4.231532096862793, -22.952219009399414, -65.7845230102539, 6.024243354797363, 44.64146041870117, 87.04327392578125]
+PROBE step 1 applied [13.659871101379395, -16.319931030273438, -74.64325714111328, 13.105023384094238, 31.41696548461914, 87.83560180664062, 0.23067384958267212, -23.907089233398438, -88.22222900390625, 2.42948842048645, 42.743736267089844, 100.0] computed [13.659871101379395, -16.319931030273438, -74.64325714111328, 13.105023384094238, 31.41696548461914, 87.83560180664062, 0.23067384958267212, -23.907089233398438, -88.22222900390625, 2.42948842048645, 42.743736267089844, 110.01296997070312] actual [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 13.659871101379395, -16.319929122924805, -74.64325714111328, 13.105024337768555, 31.41696548461914, 87.83560180664062, 0.23067402839660645, -23.907085418701172, -88.22223663330078, 2.429488182067871, 42.74374008178711, 100.0]
+PROBE step 2 applied [7.941354751586914, 3.465827465057373, -58.093536376953125, 6.902676582336426, 6.337891578674316, 66.43182373046875, -1.8870837688446045, -7.632963180541992, -80.07262420654297, 0.7918916344642639, 23.583133697509766, 100.0] computed [7.941354751586914, 3.465827465057373, -58.093536376953125, 6.902676582336426, 6.337891578674316, 66.43182373046875, -1.8870837688446045, -7.632963180541992, -80.07262420654297, 0.7918916344642639, 23.583133697509766, 104.05628967285156] actual [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 7.941354751586914, 3.4658241271972656, -58.093536376953125, 6.902677536010742, 6.337889671325684, 66.43183135986328, -1.8870840072631836, -7.63296365737915, -80.07261657714844, 0.7918918132781982, 23.58313751220703, 100.0]
+PROBE aliases True
+PROBE limits [100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0]

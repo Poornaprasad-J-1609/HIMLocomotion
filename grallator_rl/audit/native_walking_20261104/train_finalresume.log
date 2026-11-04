@@ -1,0 +1,192 @@
+Native walking: height=0.380 m, envs=16, iterations=1
+Starting checkpoint: /home/poornaprasad/RL/Quadruped/IsaacLab/logs/rsl_rl/grallator_him_walking_native/2026-11-04_12-44-44_audit_final16/model_2.pt
+Rewards: grallator_rl/tasks/walking_direct/reward_cfg.py
+[INFO]: Parsing configuration from: grallator_rl.him.walking_env_adapter:WalkingHIMEnvCfg
+[INFO]: Parsing configuration from: grallator_rl.him.walking_ppo_cfg:WalkingPPORunnerCfg
+
+╭─ Isaac Lab · train ────────────────────────────╮      [0m         [0m[38;2;118;185;0m▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄[0m
+│ Task          GrallatorRl-HIM-Walking-Direct   │      [0m      [0m[38;2;118;185;0m▄▄▄▛▀[0m[38;2;118;185;0m[48;2;118;185;0m             [0m
+│ Workflow      direct                           │      [0m  [0m[38;2;118;185;0m▗▄[0m[38;2;118;185;0m[48;2;118;185;0m  [0m[38;2;118;185;0m▀▀▜[0m[38;2;118;185;0m[48;2;118;185;0m   [0m[38;2;118;185;0m▄▄▀▜[0m[38;2;118;185;0m[48;2;118;185;0m        [0m
+│ RL library    rsl_rl                           │      [0m[38;2;118;185;0m▄[0m[38;2;118;185;0m[48;2;118;185;0m  [0m[38;2;118;185;0m▀▚▄[0m[38;2;118;185;0m[48;2;118;185;0m  [0m[38;2;118;185;0m▀▙▖[0m [0m[38;2;118;185;0m▀[0m[38;2;118;185;0m[48;2;118;185;0m  [0m[38;2;118;185;0m▄[0m [0m[38;2;118;185;0m▀[0m[38;2;118;185;0m[48;2;118;185;0m      [0m
+│ Physics       newton_mjwarp                    │      [0m[38;2;118;185;0m▝[0m[38;2;118;185;0m[48;2;118;185;0m  [0m[38;2;118;185;0m▖▝[0m[38;2;118;185;0m[48;2;118;185;0m [0m[38;2;118;185;0m▙[0m  [0m[38;2;118;185;0m[48;2;118;185;0m  [0m[38;2;118;185;0m▙▟[0m[38;2;118;185;0m[48;2;118;185;0m [0m[38;2;118;185;0m▛▘▄[0m[38;2;118;185;0m[48;2;118;185;0m       [0m
+│ Renderer      n/a (no camera sensors)          │      [0m [0m[38;2;118;185;0m▝[0m[38;2;118;185;0m[48;2;118;185;0m  [0m[38;2;118;185;0m▄▝▜[0m[38;2;118;185;0m[48;2;118;185;0m [0m[38;2;118;185;0m▄[0m[38;2;118;185;0m[48;2;118;185;0m  [0m[38;2;118;185;0m▛▀▚▄[0m[38;2;118;185;0m[48;2;118;185;0m  [0m[38;2;118;185;0m▛▘[0m [0m[38;2;118;185;0m▝▜[0m[38;2;118;185;0m[48;2;118;185;0m  [0m
+│ Visualizer    none (headless)                  │      [0m   [0m[38;2;118;185;0m▀[0m[38;2;118;185;0m[48;2;118;185;0m  [0m[38;2;118;185;0m▄▄[0m[38;2;118;185;0m[48;2;118;185;0m     [0m[38;2;118;185;0m▛▀▀▗▄▄▟[0m[38;2;118;185;0m[48;2;118;185;0m    [0m
+│ Device        cuda:0                           │      [0m      [0m[38;2;118;185;0m▀▀▀▙▄▄▄▟[0m[38;2;118;185;0m[48;2;118;185;0m          [0m
+│ Environments  16                               │      [0m         [0m[38;2;118;185;0m▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀[0m
+╰────────────────────────────────────────────────╯
+
+[1/3] Launching simulation
+[INFO] Logging experiment in directory: /home/poornaprasad/RL/Quadruped/IsaacLab/logs/rsl_rl/grallator_him_walking_native
+Exact experiment name requested from command line: 2026-11-04_12-48-19
+[2/3] Creating environment
+I: Initializing Version 2.74.0-release.7316+gl.ec99a64b
+I: Client ID: ZTT32NJY
+I: ThreadId(02) hub_client::client::Client::new Launching client mode=Shared with_cleaner=false cache_path=None cache_size=None
+I: ThreadId(03) launch self=Launcher { discovery_lock: RwLock { lock: RwLock { inner: File { fd: 51, path: "/tmp/hub-poornaprasad.lock", read: false, write: true } } }, mode: Shared, with_cleaner: false, config_file: "/tmp/hub-poornaprasad-54A953B8.config.json" } cmd="hub" "--mode=shared" "--write-config" "/tmp/hub-poornaprasad-54A953B8.config.json" "--"
+I: Not using Hub: Hub not found
+I: Successfully created S3 provider for https://omniverse-content-production.s3-us-west-2.amazonaws.com
+I: Using CloudFront http://dcb18d6mfegct.cloudfront.net/, List = No
+Serving remote assets from the local cache under '/tmp'. Each copy is checked against the server before use; delete the directory to force a full re-download.
+/home/poornaprasad/RL/Quadruped/IsaacLab/source/isaaclab_newton/isaaclab_newton/cloner/newton_clone_utils.py:165: FutureWarning: Newton shape color replacement is enabled; this workaround will be deprecated in a future release.
+  replace_newton_builder_shape_colors(builder, stage)
+[INFO]: Base environment:
+	Environment device    : cuda:0
+	Environment seed      : 42
+	Physics step-size     : 0.005
+	Rendering step-size   : 0.02
+	Environment step-size : 0.02
+[INFO]: Time taken for scene creation Last: 1.456911 s, Mean: 1.456911 s, Std: 0.000000 s, N: 1
+[INFO]: Scene manager:  <class InteractiveScene>
+	Number of environments: 16
+	Environment spacing   : 2.0
+	Source prim name      : /World/envs/env_0
+	Global prim paths     : []
+	Replicate physics     : True
+[INFO]: Starting the simulation. This may take a few seconds. Please wait...
+Finalize builder took: Last: 0.013474 s, Mean: 0.013474 s, Std: 0.000000 s, N: 1
+Contact sensor construction took: Last: 0.002068 s, Mean: 0.002068 s, Std: 0.000000 s, N: 1
+Initialize solver took: Last: 0.912322 s, Mean: 0.912322 s, Std: 0.000000 s, N: 1
+[INFO]: Time taken for simulation start Last: 1.036469 s, Mean: 1.036469 s, Std: 0.000000 s, N: 1
+[INFO]: Completed setting up the environment...
+MIDDLE_POSE joint order: ['BL_hip_joint', 'BL_thigh_joint', 'BL_calf_joint', 'BR_hip_joint', 'BR_thigh_joint', 'BR_calf_joint', 'FL_hip_joint', 'FL_thigh_joint', 'FL_calf_joint', 'FR_hip_joint', 'FR_thigh_joint', 'FR_calf_joint']
+Contact sensor body names: ['base_link', 'BL_hip', 'BL_thigh', 'BL_calf', 'BL_foot', 'BR_hip', 'BR_thigh', 'BR_calf', 'BR_foot', 'FL_hip', 'FL_thigh', 'FL_calf', 'FL_foot', 'FR_hip', 'FR_thigh', 'FR_calf', 'FR_foot']
+Non-foot contact bodies: ['base_link', 'BL_hip', 'BL_thigh', 'BL_calf', 'BR_hip', 'BR_thigh', 'BR_calf', 'FL_hip', 'FL_thigh', 'FL_calf', 'FR_hip', 'FR_thigh', 'FR_calf']
+MIDDLE_POSE reset z=0.270 m
+Single commanded standing z=0.380 m
+[3/3] Preparing agent
+--------------------------------------------------------------------------------
+Resolved observation sets: 
+	 actor :  ['policy']
+	 critic :  ['critic']
+--------------------------------------------------------------------------------
+Actor Model: HIMRslActorModel(
+  (obs_normalizer): Identity()
+  (distribution): GaussianDistribution()
+  (mlp): MLP(
+    (0): Linear(in_features=65, out_features=512, bias=True)
+    (1): ELU(alpha=1.0)
+    (2): Linear(in_features=512, out_features=256, bias=True)
+    (3): ELU(alpha=1.0)
+    (4): Linear(in_features=256, out_features=128, bias=True)
+    (5): ELU(alpha=1.0)
+    (6): Linear(in_features=128, out_features=12, bias=True)
+  )
+  (estimator): HIMEstimator(
+    (encoder): Sequential(
+      (0): Linear(in_features=270, out_features=128, bias=True)
+      (1): ELU(alpha=1.0)
+      (2): Linear(in_features=128, out_features=64, bias=True)
+      (3): ELU(alpha=1.0)
+      (4): Linear(in_features=64, out_features=19, bias=True)
+    )
+    (target): Sequential(
+      (0): Linear(in_features=45, out_features=128, bias=True)
+      (1): ELU(alpha=1.0)
+      (2): Linear(in_features=128, out_features=64, bias=True)
+      (3): ELU(alpha=1.0)
+      (4): Linear(in_features=64, out_features=16, bias=True)
+    )
+    (prototypes): Embedding(32, 16)
+  )
+)
+Critic Model: MLPModel(
+  (obs_normalizer): EmpiricalNormalization()
+  (mlp): MLP(
+    (0): Linear(in_features=92, out_features=512, bias=True)
+    (1): ELU(alpha=1.0)
+    (2): Linear(in_features=512, out_features=256, bias=True)
+    (3): ELU(alpha=1.0)
+    (4): Linear(in_features=256, out_features=128, bias=True)
+    (5): ELU(alpha=1.0)
+    (6): Linear(in_features=128, out_features=1, bias=True)
+  )
+)
+[INFO]: Loading model checkpoint from: /home/poornaprasad/RL/Quadruped/IsaacLab/logs/rsl_rl/grallator_him_walking_native/2026-11-04_12-44-44_audit_final16/model_2.pt
+Storing git diff for 'IsaacLab' in: /home/poornaprasad/RL/Quadruped/IsaacLab/logs/rsl_rl/grallator_him_walking_native/2026-11-04_12-48-19_audit_finalresume/git/IsaacLab.diff
+CUDA graph took: Last: 0.390164 s, Mean: 0.390164 s, Std: 0.000000 s, N: 1
+[HIM PPO] HIO FROZEN; PPO KL=0.038759
+################################################################################
+[1m                             Learning iteration 2/3                             [0m 
+
+                               Run name: audit_finalresume
+                            Total steps: 384 
+                       Steps per second: 315 
+                        Collection time: 1.057s 
+                          Learning time: 0.162s 
+                        Mean value loss: 0.0380
+                    Mean surrogate loss: -0.0407
+                      Mean entropy loss: -8.4510
+                       Mean ppo_kl loss: 0.0388
+             Mean hio_velocity_mse loss: 0.0000
+                Mean hio_swap_loss loss: 0.0000
+                    Mean hio_pairs loss: 0.0000
+                  Mean post_hio_kl loss: 0.0388
+                        Mean action std: 0.12
+                   Reward_Rate/track_xy: 0.3488
+                  Reward_Rate/track_yaw: 0.8896
+                     Reward_Rate/height: 0.1845
+                    Reward_Rate/upright: -0.0015
+          Reward_Rate/vertical_velocity: -0.1823
+             Reward_Rate/joint_velocity: -0.0527
+                Reward_Rate/action_rate: -0.0179
+           Reward_Rate/action_magnitude: -0.0025
+          Reward_Rate/undesired_contact: -1.4375
+              Reward_Rate/feet_air_time: 0.0000
+                Reward_Rate/stance_slip: 0.0000
+                  Reward_Rate/trot_sync: 0.0000
+             Reward_Rate/time_imbalance: 0.0000
+        Reward_Rate/roll_pitch_velocity: 0.0000
+      Reward_Rate/vertical_acceleration: 0.0000
+         Reward_Rate/joint_acceleration: 0.0000
+               Reward_Rate/joint_torque: 0.0000
+             Reward_Rate/joint_position: 0.0000
+           Reward_Rate/mechanical_power: 0.0000
+                      Reward_Rate/total: -0.2716
+                Walking/Commands/vx_mps: 0.1822
+             Diagnostics/command_vx_mps: 0.1822
+                Walking/Commands/vy_mps: 0.0000
+             Diagnostics/command_vy_mps: 0.0000
+             Walking/Commands/yaw_radps: 0.0000
+          Diagnostics/command_yaw_radps: 0.0000
+         Walking/Tracking/actual_vx_mps: -0.1446
+              Diagnostics/actual_vx_mps: -0.1446
+         Walking/Tracking/actual_vy_mps: 0.0101
+              Diagnostics/actual_vy_mps: 0.0101
+      Walking/Tracking/actual_yaw_radps: 0.0668
+            Walking/Tracking/vx_mae_mps: 0.2497
+          Walking/Tracking/xy_error_mps: 0.2518
+      Walking/Tracking/raw_xy_error_mps: 0.3298
+        Walking/Tracking/valid_fraction: 0.6562
+             Walking/Gait/contact_count: 2.7109
+              Walking/Gait/airborne_pct: 32.2266
+                  Walking/Gait/liftoffs: 0.0443
+                Walking/Gait/touchdowns: 0.0026
+       Walking/Gait/qualified_airtime_s: 0.0000
+           Walking/Gait/stance_slip_mps: 0.3348
+      Walking/Stability/height_error_cm: 4.8117
+Walking/Stability/undesired_contact_pct: 71.8750
+Walking/Stability/action_near_limit_pct: 8.7891
+        Walking/Stability/fall_fraction: 0.0000
+           Diagnostics/actual_yaw_radps: 0.0668
+                 Diagnostics/vx_mae_mps: 0.3269
+                 Diagnostics/vy_mae_mps: 0.0299
+           Diagnostics/xy_vel_error_mps: 0.3298
+            Diagnostics/yaw_error_radps: 0.1137
+          Diagnostics/command_speed_mps: 0.1822
+           Diagnostics/actual_speed_mps: 0.1532
+        Diagnostics/moving_xy_error_mps: 0.2518
+         Diagnostics/moving_command_pct: 65.6250
+            Diagnostics/height_error_cm: 4.8117
+      Diagnostics/action_near_limit_pct: 8.7891
+      Diagnostics/undesired_contact_pct: 71.8750
+         Diagnostics/feet_contact_count: 2.7109
+       Diagnostics/all_feet_contact_pct: 47.6562
+    Diagnostics/airborne_pct_cumulative: 45.3851
+Diagnostics/liftoffs_per_1000_foot_steps: 24.9006
+Walking/Tracking/reset_excluded_fraction: 0.2500
+--------------------------------------------------------------------------------
+                         Iteration time: 1.22s
+                           Time elapsed: 0:00:01
+                                    ETA: 0:00:00
+
+Training time: 1.47 seconds

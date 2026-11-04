@@ -1,0 +1,149 @@
+"""HIM PPO with separate HIO estimator update (271D actor / 92D critic).
+
+Matches the version posted by the user that reports PPO KL and Post-HIO KL.
+"""
+import torch
+
+from rsl_rl.algorithms import PPO
+from grallator_rl.him.trainer import HIMTrainer
+
+
+class HIMPPO(PPO):
+    def __init__(
+        self,
+        *args,
+        hio_learning_rate=3e-4,
+        hio_epochs=1,
+        hio_batch_size=256,
+        **kwargs,
+    ):
+        super().__init__(*args, **kwargs)
+        if not hasattr(self._raw_actor, "estimator"):
+            raise TypeError("HIMPPO requires HIMRslActorModel")
+        # The estimator has its own HIO optimizer. Exclude those parameters
+        # explicitly from PPO to avoid two Adam optimizers owning them.
+        estimator_params = {id(p) for p in self._raw_actor.estimator.parameters()}
+        for group in self.optimizer.param_groups:
+            group["params"] = [p for p in group["params"] if id(p) not in estimator_params]
+        if not any(group["params"] for group in self.optimizer.param_groups):
+            raise RuntimeError("PPO optimizer has no actor/critic parameters")
+        self.hio_trainer = HIMTrainer(
+            estimator=self._raw_actor.estimator,
+            learning_rate=hio_learning_rate,
+        )
+        self.hio_epochs = hio_epochs
+        self.hio_batch_size = hio_batch_size
+
+    @torch.no_grad()
+    def measure_policy_kl(self, observations, old_params):
+        actor = self._raw_actor
+        actor_input = actor.get_latent(observations)
+        action_mean = actor.mlp(actor_input)
+        actor.distribution.update(action_mean)
+        new_params = actor.output_distribution_params
+        return actor.get_kl_divergence(old_params, new_params).mean().item()
+
+    def update(self):
+        storage = self.storage
+        flat_obs = storage.observations.flatten(0, 1)
+        total = flat_obs.batch_size[0]
+        indices = torch.randperm(total, device=self.device)[: min(1024, total)]
+        kl_observations = flat_obs[indices].clone()
+        old_distribution_params = tuple(
+            p.flatten(0, 1)[indices].detach().clone()
+            for p in storage.distribution_params
+        )
+
+        policy_history = storage.observations["policy"]
+        privileged_obs = storage.observations["critic"]
+        if policy_history.shape[-1] != 271:
+            raise ValueError(
+                f"HIM expects 271D actor observation; got {policy_history.shape[-1]}"
+            )
+        if privileged_obs.shape[-1] != 92:
+            raise ValueError(
+                f"HIM expects 92D critic observation; got {privileged_obs.shape[-1]}"
+            )
+
+        valid = ~storage.dones[:-1].squeeze(-1).bool()
+        with torch.no_grad():
+            # Exclude target height: HIO pretrained estimator takes 270D history.
+            history_t = policy_history[:-1][valid][:, :270].detach().clone()
+            # Critic original 91D layout: first 45 obs, then base velocity.
+            successor_critic = privileged_obs[1:][valid][:, :91].detach().clone()
+            next_obs = successor_critic[:, :45]
+            next_velocity = successor_critic[:, 45:48]
+
+        # PPO acts on 271D history + height, critic on 92D privileged features.
+        metrics = super().update()
+        metrics["ppo_kl"] = self.measure_policy_kl(
+            kl_observations, old_distribution_params
+        )
+
+        total_pairs = history_t.shape[0]
+        # Fine-tuning control: PPO still updates actor/critic while HIO is frozen.
+        import math as _math
+        import os as _os
+        freeze_hio = _os.environ.get("GRALLATOR_FREEZE_HIO", "0") == "1"
+        hio_lr_override = _os.environ.get("GRALLATOR_HIO_LR_OVERRIDE")
+        if hio_lr_override is not None:
+            lr_value = float(hio_lr_override)
+            if not _math.isfinite(lr_value) or lr_value < 0.0:
+                raise ValueError("GRALLATOR_HIO_LR_OVERRIDE must be finite and nonnegative")
+            # Set each update, because checkpoint loading can restore optimizer LR.
+            for group in self.hio_trainer.optimizer.param_groups:
+                group["lr"] = lr_value
+        if freeze_hio or total_pairs == 0:
+            metrics["hio_velocity_mse"] = 0.0
+            metrics["hio_swap_loss"] = 0.0
+            metrics["hio_pairs"] = 0.0
+            metrics["post_hio_kl"] = metrics["ppo_kl"]
+            if freeze_hio:
+                print(f"[HIM PPO] HIO FROZEN; PPO KL={metrics['ppo_kl']:.6f}")
+            return metrics
+
+        velocity_loss_sum = 0.0
+        swap_loss_sum = 0.0
+        num_updates = 0
+        for _ in range(self.hio_epochs):
+            indices = torch.randperm(total_pairs, device=history_t.device)
+            for start in range(0, total_pairs, self.hio_batch_size):
+                batch_ids = indices[start : start + self.hio_batch_size]
+                velocity_loss, swap_loss = self.hio_trainer.update_hio(
+                    history_t[batch_ids],
+                    next_obs[batch_ids],
+                    next_velocity[batch_ids],
+                )
+                velocity_loss_sum += velocity_loss
+                swap_loss_sum += swap_loss
+                num_updates += 1
+
+        metrics["hio_velocity_mse"] = velocity_loss_sum / num_updates
+        metrics["hio_swap_loss"] = swap_loss_sum / num_updates
+        metrics["hio_pairs"] = float(total_pairs)
+        metrics["post_hio_kl"] = self.measure_policy_kl(
+            kl_observations, old_distribution_params
+        )
+        current_lr = self.optimizer.param_groups[0]["lr"]
+        print(
+            f"[HIM PPO] LR={current_lr:.6e} | "
+            f"PPO KL={metrics['ppo_kl']:.6f} | "
+            f"Post-HIO KL={metrics['post_hio_kl']:.6f}"
+        )
+        return metrics
+
+    def save(self):
+        checkpoint = super().save()
+        checkpoint["hio_optimizer_state_dict"] = (
+            self.hio_trainer.optimizer.state_dict()
+        )
+        return checkpoint
+
+    def load(self, loaded_dict, load_cfg, strict):
+        restore_iteration = super().load(loaded_dict, load_cfg, strict)
+        restore_optimizer = load_cfg is None or load_cfg.get("optimizer", False)
+        if restore_optimizer and "hio_optimizer_state_dict" in loaded_dict:
+            self.hio_trainer.optimizer.load_state_dict(
+                loaded_dict["hio_optimizer_state_dict"]
+            )
+        return restore_iteration

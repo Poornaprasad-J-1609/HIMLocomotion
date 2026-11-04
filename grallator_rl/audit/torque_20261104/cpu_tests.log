@@ -1,0 +1,36 @@
+test_actual_names_exact_mapping (test_torque_diagnostics.TorqueTests.test_actual_names_exact_mapping) ... ok
+test_interval_and_run_boundaries_and_immutable_snapshots (test_torque_diagnostics.TorqueTests.test_interval_and_run_boundaries_and_immutable_snapshots) ... ok
+test_monitoring_does_not_change_policy_gradients_or_checkpoint (test_torque_diagnostics.TorqueTests.test_monitoring_does_not_change_policy_gradients_or_checkpoint) ... ok
+test_native_logger_exact_peak_not_mean_of_step_maxima (test_torque_diagnostics.TorqueTests.test_native_logger_exact_peak_not_mean_of_step_maxima) ... ok
+test_nonfinite_and_overflow_fail_at_boundary (test_torque_diagnostics.TorqueTests.test_nonfinite_and_overflow_fail_at_boundary) ... ok
+test_sampled_peak_labels_when_decimation_prevents_substeps (test_torque_diagnostics.TorqueTests.test_sampled_peak_labels_when_decimation_prevents_substeps) ... ok
+test_signed_peaks_mean_p95_fraction_and_time_accumulation (test_torque_diagnostics.TorqueTests.test_signed_peaks_mean_p95_fraction_and_time_accumulation) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 1.684s
+
+OK
+Warp 1.17.0 initialized:
+   CUDA Toolkit 12.9, Driver 13.2
+   Devices:
+     "cpu"      : "x86_64"
+     "cuda:0"   : "NVIDIA GeForce RTX 4060 Laptop GPU" (8 GiB, sm_89, mempool enabled)
+   Kernel cache:
+     /home/poornaprasad/.cache/warp/1.17.0
+Module grallator_rl.tasks.walking_direct.torque_diagnostics 2120b0e load on device 'cpu' took 8.97 ms  (cached)
+[HIM PPO] LR=2.250000e-05 | PPO KL=0.013951 | Post-HIO KL=0.013911
+[HIM PPO] LR=2.250000e-05 | PPO KL=0.013951 | Post-HIO KL=0.013911
+Storing git diff for 'IsaacLab' in: /tmp/tmp7wqlfq03/git/IsaacLab.diff
+################################################################################
+[1m                             Learning iteration 0/1                             [0m 
+
+                            Total steps: 4 
+                       Steps per second: 200 
+                        Collection time: 0.010s 
+                          Learning time: 0.010s 
+                        Mean action std: 1.00
+--------------------------------------------------------------------------------
+                         Iteration time: 0.02s
+                           Time elapsed: 0:00:00
+                                    ETA: 0:00:00
+

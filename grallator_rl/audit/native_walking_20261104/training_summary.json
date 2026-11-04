@@ -1,0 +1,812 @@
+{
+  "2026-11-04_12-15-45_audit_smoke16": {
+    "log_dir": "/home/poornaprasad/RL/Quadruped/IsaacLab/logs/rsl_rl/grallator_him_walking_native/2026-11-04_12-15-45_audit_smoke16",
+    "checkpoint": "/home/poornaprasad/RL/Quadruped/IsaacLab/logs/rsl_rl/grallator_him_walking_native/2026-11-04_12-15-45_audit_smoke16/model_2.pt",
+    "iteration": 2,
+    "changed_tensors": {
+      "actor_state_dict": [
+        "distribution.std_param",
+        "mlp.0.weight",
+        "mlp.0.bias",
+        "mlp.2.weight",
+        "mlp.2.bias",
+        "mlp.4.weight",
+        "mlp.4.bias",
+        "mlp.6.weight",
+        "mlp.6.bias",
+        "estimator.encoder.0.weight",
+        "estimator.encoder.0.bias",
+        "estimator.encoder.2.weight",
+        "estimator.encoder.2.bias",
+        "estimator.encoder.4.weight",
+        "estimator.encoder.4.bias",
+        "estimator.target.0.weight",
+        "estimator.target.0.bias",
+        "estimator.target.2.weight",
+        "estimator.target.2.bias",
+        "estimator.target.4.weight",
+        "estimator.target.4.bias",
+        "estimator.prototypes.weight"
+      ],
+      "critic_state_dict": [
+        "obs_normalizer._mean",
+        "obs_normalizer._var",
+        "obs_normalizer._std",
+        "obs_normalizer.count",
+        "mlp.0.weight",
+        "mlp.0.bias",
+        "mlp.2.weight",
+        "mlp.2.bias",
+        "mlp.4.weight",
+        "mlp.4.bias",
+        "mlp.6.weight",
+        "mlp.6.bias"
+      ]
+    },
+    "optimizer_state_count": 17,
+    "hio_optimizer_state_count": 13,
+    "scalar_count": 74,
+    "Loss/ppo_kl": [
+      {
+        "step": 0,
+        "value": 8.000724792480469
+      },
+      {
+        "step": 1,
+        "value": 0.022346172481775284
+      },
+      {
+        "step": 2,
+        "value": 0.033421941101551056
+      }
+    ],
+    "Loss/post_hio_kl": [
+      {
+        "step": 0,
+        "value": 7.995907783508301
+      },
+      {
+        "step": 1,
+        "value": 0.022250112146139145
+      },
+      {
+        "step": 2,
+        "value": 0.03360176086425781
+      }
+    ],
+    "Loss/value": [
+      {
+        "step": 0,
+        "value": 0.06279618293046951
+      },
+      {
+        "step": 1,
+        "value": 0.034057024866342545
+      },
+      {
+        "step": 2,
+        "value": 0.03791220486164093
+      }
+    ],
+    "Reward_Rate/feet_air_time": [
+      {
+        "step": 0,
+        "value": 0.0
+      },
+      {
+        "step": 1,
+        "value": 0.0
+      },
+      {
+        "step": 2,
+        "value": 0.0
+      }
+    ]
+  },
+  "2026-11-04_12-16-49_audit_smoke16_lr1e5": {
+    "log_dir": "/home/poornaprasad/RL/Quadruped/IsaacLab/logs/rsl_rl/grallator_him_walking_native/2026-11-04_12-16-49_audit_smoke16_lr1e5",
+    "checkpoint": "/home/poornaprasad/RL/Quadruped/IsaacLab/logs/rsl_rl/grallator_him_walking_native/2026-11-04_12-16-49_audit_smoke16_lr1e5/model_2.pt",
+    "iteration": 2,
+    "changed_tensors": {
+      "actor_state_dict": [
+        "distribution.std_param",
+        "mlp.0.weight",
+        "mlp.0.bias",
+        "mlp.2.weight",
+        "mlp.2.bias",
+        "mlp.4.weight",
+        "mlp.4.bias",
+        "mlp.6.weight",
+        "mlp.6.bias",
+        "estimator.encoder.0.weight",
+        "estimator.encoder.0.bias",
+        "estimator.encoder.2.weight",
+        "estimator.encoder.2.bias",
+        "estimator.encoder.4.weight",
+        "estimator.encoder.4.bias",
+        "estimator.target.0.weight",
+        "estimator.target.0.bias",
+        "estimator.target.2.weight",
+        "estimator.target.2.bias",
+        "estimator.target.4.weight",
+        "estimator.target.4.bias",
+        "estimator.prototypes.weight"
+      ],
+      "critic_state_dict": [
+        "obs_normalizer._mean",
+        "obs_normalizer._var",
+        "obs_normalizer._std",
+        "obs_normalizer.count",
+        "mlp.0.weight",
+        "mlp.0.bias",
+        "mlp.2.weight",
+        "mlp.2.bias",
+        "mlp.4.weight",
+        "mlp.4.bias",
+        "mlp.6.weight",
+        "mlp.6.bias"
+      ]
+    },
+    "optimizer_state_count": 17,
+    "hio_optimizer_state_count": 13,
+    "scalar_count": 74,
+    "Loss/ppo_kl": [
+      {
+        "step": 0,
+        "value": 0.043413273990154266
+      },
+      {
+        "step": 1,
+        "value": 0.021874215453863144
+      },
+      {
+        "step": 2,
+        "value": 0.04013296589255333
+      }
+    ],
+    "Loss/post_hio_kl": [
+      {
+        "step": 0,
+        "value": 0.043308258056640625
+      },
+      {
+        "step": 1,
+        "value": 0.021770626306533813
+      },
+      {
+        "step": 2,
+        "value": 0.040481261909008026
+      }
+    ],
+    "Loss/value": [
+      {
+        "step": 0,
+        "value": 0.0495939664542675
+      },
+      {
+        "step": 1,
+        "value": 0.042126547545194626
+      },
+      {
+        "step": 2,
+        "value": 0.04817125201225281
+      }
+    ],
+    "Reward_Rate/feet_air_time": [
+      {
+        "step": 0,
+        "value": 0.0
+      },
+      {
+        "step": 1,
+        "value": 0.0
+      },
+      {
+        "step": 2,
+        "value": 0.0
+      }
+    ]
+  },
+  "2026-11-04_12-17-34_audit_smoke64": {
+    "log_dir": "/home/poornaprasad/RL/Quadruped/IsaacLab/logs/rsl_rl/grallator_him_walking_native/2026-11-04_12-17-34_audit_smoke64",
+    "checkpoint": "/home/poornaprasad/RL/Quadruped/IsaacLab/logs/rsl_rl/grallator_him_walking_native/2026-11-04_12-17-34_audit_smoke64/model_1.pt",
+    "iteration": 1,
+    "changed_tensors": {
+      "actor_state_dict": [
+        "distribution.std_param",
+        "mlp.0.weight",
+        "mlp.0.bias",
+        "mlp.2.weight",
+        "mlp.2.bias",
+        "mlp.4.weight",
+        "mlp.4.bias",
+        "mlp.6.weight",
+        "mlp.6.bias",
+        "estimator.encoder.0.weight",
+        "estimator.encoder.0.bias",
+        "estimator.encoder.2.weight",
+        "estimator.encoder.2.bias",
+        "estimator.encoder.4.weight",
+        "estimator.encoder.4.bias",
+        "estimator.target.0.weight",
+        "estimator.target.0.bias",
+        "estimator.target.2.weight",
+        "estimator.target.2.bias",
+        "estimator.target.4.weight",
+        "estimator.target.4.bias",
+        "estimator.prototypes.weight"
+      ],
+      "critic_state_dict": [
+        "obs_normalizer._mean",
+        "obs_normalizer._var",
+        "obs_normalizer._std",
+        "obs_normalizer.count",
+        "mlp.0.weight",
+        "mlp.0.bias",
+        "mlp.2.weight",
+        "mlp.2.bias",
+        "mlp.4.weight",
+        "mlp.4.bias",
+        "mlp.6.weight",
+        "mlp.6.bias"
+      ]
+    },
+    "optimizer_state_count": 17,
+    "hio_optimizer_state_count": 13,
+    "scalar_count": 74,
+    "Loss/ppo_kl": [
+      {
+        "step": 0,
+        "value": 0.01968146488070488
+      },
+      {
+        "step": 1,
+        "value": 0.016310377046465874
+      }
+    ],
+    "Loss/post_hio_kl": [
+      {
+        "step": 0,
+        "value": 0.019717708230018616
+      },
+      {
+        "step": 1,
+        "value": 0.016551125794649124
+      }
+    ],
+    "Loss/value": [
+      {
+        "step": 0,
+        "value": 0.0433921217918396
+      },
+      {
+        "step": 1,
+        "value": 0.0382101945579052
+      }
+    ],
+    "Reward_Rate/feet_air_time": [
+      {
+        "step": 0,
+        "value": 0.0
+      },
+      {
+        "step": 1,
+        "value": 0.0
+      }
+    ]
+  },
+  "2026-11-04_12-18-04_audit_viewer8": {
+    "log_dir": "/home/poornaprasad/RL/Quadruped/IsaacLab/logs/rsl_rl/grallator_him_walking_native/2026-11-04_12-18-04_audit_viewer8",
+    "checkpoint": "/home/poornaprasad/RL/Quadruped/IsaacLab/logs/rsl_rl/grallator_him_walking_native/2026-11-04_12-18-04_audit_viewer8/model_1.pt",
+    "iteration": 1,
+    "changed_tensors": {
+      "actor_state_dict": [
+        "distribution.std_param",
+        "mlp.0.weight",
+        "mlp.0.bias",
+        "mlp.2.weight",
+        "mlp.2.bias",
+        "mlp.4.weight",
+        "mlp.4.bias",
+        "mlp.6.weight",
+        "mlp.6.bias",
+        "estimator.encoder.0.weight",
+        "estimator.encoder.0.bias",
+        "estimator.encoder.2.weight",
+        "estimator.encoder.2.bias",
+        "estimator.encoder.4.weight",
+        "estimator.encoder.4.bias",
+        "estimator.target.0.weight",
+        "estimator.target.0.bias",
+        "estimator.target.2.weight",
+        "estimator.target.2.bias",
+        "estimator.target.4.weight",
+        "estimator.target.4.bias",
+        "estimator.prototypes.weight"
+      ],
+      "critic_state_dict": [
+        "obs_normalizer._mean",
+        "obs_normalizer._var",
+        "obs_normalizer._std",
+        "obs_normalizer.count",
+        "mlp.0.weight",
+        "mlp.0.bias",
+        "mlp.2.weight",
+        "mlp.2.bias",
+        "mlp.4.weight",
+        "mlp.4.bias",
+        "mlp.6.weight",
+        "mlp.6.bias"
+      ]
+    },
+    "optimizer_state_count": 17,
+    "hio_optimizer_state_count": 13,
+    "scalar_count": 74,
+    "Loss/ppo_kl": [
+      {
+        "step": 0,
+        "value": 0.04406244307756424
+      },
+      {
+        "step": 1,
+        "value": 0.03164609149098396
+      }
+    ],
+    "Loss/post_hio_kl": [
+      {
+        "step": 0,
+        "value": 0.04392378777265549
+      },
+      {
+        "step": 1,
+        "value": 0.03183959051966667
+      }
+    ],
+    "Loss/value": [
+      {
+        "step": 0,
+        "value": 0.05098916217684746
+      },
+      {
+        "step": 1,
+        "value": 0.04312829300761223
+      }
+    ],
+    "Reward_Rate/feet_air_time": [
+      {
+        "step": 0,
+        "value": 0.0
+      },
+      {
+        "step": 1,
+        "value": 0.0
+      }
+    ]
+  },
+  "2026-11-04_12-19-06_audit_resume_frozen": {
+    "log_dir": "/home/poornaprasad/RL/Quadruped/IsaacLab/logs/rsl_rl/grallator_him_walking_native/2026-11-04_12-19-06_audit_resume_frozen",
+    "checkpoint": "/home/poornaprasad/RL/Quadruped/IsaacLab/logs/rsl_rl/grallator_him_walking_native/2026-11-04_12-19-06_audit_resume_frozen/model_2.pt",
+    "iteration": 2,
+    "changed_tensors": {
+      "actor_state_dict": [
+        "distribution.std_param",
+        "mlp.0.weight",
+        "mlp.0.bias",
+        "mlp.2.weight",
+        "mlp.2.bias",
+        "mlp.4.weight",
+        "mlp.4.bias",
+        "mlp.6.weight",
+        "mlp.6.bias",
+        "estimator.encoder.0.weight",
+        "estimator.encoder.0.bias",
+        "estimator.encoder.2.weight",
+        "estimator.encoder.2.bias",
+        "estimator.encoder.4.weight",
+        "estimator.encoder.4.bias",
+        "estimator.target.0.weight",
+        "estimator.target.0.bias",
+        "estimator.target.2.weight",
+        "estimator.target.2.bias",
+        "estimator.target.4.weight",
+        "estimator.target.4.bias",
+        "estimator.prototypes.weight"
+      ],
+      "critic_state_dict": [
+        "obs_normalizer._mean",
+        "obs_normalizer._var",
+        "obs_normalizer._std",
+        "obs_normalizer.count",
+        "mlp.0.weight",
+        "mlp.0.bias",
+        "mlp.2.weight",
+        "mlp.2.bias",
+        "mlp.4.weight",
+        "mlp.4.bias",
+        "mlp.6.weight",
+        "mlp.6.bias"
+      ]
+    },
+    "optimizer_state_count": 17,
+    "hio_optimizer_state_count": 13,
+    "scalar_count": 74,
+    "Loss/ppo_kl": [
+      {
+        "step": 2,
+        "value": 0.0376911461353302
+      }
+    ],
+    "Loss/post_hio_kl": [
+      {
+        "step": 2,
+        "value": 0.0376911461353302
+      }
+    ],
+    "Loss/value": [
+      {
+        "step": 2,
+        "value": 0.0374332070350647
+      }
+    ],
+    "Reward_Rate/feet_air_time": [
+      {
+        "step": 2,
+        "value": 0.0
+      }
+    ]
+  },
+  "2026-11-04_12-44-44_audit_final16": {
+    "log_dir": "/home/poornaprasad/RL/Quadruped/IsaacLab/logs/rsl_rl/grallator_him_walking_native/2026-11-04_12-44-44_audit_final16",
+    "checkpoint": "/home/poornaprasad/RL/Quadruped/IsaacLab/logs/rsl_rl/grallator_him_walking_native/2026-11-04_12-44-44_audit_final16/model_2.pt",
+    "iteration": 2,
+    "changed_tensors": {
+      "actor_state_dict": [
+        "distribution.std_param",
+        "mlp.0.weight",
+        "mlp.0.bias",
+        "mlp.2.weight",
+        "mlp.2.bias",
+        "mlp.4.weight",
+        "mlp.4.bias",
+        "mlp.6.weight",
+        "mlp.6.bias",
+        "estimator.encoder.0.weight",
+        "estimator.encoder.0.bias",
+        "estimator.encoder.2.weight",
+        "estimator.encoder.2.bias",
+        "estimator.encoder.4.weight",
+        "estimator.encoder.4.bias",
+        "estimator.target.0.weight",
+        "estimator.target.0.bias",
+        "estimator.target.2.weight",
+        "estimator.target.2.bias",
+        "estimator.target.4.weight",
+        "estimator.target.4.bias",
+        "estimator.prototypes.weight"
+      ],
+      "critic_state_dict": [
+        "obs_normalizer._mean",
+        "obs_normalizer._var",
+        "obs_normalizer._std",
+        "obs_normalizer.count",
+        "mlp.0.weight",
+        "mlp.0.bias",
+        "mlp.2.weight",
+        "mlp.2.bias",
+        "mlp.4.weight",
+        "mlp.4.bias",
+        "mlp.6.weight",
+        "mlp.6.bias"
+      ]
+    },
+    "optimizer_state_count": 17,
+    "hio_optimizer_state_count": 13,
+    "scalar_count": 75,
+    "Loss/ppo_kl": [
+      {
+        "step": 0,
+        "value": 0.04197382926940918
+      },
+      {
+        "step": 1,
+        "value": 0.02116589993238449
+      },
+      {
+        "step": 2,
+        "value": 0.03856480494141579
+      }
+    ],
+    "Loss/post_hio_kl": [
+      {
+        "step": 0,
+        "value": 0.041870057582855225
+      },
+      {
+        "step": 1,
+        "value": 0.021040787920355797
+      },
+      {
+        "step": 2,
+        "value": 0.03888707980513573
+      }
+    ],
+    "Loss/value": [
+      {
+        "step": 0,
+        "value": 0.04959341511130333
+      },
+      {
+        "step": 1,
+        "value": 0.042135246098041534
+      },
+      {
+        "step": 2,
+        "value": 0.04813579469919205
+      }
+    ],
+    "Reward_Rate/feet_air_time": [
+      {
+        "step": 0,
+        "value": 0.0
+      },
+      {
+        "step": 1,
+        "value": 0.0
+      },
+      {
+        "step": 2,
+        "value": 0.0
+      }
+    ]
+  },
+  "2026-11-04_12-45-22_audit_final64": {
+    "log_dir": "/home/poornaprasad/RL/Quadruped/IsaacLab/logs/rsl_rl/grallator_him_walking_native/2026-11-04_12-45-22_audit_final64",
+    "checkpoint": "/home/poornaprasad/RL/Quadruped/IsaacLab/logs/rsl_rl/grallator_him_walking_native/2026-11-04_12-45-22_audit_final64/model_1.pt",
+    "iteration": 1,
+    "changed_tensors": {
+      "actor_state_dict": [
+        "distribution.std_param",
+        "mlp.0.weight",
+        "mlp.0.bias",
+        "mlp.2.weight",
+        "mlp.2.bias",
+        "mlp.4.weight",
+        "mlp.4.bias",
+        "mlp.6.weight",
+        "mlp.6.bias",
+        "estimator.encoder.0.weight",
+        "estimator.encoder.0.bias",
+        "estimator.encoder.2.weight",
+        "estimator.encoder.2.bias",
+        "estimator.encoder.4.weight",
+        "estimator.encoder.4.bias",
+        "estimator.target.0.weight",
+        "estimator.target.0.bias",
+        "estimator.target.2.weight",
+        "estimator.target.2.bias",
+        "estimator.target.4.weight",
+        "estimator.target.4.bias",
+        "estimator.prototypes.weight"
+      ],
+      "critic_state_dict": [
+        "obs_normalizer._mean",
+        "obs_normalizer._var",
+        "obs_normalizer._std",
+        "obs_normalizer.count",
+        "mlp.0.weight",
+        "mlp.0.bias",
+        "mlp.2.weight",
+        "mlp.2.bias",
+        "mlp.4.weight",
+        "mlp.4.bias",
+        "mlp.6.weight",
+        "mlp.6.bias"
+      ]
+    },
+    "optimizer_state_count": 17,
+    "hio_optimizer_state_count": 13,
+    "scalar_count": 75,
+    "Loss/ppo_kl": [
+      {
+        "step": 0,
+        "value": 0.01961025968194008
+      },
+      {
+        "step": 1,
+        "value": 0.01670130155980587
+      }
+    ],
+    "Loss/post_hio_kl": [
+      {
+        "step": 0,
+        "value": 0.019569631665945053
+      },
+      {
+        "step": 1,
+        "value": 0.016781626269221306
+      }
+    ],
+    "Loss/value": [
+      {
+        "step": 0,
+        "value": 0.043306779116392136
+      },
+      {
+        "step": 1,
+        "value": 0.03825077414512634
+      }
+    ],
+    "Reward_Rate/feet_air_time": [
+      {
+        "step": 0,
+        "value": 0.0
+      },
+      {
+        "step": 1,
+        "value": 0.0
+      }
+    ]
+  },
+  "2026-11-04_12-47-57_audit_finalviewer8": {
+    "log_dir": "/home/poornaprasad/RL/Quadruped/IsaacLab/logs/rsl_rl/grallator_him_walking_native/2026-11-04_12-47-57_audit_finalviewer8",
+    "checkpoint": "/home/poornaprasad/RL/Quadruped/IsaacLab/logs/rsl_rl/grallator_him_walking_native/2026-11-04_12-47-57_audit_finalviewer8/model_1.pt",
+    "iteration": 1,
+    "changed_tensors": {
+      "actor_state_dict": [
+        "distribution.std_param",
+        "mlp.0.weight",
+        "mlp.0.bias",
+        "mlp.2.weight",
+        "mlp.2.bias",
+        "mlp.4.weight",
+        "mlp.4.bias",
+        "mlp.6.weight",
+        "mlp.6.bias",
+        "estimator.encoder.0.weight",
+        "estimator.encoder.0.bias",
+        "estimator.encoder.2.weight",
+        "estimator.encoder.2.bias",
+        "estimator.encoder.4.weight",
+        "estimator.encoder.4.bias",
+        "estimator.target.0.weight",
+        "estimator.target.0.bias",
+        "estimator.target.2.weight",
+        "estimator.target.2.bias",
+        "estimator.target.4.weight",
+        "estimator.target.4.bias",
+        "estimator.prototypes.weight"
+      ],
+      "critic_state_dict": [
+        "obs_normalizer._mean",
+        "obs_normalizer._var",
+        "obs_normalizer._std",
+        "obs_normalizer.count",
+        "mlp.0.weight",
+        "mlp.0.bias",
+        "mlp.2.weight",
+        "mlp.2.bias",
+        "mlp.4.weight",
+        "mlp.4.bias",
+        "mlp.6.weight",
+        "mlp.6.bias"
+      ]
+    },
+    "optimizer_state_count": 17,
+    "hio_optimizer_state_count": 13,
+    "scalar_count": 75,
+    "Loss/ppo_kl": [
+      {
+        "step": 0,
+        "value": 0.042682111263275146
+      },
+      {
+        "step": 1,
+        "value": 0.033002398908138275
+      }
+    ],
+    "Loss/post_hio_kl": [
+      {
+        "step": 0,
+        "value": 0.042555443942546844
+      },
+      {
+        "step": 1,
+        "value": 0.033156849443912506
+      }
+    ],
+    "Loss/value": [
+      {
+        "step": 0,
+        "value": 0.05098043009638786
+      },
+      {
+        "step": 1,
+        "value": 0.04342549666762352
+      }
+    ],
+    "Reward_Rate/feet_air_time": [
+      {
+        "step": 0,
+        "value": 0.0
+      },
+      {
+        "step": 1,
+        "value": 0.0
+      }
+    ]
+  },
+  "2026-11-04_12-48-19_audit_finalresume": {
+    "log_dir": "/home/poornaprasad/RL/Quadruped/IsaacLab/logs/rsl_rl/grallator_him_walking_native/2026-11-04_12-48-19_audit_finalresume",
+    "checkpoint": "/home/poornaprasad/RL/Quadruped/IsaacLab/logs/rsl_rl/grallator_him_walking_native/2026-11-04_12-48-19_audit_finalresume/model_2.pt",
+    "iteration": 2,
+    "changed_tensors": {
+      "actor_state_dict": [
+        "distribution.std_param",
+        "mlp.0.weight",
+        "mlp.0.bias",
+        "mlp.2.weight",
+        "mlp.2.bias",
+        "mlp.4.weight",
+        "mlp.4.bias",
+        "mlp.6.weight",
+        "mlp.6.bias",
+        "estimator.encoder.0.weight",
+        "estimator.encoder.0.bias",
+        "estimator.encoder.2.weight",
+        "estimator.encoder.2.bias",
+        "estimator.encoder.4.weight",
+        "estimator.encoder.4.bias",
+        "estimator.target.0.weight",
+        "estimator.target.0.bias",
+        "estimator.target.2.weight",
+        "estimator.target.2.bias",
+        "estimator.target.4.weight",
+        "estimator.target.4.bias",
+        "estimator.prototypes.weight"
+      ],
+      "critic_state_dict": [
+        "obs_normalizer._mean",
+        "obs_normalizer._var",
+        "obs_normalizer._std",
+        "obs_normalizer.count",
+        "mlp.0.weight",
+        "mlp.0.bias",
+        "mlp.2.weight",
+        "mlp.2.bias",
+        "mlp.4.weight",
+        "mlp.4.bias",
+        "mlp.6.weight",
+        "mlp.6.bias"
+      ]
+    },
+    "optimizer_state_count": 17,
+    "hio_optimizer_state_count": 13,
+    "scalar_count": 75,
+    "Loss/ppo_kl": [
+      {
+        "step": 2,
+        "value": 0.038758840411901474
+      }
+    ],
+    "Loss/post_hio_kl": [
+      {
+        "step": 2,
+        "value": 0.038758840411901474
+      }
+    ],
+    "Loss/value": [
+      {
+        "step": 2,
+        "value": 0.037970516830682755
+      }
+    ],
+    "Reward_Rate/feet_air_time": [
+      {
+        "step": 2,
+        "value": 0.0
+      }
+    ]
+  },
+  "final_frozen_resume_estimator_bitwise_equal": true,
+  "final_frozen_resume_actor_and_critic_changed": true
+}

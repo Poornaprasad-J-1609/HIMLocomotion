@@ -1,0 +1,362 @@
+Verified standing provenance: {'source': '/home/poornaprasad/RL/Quadruped/IsaacLab/logs/rsl_rl/grallator_him_standing/2026-11-03_21-06-02_middle_pose_038_resume/model_1700.pt', 'source_sha256': '10c9f75518359d9206c66c42f0a51ba6a68f84fcadd4f26c2b323dfd142c8ced', 'warm_start': '/home/poornaprasad/RL/Quadruped/grallator_rl/checkpoints/walking_from_standing.pt', 'original_std_mean': 0.019551029428839684, 'warm_std_mean': 0.11999999731779099, 'iteration': 0}
+Native walking: height=0.380 m, envs=16, iterations=3
+Starting checkpoint: /home/poornaprasad/RL/Quadruped/grallator_rl/checkpoints/walking_from_standing.pt
+Rewards: grallator_rl/tasks/walking_direct/reward_cfg.py
+[INFO]: Parsing configuration from: grallator_rl.him.walking_env_adapter:WalkingHIMEnvCfg
+[INFO]: Parsing configuration from: grallator_rl.him.walking_ppo_cfg:WalkingPPORunnerCfg
+
+╭─ Isaac Lab · train ────────────────────────────╮      [0m
+│ Task          GrallatorRl-HIM-Walking-Direct   │      [0m
+│ Workflow      direct                           │      [0m          [38;2;118;185;0m\[0m   [38;2;118;185;0m/[0m
+│ RL library    rsl_rl                           │      [0m        [38;2;232;228;214m.-------.[0m
+│ Physics       newton_mjwarp                    │      [0m        [38;2;232;228;214m|[0m [38;2;77;217;232mo[0m   [38;2;77;217;232mo[0m [38;2;232;228;214m|[0m
+│ Renderer      n/a (no camera sensors)          │      [0m        [38;2;232;228;214m|[0m   [38;2;232;228;214m_[0m   [38;2;232;228;214m|[0m
+│ Visualizer    none (headless)                  │      [0m        [38;2;232;228;214m'-------'[0m
+│ Device        cuda:0                           │      [0m
+│ Environments  16                               │      [0m[38;2;150;154;160mWelcome[0m [38;2;150;154;160mto[0m [38;2;150;154;160mIsaac[0m [38;2;150;154;160mLab[0m [38;2;150;154;160m3![0m
+╰────────────────────────────────────────────────╯      [0m
+                                                        [0m
+                                                        [0m
+
+[1/3] Launching simulation
+[INFO] Logging experiment in directory: /home/poornaprasad/RL/Quadruped/IsaacLab/logs/rsl_rl/grallator_him_walking_native
+Exact experiment name requested from command line: 2026-11-04_12-15-45
+[2/3] Creating environment
+I: Initializing Version 2.74.0-release.7316+gl.ec99a64b
+I: Client ID: MG3D2X8B
+I: ThreadId(02) hub_client::client::Client::new Launching client mode=Shared with_cleaner=false cache_path=None cache_size=None
+I: ThreadId(03) launch self=Launcher { discovery_lock: RwLock { lock: RwLock { inner: File { fd: 52, path: "/tmp/hub-poornaprasad.lock", read: false, write: true } } }, mode: Shared, with_cleaner: false, config_file: "/tmp/hub-poornaprasad-A2EE8A4.config.json" } cmd="hub" "--mode=shared" "--write-config" "/tmp/hub-poornaprasad-A2EE8A4.config.json" "--"
+I: Not using Hub: Hub not found
+I: Successfully created S3 provider for https://omniverse-content-production.s3-us-west-2.amazonaws.com
+I: Using CloudFront http://dcb18d6mfegct.cloudfront.net/, List = No
+Serving remote assets from the local cache under '/tmp'. Each copy is checked against the server before use; delete the directory to force a full re-download.
+/home/poornaprasad/RL/Quadruped/IsaacLab/source/isaaclab_newton/isaaclab_newton/cloner/newton_clone_utils.py:165: FutureWarning: Newton shape color replacement is enabled; this workaround will be deprecated in a future release.
+  replace_newton_builder_shape_colors(builder, stage)
+[INFO]: Base environment:
+	Environment device    : cuda:0
+	Environment seed      : 42
+	Physics step-size     : 0.005
+	Rendering step-size   : 0.02
+	Environment step-size : 0.02
+[INFO]: Time taken for scene creation Last: 1.733252 s, Mean: 1.733252 s, Std: 0.000000 s, N: 1
+[INFO]: Scene manager:  <class InteractiveScene>
+	Number of environments: 16
+	Environment spacing   : 2.0
+	Source prim name      : /World/envs/env_0
+	Global prim paths     : []
+	Replicate physics     : True
+[INFO]: Starting the simulation. This may take a few seconds. Please wait...
+Finalize builder took: Last: 0.018552 s, Mean: 0.018552 s, Std: 0.000000 s, N: 1
+Contact sensor construction took: Last: 0.002923 s, Mean: 0.002923 s, Std: 0.000000 s, N: 1
+Initialize solver took: Last: 0.923727 s, Mean: 0.923727 s, Std: 0.000000 s, N: 1
+[INFO]: Time taken for simulation start Last: 1.087204 s, Mean: 1.087204 s, Std: 0.000000 s, N: 1
+[INFO]: Completed setting up the environment...
+MIDDLE_POSE joint order: ['BL_hip_joint', 'BL_thigh_joint', 'BL_calf_joint', 'BR_hip_joint', 'BR_thigh_joint', 'BR_calf_joint', 'FL_hip_joint', 'FL_thigh_joint', 'FL_calf_joint', 'FR_hip_joint', 'FR_thigh_joint', 'FR_calf_joint']
+Contact sensor body names: ['base_link', 'BL_hip', 'BL_thigh', 'BL_calf', 'BL_foot', 'BR_hip', 'BR_thigh', 'BR_calf', 'BR_foot', 'FL_hip', 'FL_thigh', 'FL_calf', 'FL_foot', 'FR_hip', 'FR_thigh', 'FR_calf', 'FR_foot']
+Non-foot contact bodies: ['base_link', 'BL_hip', 'BL_thigh', 'BL_calf', 'BR_hip', 'BR_thigh', 'BR_calf', 'FL_hip', 'FL_thigh', 'FL_calf', 'FR_hip', 'FR_thigh', 'FR_calf']
+MIDDLE_POSE reset z=0.270 m
+Single commanded standing z=0.380 m
+[3/3] Preparing agent
+--------------------------------------------------------------------------------
+Resolved observation sets: 
+	 actor :  ['policy']
+	 critic :  ['critic']
+--------------------------------------------------------------------------------
+Actor Model: HIMRslActorModel(
+  (obs_normalizer): Identity()
+  (distribution): GaussianDistribution()
+  (mlp): MLP(
+    (0): Linear(in_features=65, out_features=512, bias=True)
+    (1): ELU(alpha=1.0)
+    (2): Linear(in_features=512, out_features=256, bias=True)
+    (3): ELU(alpha=1.0)
+    (4): Linear(in_features=256, out_features=128, bias=True)
+    (5): ELU(alpha=1.0)
+    (6): Linear(in_features=128, out_features=12, bias=True)
+  )
+  (estimator): HIMEstimator(
+    (encoder): Sequential(
+      (0): Linear(in_features=270, out_features=128, bias=True)
+      (1): ELU(alpha=1.0)
+      (2): Linear(in_features=128, out_features=64, bias=True)
+      (3): ELU(alpha=1.0)
+      (4): Linear(in_features=64, out_features=19, bias=True)
+    )
+    (target): Sequential(
+      (0): Linear(in_features=45, out_features=128, bias=True)
+      (1): ELU(alpha=1.0)
+      (2): Linear(in_features=128, out_features=64, bias=True)
+      (3): ELU(alpha=1.0)
+      (4): Linear(in_features=64, out_features=16, bias=True)
+    )
+    (prototypes): Embedding(32, 16)
+  )
+)
+Critic Model: MLPModel(
+  (obs_normalizer): EmpiricalNormalization()
+  (mlp): MLP(
+    (0): Linear(in_features=92, out_features=512, bias=True)
+    (1): ELU(alpha=1.0)
+    (2): Linear(in_features=512, out_features=256, bias=True)
+    (3): ELU(alpha=1.0)
+    (4): Linear(in_features=256, out_features=128, bias=True)
+    (5): ELU(alpha=1.0)
+    (6): Linear(in_features=128, out_features=1, bias=True)
+  )
+)
+[INFO]: Loading model checkpoint from: /home/poornaprasad/RL/Quadruped/grallator_rl/checkpoints/walking_from_standing.pt
+Storing git diff for 'IsaacLab' in: /home/poornaprasad/RL/Quadruped/IsaacLab/logs/rsl_rl/grallator_him_walking_native/2026-11-04_12-15-45_audit_smoke16/git/IsaacLab.diff
+CUDA graph took: Last: 0.418622 s, Mean: 0.418622 s, Std: 0.000000 s, N: 1
+[HIM PPO] LR=1.000000e-05 | PPO KL=8.000725 | Post-HIO KL=7.995908
+################################################################################
+[1m                             Learning iteration 0/3                             [0m 
+
+                               Run name: audit_smoke16
+                            Total steps: 384 
+                       Steps per second: 255 
+                        Collection time: 1.189s 
+                          Learning time: 0.313s 
+                        Mean value loss: 0.0628
+                    Mean surrogate loss: 0.1734
+                      Mean entropy loss: -8.4203
+                       Mean ppo_kl loss: 8.0007
+             Mean hio_velocity_mse loss: 0.0069
+                Mean hio_swap_loss loss: 0.0987
+                    Mean hio_pairs loss: 368.0000
+                  Mean post_hio_kl loss: 7.9959
+                        Mean action std: 0.12
+                   Reward_Rate/track_xy: 0.3534
+                  Reward_Rate/track_yaw: 0.8919
+                     Reward_Rate/height: 0.1876
+                    Reward_Rate/upright: -0.0014
+          Reward_Rate/vertical_velocity: -0.1814
+             Reward_Rate/joint_velocity: -0.0521
+                Reward_Rate/action_rate: -0.0169
+           Reward_Rate/action_magnitude: -0.0025
+          Reward_Rate/undesired_contact: -1.4479
+              Reward_Rate/feet_air_time: 0.0000
+                Reward_Rate/stance_slip: 0.0000
+                  Reward_Rate/trot_sync: 0.0000
+             Reward_Rate/time_imbalance: 0.0000
+        Reward_Rate/roll_pitch_velocity: 0.0000
+      Reward_Rate/vertical_acceleration: 0.0000
+         Reward_Rate/joint_acceleration: 0.0000
+               Reward_Rate/joint_torque: 0.0000
+             Reward_Rate/joint_position: 0.0000
+           Reward_Rate/mechanical_power: 0.0000
+                      Reward_Rate/total: -0.2693
+                Walking/Commands/vx_mps: 0.1822
+             Diagnostics/command_vx_mps: 0.1822
+                Walking/Commands/vy_mps: 0.0000
+             Diagnostics/command_vy_mps: 0.0000
+             Walking/Commands/yaw_radps: 0.0000
+          Diagnostics/command_yaw_radps: 0.0000
+         Walking/Tracking/actual_vx_mps: -0.1435
+              Diagnostics/actual_vx_mps: -0.1435
+         Walking/Tracking/actual_vy_mps: 0.0087
+              Diagnostics/actual_vy_mps: 0.0087
+      Walking/Tracking/actual_yaw_radps: 0.0593
+            Walking/Tracking/vx_mae_mps: 0.2506
+          Walking/Tracking/xy_error_mps: 0.2538
+      Walking/Tracking/raw_xy_error_mps: 0.3298
+        Walking/Tracking/valid_fraction: 0.6562
+             Walking/Gait/contact_count: 2.6849
+              Walking/Gait/airborne_pct: 32.8776
+                  Walking/Gait/liftoffs: 0.0573
+                Walking/Gait/touchdowns: 0.0000
+       Walking/Gait/qualified_airtime_s: 0.0000
+           Walking/Gait/stance_slip_mps: 0.3141
+      Walking/Stability/height_error_cm: 4.7689
+Walking/Stability/undesired_contact_pct: 72.3958
+Walking/Stability/action_near_limit_pct: 8.2899
+        Walking/Stability/fall_fraction: 0.0000
+           Diagnostics/actual_yaw_radps: 0.0593
+                 Diagnostics/vx_mae_mps: 0.3258
+                 Diagnostics/vy_mae_mps: 0.0339
+           Diagnostics/xy_vel_error_mps: 0.3298
+            Diagnostics/yaw_error_radps: 0.1104
+          Diagnostics/command_speed_mps: 0.1822
+           Diagnostics/actual_speed_mps: 0.1548
+        Diagnostics/moving_xy_error_mps: 0.2538
+         Diagnostics/moving_command_pct: 65.6250
+            Diagnostics/height_error_cm: 4.7689
+      Diagnostics/action_near_limit_pct: 8.2899
+      Diagnostics/undesired_contact_pct: 72.3958
+         Diagnostics/feet_contact_count: 2.6849
+       Diagnostics/all_feet_contact_pct: 47.3958
+    Diagnostics/airborne_pct_cumulative: 46.8144
+Diagnostics/liftoffs_per_1000_foot_steps: 27.6071
+--------------------------------------------------------------------------------
+                         Iteration time: 1.50s
+                           Time elapsed: 0:00:01
+                                    ETA: 0:00:03
+
+[HIM PPO] LR=1.000000e-05 | PPO KL=0.022346 | Post-HIO KL=0.022250
+################################################################################
+[1m                             Learning iteration 1/3                             [0m 
+
+                               Run name: audit_smoke16
+                            Total steps: 768 
+                       Steps per second: 1567 
+                        Collection time: 0.148s 
+                          Learning time: 0.097s 
+                        Mean value loss: 0.0341
+                    Mean surrogate loss: -0.0201
+                      Mean entropy loss: -8.4165
+                       Mean ppo_kl loss: 0.0223
+             Mean hio_velocity_mse loss: 0.0018
+                Mean hio_swap_loss loss: 0.1030
+                    Mean hio_pairs loss: 368.0000
+                  Mean post_hio_kl loss: 0.0223
+                        Mean action std: 0.12
+                   Reward_Rate/track_xy: 0.7210
+                  Reward_Rate/track_yaw: 0.9663
+                     Reward_Rate/height: 0.3797
+                    Reward_Rate/upright: -0.0004
+          Reward_Rate/vertical_velocity: -0.0006
+             Reward_Rate/joint_velocity: -0.0021
+                Reward_Rate/action_rate: -0.0030
+           Reward_Rate/action_magnitude: -0.0011
+          Reward_Rate/undesired_contact: -0.8906
+              Reward_Rate/feet_air_time: 0.0000
+                Reward_Rate/stance_slip: 0.0000
+                  Reward_Rate/trot_sync: 0.0000
+             Reward_Rate/time_imbalance: 0.0000
+        Reward_Rate/roll_pitch_velocity: 0.0000
+      Reward_Rate/vertical_acceleration: 0.0000
+         Reward_Rate/joint_acceleration: 0.0000
+               Reward_Rate/joint_torque: 0.0000
+             Reward_Rate/joint_position: 0.0000
+           Reward_Rate/mechanical_power: 0.0000
+                      Reward_Rate/total: 1.1691
+                Walking/Commands/vx_mps: 0.1822
+             Diagnostics/command_vx_mps: 0.1822
+                Walking/Commands/vy_mps: 0.0000
+             Diagnostics/command_vy_mps: 0.0000
+             Walking/Commands/yaw_radps: 0.0000
+          Diagnostics/command_yaw_radps: 0.0000
+         Walking/Tracking/actual_vx_mps: -0.0419
+              Diagnostics/actual_vx_mps: -0.0419
+         Walking/Tracking/actual_vy_mps: 0.0066
+              Diagnostics/actual_vy_mps: 0.0066
+      Walking/Tracking/actual_yaw_radps: 0.0297
+            Walking/Tracking/vx_mae_mps: 0.2526
+          Walking/Tracking/xy_error_mps: 0.2569
+      Walking/Tracking/raw_xy_error_mps: 0.2307
+        Walking/Tracking/valid_fraction: 0.8750
+             Walking/Gait/contact_count: 3.9844
+              Walking/Gait/airborne_pct: 0.3906
+                  Walking/Gait/liftoffs: 0.0026
+                Walking/Gait/touchdowns: 0.0026
+       Walking/Gait/qualified_airtime_s: 0.0000
+           Walking/Gait/stance_slip_mps: 0.0623
+      Walking/Stability/height_error_cm: 2.0894
+Walking/Stability/undesired_contact_pct: 44.5312
+Walking/Stability/action_near_limit_pct: 0.0868
+        Walking/Stability/fall_fraction: 0.0000
+           Diagnostics/actual_yaw_radps: 0.0297
+                 Diagnostics/vx_mae_mps: 0.2256
+                 Diagnostics/vy_mae_mps: 0.0346
+           Diagnostics/xy_vel_error_mps: 0.2307
+            Diagnostics/yaw_error_radps: 0.0615
+          Diagnostics/command_speed_mps: 0.1822
+           Diagnostics/actual_speed_mps: 0.0655
+        Diagnostics/moving_xy_error_mps: 0.2569
+         Diagnostics/moving_command_pct: 87.5000
+            Diagnostics/height_error_cm: 2.0894
+      Diagnostics/action_near_limit_pct: 0.0868
+      Diagnostics/undesired_contact_pct: 44.5312
+         Diagnostics/feet_contact_count: 3.9844
+       Diagnostics/all_feet_contact_pct: 98.4375
+    Diagnostics/airborne_pct_cumulative: 25.0921
+Diagnostics/liftoffs_per_1000_foot_steps: 13.9931
+--------------------------------------------------------------------------------
+                         Iteration time: 0.25s
+                           Time elapsed: 0:00:01
+                                    ETA: 0:00:00
+
+[HIM PPO] LR=1.000000e-05 | PPO KL=0.033422 | Post-HIO KL=0.033602
+################################################################################
+[1m                             Learning iteration 2/3                             [0m 
+
+                               Run name: audit_smoke16
+                            Total steps: 1152 
+                       Steps per second: 1400 
+                        Collection time: 0.162s 
+                          Learning time: 0.113s 
+                        Mean value loss: 0.0379
+                    Mean surrogate loss: -0.0261
+                      Mean entropy loss: -8.4264
+                       Mean ppo_kl loss: 0.0334
+             Mean hio_velocity_mse loss: 0.0014
+                Mean hio_swap_loss loss: 0.1057
+                    Mean hio_pairs loss: 368.0000
+                  Mean post_hio_kl loss: 0.0336
+                        Mean action std: 0.12
+                   Reward_Rate/track_xy: 1.0822
+                  Reward_Rate/track_yaw: 0.9750
+                     Reward_Rate/height: 0.4091
+                    Reward_Rate/upright: -0.0003
+          Reward_Rate/vertical_velocity: -0.0004
+             Reward_Rate/joint_velocity: -0.0017
+                Reward_Rate/action_rate: -0.0026
+           Reward_Rate/action_magnitude: -0.0009
+          Reward_Rate/undesired_contact: -0.5052
+              Reward_Rate/feet_air_time: 0.0000
+                Reward_Rate/stance_slip: 0.0000
+                  Reward_Rate/trot_sync: 0.0000
+             Reward_Rate/time_imbalance: 0.0000
+        Reward_Rate/roll_pitch_velocity: 0.0000
+      Reward_Rate/vertical_acceleration: 0.0000
+         Reward_Rate/joint_acceleration: 0.0000
+               Reward_Rate/joint_torque: 0.0000
+             Reward_Rate/joint_position: 0.0000
+           Reward_Rate/mechanical_power: 0.0000
+                      Reward_Rate/total: 1.9550
+                Walking/Commands/vx_mps: 0.1822
+             Diagnostics/command_vx_mps: 0.1822
+                Walking/Commands/vy_mps: 0.0000
+             Diagnostics/command_vy_mps: 0.0000
+             Walking/Commands/yaw_radps: 0.0000
+          Diagnostics/command_yaw_radps: 0.0000
+         Walking/Tracking/actual_vx_mps: 0.0019
+              Diagnostics/actual_vx_mps: 0.0019
+         Walking/Tracking/actual_vy_mps: 0.0049
+              Diagnostics/actual_vy_mps: 0.0049
+      Walking/Tracking/actual_yaw_radps: -0.0048
+            Walking/Tracking/vx_mae_mps: 0.2062
+          Walking/Tracking/xy_error_mps: 0.2079
+      Walking/Tracking/raw_xy_error_mps: 0.1847
+        Walking/Tracking/valid_fraction: 0.8750
+             Walking/Gait/contact_count: 4.0000
+              Walking/Gait/airborne_pct: 0.0000
+                  Walking/Gait/liftoffs: 0.0000
+                Walking/Gait/touchdowns: 0.0000
+       Walking/Gait/qualified_airtime_s: 0.0000
+           Walking/Gait/stance_slip_mps: 0.0524
+      Walking/Stability/height_error_cm: 1.7866
+Walking/Stability/undesired_contact_pct: 25.2604
+Walking/Stability/action_near_limit_pct: 0.0000
+        Walking/Stability/fall_fraction: 0.0000
+           Diagnostics/actual_yaw_radps: -0.0048
+                 Diagnostics/vx_mae_mps: 0.1825
+                 Diagnostics/vy_mae_mps: 0.0203
+           Diagnostics/xy_vel_error_mps: 0.1847
+            Diagnostics/yaw_error_radps: 0.0515
+          Diagnostics/command_speed_mps: 0.1822
+           Diagnostics/actual_speed_mps: 0.0306
+        Diagnostics/moving_xy_error_mps: 0.2079
+         Diagnostics/moving_command_pct: 87.5000
+            Diagnostics/height_error_cm: 1.7866
+      Diagnostics/action_near_limit_pct: 0.0000
+      Diagnostics/undesired_contact_pct: 25.2604
+         Diagnostics/feet_contact_count: 4.0000
+       Diagnostics/all_feet_contact_pct: 100.0000
+    Diagnostics/airborne_pct_cumulative: 13.5904
+Diagnostics/liftoffs_per_1000_foot_steps: 7.6613
+--------------------------------------------------------------------------------
+                         Iteration time: 0.27s
+                           Time elapsed: 0:00:02
+                                    ETA: 0:00:00
+
+Training time: 2.3 seconds

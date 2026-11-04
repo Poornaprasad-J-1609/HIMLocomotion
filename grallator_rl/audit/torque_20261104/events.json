@@ -1,0 +1,5761 @@
+{
+  "torque_smoke8": {
+    "path": "/home/poornaprasad/RL/Quadruped/IsaacLab/logs/rsl_rl/grallator_him_walking_native/2026-11-04_13-01-32_torque_smoke8",
+    "required_tags_verified": 62,
+    "iterations": 3,
+    "scalar_values": {
+      "Reward_Rate/upright": [
+        {
+          "step": 0,
+          "value": -0.0012841754360124469
+        },
+        {
+          "step": 1,
+          "value": -0.0002883119450416416
+        },
+        {
+          "step": 2,
+          "value": -0.00016561333904974163
+        }
+      ],
+      "Torque/MaxEver_Nm/FL_calf_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 100.0
+        },
+        {
+          "step": 2,
+          "value": 100.0
+        }
+      ],
+      "Walking/Tracking/actual_yaw_radps": [
+        {
+          "step": 0,
+          "value": 0.04885377734899521
+        },
+        {
+          "step": 1,
+          "value": 0.01750408485531807
+        },
+        {
+          "step": 2,
+          "value": -5.156822589924559e-05
+        }
+      ],
+      "Walking/Tracking/reset_excluded_fraction": [
+        {
+          "step": 0,
+          "value": 0.25
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Loss/value": [
+        {
+          "step": 0,
+          "value": 0.05100100114941597
+        },
+        {
+          "step": 1,
+          "value": 0.04343762248754501
+        },
+        {
+          "step": 2,
+          "value": 0.04478730633854866
+        }
+      ],
+      "Loss/surrogate": [
+        {
+          "step": 0,
+          "value": -0.07385344058275223
+        },
+        {
+          "step": 1,
+          "value": -0.03980385884642601
+        },
+        {
+          "step": 2,
+          "value": -0.023248037323355675
+        }
+      ],
+      "Reward_Rate/action_magnitude": [
+        {
+          "step": 0,
+          "value": -0.002408933825790882
+        },
+        {
+          "step": 1,
+          "value": -0.0011189521756023169
+        },
+        {
+          "step": 2,
+          "value": -0.0010860818438231945
+        }
+      ],
+      "Walking/Commands/vx_mps": [
+        {
+          "step": 0,
+          "value": 0.19333088397979736
+        },
+        {
+          "step": 1,
+          "value": 0.19333088397979736
+        },
+        {
+          "step": 2,
+          "value": 0.19333088397979736
+        }
+      ],
+      "Reward_Rate/roll_pitch_velocity": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Walking/Gait/stance_slip_mps": [
+        {
+          "step": 0,
+          "value": 0.312968909740448
+        },
+        {
+          "step": 1,
+          "value": 0.05451306700706482
+        },
+        {
+          "step": 2,
+          "value": 0.049088042229413986
+        }
+      ],
+      "Torque/MaxEver_Nm/FL_thigh_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 100.0
+        },
+        {
+          "step": 2,
+          "value": 100.0
+        }
+      ],
+      "Torque/EffortLimitFraction/FL_thigh_joint": [
+        {
+          "step": 0,
+          "value": 0.0078125
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "EstimatedTorque/UnclippedComputedPeakAbs_Nm/BL_thigh_joint": [
+        {
+          "step": 0,
+          "value": 62.23036193847656
+        },
+        {
+          "step": 1,
+          "value": 28.12665557861328
+        },
+        {
+          "step": 2,
+          "value": 30.02165412902832
+        }
+      ],
+      "Loss/learning_rate": [
+        {
+          "step": 0,
+          "value": 9.999999747378752e-06
+        },
+        {
+          "step": 1,
+          "value": 9.999999747378752e-06
+        },
+        {
+          "step": 2,
+          "value": 9.999999747378752e-06
+        }
+      ],
+      "Torque/MeanAbs_Nm/BR_thigh_joint": [
+        {
+          "step": 0,
+          "value": 20.538183212280273
+        },
+        {
+          "step": 1,
+          "value": 12.211843490600586
+        },
+        {
+          "step": 2,
+          "value": 8.199749946594238
+        }
+      ],
+      "Torque/PeakAbs_Nm/FL_thigh_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 42.401268005371094
+        },
+        {
+          "step": 2,
+          "value": 37.01395034790039
+        }
+      ],
+      "Diagnostics/actual_speed_mps": [
+        {
+          "step": 0,
+          "value": 0.1586996614933014
+        },
+        {
+          "step": 1,
+          "value": 0.053637709468603134
+        },
+        {
+          "step": 2,
+          "value": 0.027631573379039764
+        }
+      ],
+      "Walking/Tracking/actual_vx_mps": [
+        {
+          "step": 0,
+          "value": -0.14520661532878876
+        },
+        {
+          "step": 1,
+          "value": -0.009198267944157124
+        },
+        {
+          "step": 2,
+          "value": 0.004196059890091419
+        }
+      ],
+      "Walking/Gait/qualified_airtime_s": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Reward_Rate/mechanical_power": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "EstimatedTorque/UnclippedComputedPeakAbs_Nm/FR_hip_joint": [
+        {
+          "step": 0,
+          "value": 56.942405700683594
+        },
+        {
+          "step": 1,
+          "value": 26.7125244140625
+        },
+        {
+          "step": 2,
+          "value": 34.47679901123047
+        }
+      ],
+      "Reward_Rate/action_rate": [
+        {
+          "step": 0,
+          "value": -0.016297703608870506
+        },
+        {
+          "step": 1,
+          "value": -0.0023450858425348997
+        },
+        {
+          "step": 2,
+          "value": -0.002393133472651243
+        }
+      ],
+      "Perf/collection_time": [
+        {
+          "step": 0,
+          "value": 1.5404212474822998
+        },
+        {
+          "step": 1,
+          "value": 0.14287686347961426
+        },
+        {
+          "step": 2,
+          "value": 0.14426326751708984
+        }
+      ],
+      "Diagnostics/vx_mae_mps": [
+        {
+          "step": 0,
+          "value": 0.33854636549949646
+        },
+        {
+          "step": 1,
+          "value": 0.20835229754447937
+        },
+        {
+          "step": 2,
+          "value": 0.1919296383857727
+        }
+      ],
+      "Torque/EffortLimitFraction/FL_calf_joint": [
+        {
+          "step": 0,
+          "value": 0.0872395858168602
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Torque/EffortLimitFraction/BR_calf_joint": [
+        {
+          "step": 0,
+          "value": 0.1015625
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Loss/hio_velocity_mse": [
+        {
+          "step": 0,
+          "value": 0.007169397547841072
+        },
+        {
+          "step": 1,
+          "value": 0.0015497751301154494
+        },
+        {
+          "step": 2,
+          "value": 0.0007709591882303357
+        }
+      ],
+      "Reward_Rate/height": [
+        {
+          "step": 0,
+          "value": 0.19012591242790222
+        },
+        {
+          "step": 1,
+          "value": 0.39045578241348267
+        },
+        {
+          "step": 2,
+          "value": 0.39956411719322205
+        }
+      ],
+      "Torque/MaxEver_Nm/BL_calf_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 100.0
+        },
+        {
+          "step": 2,
+          "value": 100.0
+        }
+      ],
+      "Torque/MeanAbs_Nm/FL_hip_joint": [
+        {
+          "step": 0,
+          "value": 11.380157470703125
+        },
+        {
+          "step": 1,
+          "value": 7.707986354827881
+        },
+        {
+          "step": 2,
+          "value": 10.043354034423828
+        }
+      ],
+      "Torque/MaxEver_Nm/BR_thigh_joint": [
+        {
+          "step": 0,
+          "value": 66.0430908203125
+        },
+        {
+          "step": 1,
+          "value": 66.0430908203125
+        },
+        {
+          "step": 2,
+          "value": 66.0430908203125
+        }
+      ],
+      "Torque/EffortLimitFraction/BL_thigh_joint": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Torque/MeanAbs_Nm/BL_calf_joint": [
+        {
+          "step": 0,
+          "value": 37.193878173828125
+        },
+        {
+          "step": 1,
+          "value": 32.80059051513672
+        },
+        {
+          "step": 2,
+          "value": 30.103694915771484
+        }
+      ],
+      "Perf/learning_time": [
+        {
+          "step": 0,
+          "value": 0.273970365524292
+        },
+        {
+          "step": 1,
+          "value": 0.08527541160583496
+        },
+        {
+          "step": 2,
+          "value": 0.08736610412597656
+        }
+      ],
+      "Torque/MeanAbs_Nm/FR_thigh_joint": [
+        {
+          "step": 0,
+          "value": 29.347076416015625
+        },
+        {
+          "step": 1,
+          "value": 9.05282211303711
+        },
+        {
+          "step": 2,
+          "value": 8.546025276184082
+        }
+      ],
+      "EstimatedTorque/UnclippedComputedPeakAbs_Nm/BR_hip_joint": [
+        {
+          "step": 0,
+          "value": 69.81462860107422
+        },
+        {
+          "step": 1,
+          "value": 34.92714309692383
+        },
+        {
+          "step": 2,
+          "value": 26.650653839111328
+        }
+      ],
+      "Reward_Rate/feet_air_time": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Torque/OverallPeakAbs_Nm": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 64.81952667236328
+        },
+        {
+          "step": 2,
+          "value": 62.22924041748047
+        }
+      ],
+      "Torque/EffortLimitFraction/FR_calf_joint": [
+        {
+          "step": 0,
+          "value": 0.09375
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Torque/MeanAbs_Nm/FL_calf_joint": [
+        {
+          "step": 0,
+          "value": 31.31623077392578
+        },
+        {
+          "step": 1,
+          "value": 26.670684814453125
+        },
+        {
+          "step": 2,
+          "value": 26.319875717163086
+        }
+      ],
+      "Torque/MeanAbs_Nm/BR_calf_joint": [
+        {
+          "step": 0,
+          "value": 40.114013671875
+        },
+        {
+          "step": 1,
+          "value": 34.27656555175781
+        },
+        {
+          "step": 2,
+          "value": 32.48391342163086
+        }
+      ],
+      "Reward_Rate/total": [
+        {
+          "step": 0,
+          "value": -0.3505632281303406
+        },
+        {
+          "step": 1,
+          "value": 1.2836318016052246
+        },
+        {
+          "step": 2,
+          "value": 1.8978710174560547
+        }
+      ],
+      "EstimatedTorque/UnclippedComputedPeakAbs_Nm/FL_thigh_joint": [
+        {
+          "step": 0,
+          "value": 119.79178619384766
+        },
+        {
+          "step": 1,
+          "value": 42.40127182006836
+        },
+        {
+          "step": 2,
+          "value": 37.01395034790039
+        }
+      ],
+      "Diagnostics/command_vx_mps": [
+        {
+          "step": 0,
+          "value": 0.19333088397979736
+        },
+        {
+          "step": 1,
+          "value": 0.19333088397979736
+        },
+        {
+          "step": 2,
+          "value": 0.19333088397979736
+        }
+      ],
+      "EstimatedTorque/UnclippedComputedPeakAbs_Nm/FR_thigh_joint": [
+        {
+          "step": 0,
+          "value": 105.08062744140625
+        },
+        {
+          "step": 1,
+          "value": 30.53621482849121
+        },
+        {
+          "step": 2,
+          "value": 40.622901916503906
+        }
+      ],
+      "Walking/Commands/vy_mps": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Walking/Gait/liftoffs": [
+        {
+          "step": 0,
+          "value": 0.03125
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Torque/P95Abs_Nm/BL_hip_joint": [
+        {
+          "step": 0,
+          "value": 40.39851760864258
+        },
+        {
+          "step": 1,
+          "value": 22.074331283569336
+        },
+        {
+          "step": 2,
+          "value": 22.261943817138672
+        }
+      ],
+      "Walking/Commands/yaw_radps": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Torque/P95Abs_Nm/BR_calf_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 48.62833023071289
+        },
+        {
+          "step": 2,
+          "value": 48.23601150512695
+        }
+      ],
+      "Torque/SampleInterval_s": [
+        {
+          "step": 0,
+          "value": 0.004999999888241291
+        },
+        {
+          "step": 1,
+          "value": 0.004999999888241291
+        },
+        {
+          "step": 2,
+          "value": 0.004999999888241291
+        }
+      ],
+      "Diagnostics/feet_contact_count": [
+        {
+          "step": 0,
+          "value": 2.65625
+        },
+        {
+          "step": 1,
+          "value": 4.0
+        },
+        {
+          "step": 2,
+          "value": 4.0
+        }
+      ],
+      "Reward_Rate/joint_velocity": [
+        {
+          "step": 0,
+          "value": -0.051383666694164276
+        },
+        {
+          "step": 1,
+          "value": -0.0018587303347885609
+        },
+        {
+          "step": 2,
+          "value": -0.0015516126295551658
+        }
+      ],
+      "Reward_Rate/trot_sync": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Torque/P95Abs_Nm/FR_calf_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 37.934757232666016
+        },
+        {
+          "step": 2,
+          "value": 42.12652587890625
+        }
+      ],
+      "Torque/EffortLimitFraction/FR_hip_joint": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Torque/MaxEver_Nm/BL_thigh_joint": [
+        {
+          "step": 0,
+          "value": 62.23036193847656
+        },
+        {
+          "step": 1,
+          "value": 62.23036193847656
+        },
+        {
+          "step": 2,
+          "value": 62.23036193847656
+        }
+      ],
+      "Torque/P95Abs_Nm/BL_calf_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 49.302433013916016
+        },
+        {
+          "step": 2,
+          "value": 43.129859924316406
+        }
+      ],
+      "Reward_Rate/undesired_contact": [
+        {
+          "step": 0,
+          "value": -1.46875
+        },
+        {
+          "step": 1,
+          "value": -0.9270833730697632
+        },
+        {
+          "step": 2,
+          "value": -0.4270833432674408
+        }
+      ],
+      "Walking/Stability/action_near_limit_pct": [
+        {
+          "step": 0,
+          "value": 7.986111640930176
+        },
+        {
+          "step": 1,
+          "value": 0.0868055671453476
+        },
+        {
+          "step": 2,
+          "value": 0.0434027835726738
+        }
+      ],
+      "Torque/PeakAbs_Nm/BL_calf_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 64.81952667236328
+        },
+        {
+          "step": 2,
+          "value": 59.4495849609375
+        }
+      ],
+      "Torque/EffortLimitFraction/BR_thigh_joint": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Diagnostics/liftoffs_per_1000_foot_steps": [
+        {
+          "step": 0,
+          "value": 15.015609741210938
+        },
+        {
+          "step": 1,
+          "value": 7.425309658050537
+        },
+        {
+          "step": 2,
+          "value": 3.997180938720703
+        }
+      ],
+      "Torque/MeanAbs_Nm/FR_hip_joint": [
+        {
+          "step": 0,
+          "value": 11.56648063659668
+        },
+        {
+          "step": 1,
+          "value": 9.108790397644043
+        },
+        {
+          "step": 2,
+          "value": 10.314203262329102
+        }
+      ],
+      "Diagnostics/actual_vx_mps": [
+        {
+          "step": 0,
+          "value": -0.14520661532878876
+        },
+        {
+          "step": 1,
+          "value": -0.009198267944157124
+        },
+        {
+          "step": 2,
+          "value": 0.004196059890091419
+        }
+      ],
+      "Loss/entropy": [
+        {
+          "step": 0,
+          "value": -8.414239883422852
+        },
+        {
+          "step": 1,
+          "value": -8.410673141479492
+        },
+        {
+          "step": 2,
+          "value": -8.407326698303223
+        }
+      ],
+      "Diagnostics/command_speed_mps": [
+        {
+          "step": 0,
+          "value": 0.19333088397979736
+        },
+        {
+          "step": 1,
+          "value": 0.19333088397979736
+        },
+        {
+          "step": 2,
+          "value": 0.19333088397979736
+        }
+      ],
+      "Loss/ppo_kl": [
+        {
+          "step": 0,
+          "value": 0.042292848229408264
+        },
+        {
+          "step": 1,
+          "value": 0.0347273163497448
+        },
+        {
+          "step": 2,
+          "value": 0.02684616670012474
+        }
+      ],
+      "Torque/P95Abs_Nm/FR_thigh_joint": [
+        {
+          "step": 0,
+          "value": 73.56036376953125
+        },
+        {
+          "step": 1,
+          "value": 21.43637466430664
+        },
+        {
+          "step": 2,
+          "value": 22.50352668762207
+        }
+      ],
+      "Diagnostics/height_error_cm": [
+        {
+          "step": 0,
+          "value": 4.734821319580078
+        },
+        {
+          "step": 1,
+          "value": 1.9820468425750732
+        },
+        {
+          "step": 2,
+          "value": 1.891052484512329
+        }
+      ],
+      "Diagnostics/xy_vel_error_mps": [
+        {
+          "step": 0,
+          "value": 0.3436010479927063
+        },
+        {
+          "step": 1,
+          "value": 0.21460703015327454
+        },
+        {
+          "step": 2,
+          "value": 0.19426533579826355
+        }
+      ],
+      "Torque/EffortLimitFraction/FR_thigh_joint": [
+        {
+          "step": 0,
+          "value": 0.0078125
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Torque/PeakAbs_Nm/BR_thigh_joint": [
+        {
+          "step": 0,
+          "value": 66.0430908203125
+        },
+        {
+          "step": 1,
+          "value": 43.45919418334961
+        },
+        {
+          "step": 2,
+          "value": 37.21272277832031
+        }
+      ],
+      "Torque/PeakAbs_Nm/FR_thigh_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 30.536211013793945
+        },
+        {
+          "step": 2,
+          "value": 40.622901916503906
+        }
+      ],
+      "Diagnostics/vy_mae_mps": [
+        {
+          "step": 0,
+          "value": 0.03656063973903656
+        },
+        {
+          "step": 1,
+          "value": 0.035037562251091
+        },
+        {
+          "step": 2,
+          "value": 0.020183846354484558
+        }
+      ],
+      "Walking/Stability/fall_fraction": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "EstimatedTorque/UnclippedComputedPeakAbs_Nm/FL_calf_joint": [
+        {
+          "step": 0,
+          "value": 149.4818572998047
+        },
+        {
+          "step": 1,
+          "value": 53.808101654052734
+        },
+        {
+          "step": 2,
+          "value": 48.13629150390625
+        }
+      ],
+      "Torque/PhysicsSamplesPerJoint": [
+        {
+          "step": 0,
+          "value": 768.0
+        },
+        {
+          "step": 1,
+          "value": 768.0
+        },
+        {
+          "step": 2,
+          "value": 768.0
+        }
+      ],
+      "Torque/PeakAbs_Nm/BL_thigh_joint": [
+        {
+          "step": 0,
+          "value": 62.23036193847656
+        },
+        {
+          "step": 1,
+          "value": 28.12665367126465
+        },
+        {
+          "step": 2,
+          "value": 30.021650314331055
+        }
+      ],
+      "Perf/total_fps": [
+        {
+          "step": 0,
+          "value": 105.0
+        },
+        {
+          "step": 1,
+          "value": 841.0
+        },
+        {
+          "step": 2,
+          "value": 828.0
+        }
+      ],
+      "EstimatedTorque/UnclippedComputedPeakAbs_Nm/BR_calf_joint": [
+        {
+          "step": 0,
+          "value": 155.4327392578125
+        },
+        {
+          "step": 1,
+          "value": 56.52521896362305
+        },
+        {
+          "step": 2,
+          "value": 62.229244232177734
+        }
+      ],
+      "Torque/P95Abs_Nm/FL_calf_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 41.6228141784668
+        },
+        {
+          "step": 2,
+          "value": 39.06986999511719
+        }
+      ],
+      "EstimatedTorque/UnclippedComputedPeakAbs_Nm/BR_thigh_joint": [
+        {
+          "step": 0,
+          "value": 66.0430908203125
+        },
+        {
+          "step": 1,
+          "value": 43.45919418334961
+        },
+        {
+          "step": 2,
+          "value": 37.21272659301758
+        }
+      ],
+      "Reward_Rate/stance_slip": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Loss/hio_pairs": [
+        {
+          "step": 0,
+          "value": 184.0
+        },
+        {
+          "step": 1,
+          "value": 184.0
+        },
+        {
+          "step": 2,
+          "value": 184.0
+        }
+      ],
+      "Torque/MaxEver_Nm/FR_calf_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 100.0
+        },
+        {
+          "step": 2,
+          "value": 100.0
+        }
+      ],
+      "Policy/mean_std": [
+        {
+          "step": 0,
+          "value": 0.1200195848941803
+        },
+        {
+          "step": 1,
+          "value": 0.1200764998793602
+        },
+        {
+          "step": 2,
+          "value": 0.12009125202894211
+        }
+      ],
+      "Reward_Rate/joint_acceleration": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Diagnostics/command_yaw_radps": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Torque/MeanAbs_Nm/FL_thigh_joint": [
+        {
+          "step": 0,
+          "value": 28.10760498046875
+        },
+        {
+          "step": 1,
+          "value": 9.924205780029297
+        },
+        {
+          "step": 2,
+          "value": 9.035091400146484
+        }
+      ],
+      "Reward_Rate/track_xy": [
+        {
+          "step": 0,
+          "value": 0.2864890396595001
+        },
+        {
+          "step": 1,
+          "value": 0.8555059432983398
+        },
+        {
+          "step": 2,
+          "value": 0.954901397228241
+        }
+      ],
+      "EstimatedTorque/UnclippedComputedPeakAbs_Nm/BL_calf_joint": [
+        {
+          "step": 0,
+          "value": 154.87876892089844
+        },
+        {
+          "step": 1,
+          "value": 64.81951904296875
+        },
+        {
+          "step": 2,
+          "value": 59.44959259033203
+        }
+      ],
+      "Reward_Rate/time_imbalance": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Torque/MaxEver_Nm/BR_calf_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 100.0
+        },
+        {
+          "step": 2,
+          "value": 100.0
+        }
+      ],
+      "Torque/PeakAbs_Nm/BR_hip_joint": [
+        {
+          "step": 0,
+          "value": 69.81462860107422
+        },
+        {
+          "step": 1,
+          "value": 34.92714309692383
+        },
+        {
+          "step": 2,
+          "value": 26.650653839111328
+        }
+      ],
+      "Walking/Tracking/valid_fraction": [
+        {
+          "step": 0,
+          "value": 0.65625
+        },
+        {
+          "step": 1,
+          "value": 0.875
+        },
+        {
+          "step": 2,
+          "value": 0.875
+        }
+      ],
+      "Torque/P95Abs_Nm/BR_thigh_joint": [
+        {
+          "step": 0,
+          "value": 49.7587776184082
+        },
+        {
+          "step": 1,
+          "value": 28.673782348632812
+        },
+        {
+          "step": 2,
+          "value": 20.677209854125977
+        }
+      ],
+      "Diagnostics/actual_vy_mps": [
+        {
+          "step": 0,
+          "value": 0.007547611370682716
+        },
+        {
+          "step": 1,
+          "value": 0.016815539449453354
+        },
+        {
+          "step": 2,
+          "value": -0.008380789309740067
+        }
+      ],
+      "Torque/P95Abs_Nm/BL_thigh_joint": [
+        {
+          "step": 0,
+          "value": 34.97666549682617
+        },
+        {
+          "step": 1,
+          "value": 20.013336181640625
+        },
+        {
+          "step": 2,
+          "value": 17.9261417388916
+        }
+      ],
+      "Walking/Gait/touchdowns": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Torque/EffortLimitFraction/BL_calf_joint": [
+        {
+          "step": 0,
+          "value": 0.09375
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Torque/MaxEver_Nm/FR_thigh_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 100.0
+        },
+        {
+          "step": 2,
+          "value": 100.0
+        }
+      ],
+      "Walking/Stability/undesired_contact_pct": [
+        {
+          "step": 0,
+          "value": 73.4375
+        },
+        {
+          "step": 1,
+          "value": 46.35416793823242
+        },
+        {
+          "step": 2,
+          "value": 21.354167938232422
+        }
+      ],
+      "Torque/PeakAbs_Nm/FL_hip_joint": [
+        {
+          "step": 0,
+          "value": 54.065185546875
+        },
+        {
+          "step": 1,
+          "value": 35.86713790893555
+        },
+        {
+          "step": 2,
+          "value": 33.700340270996094
+        }
+      ],
+      "Reward_Rate/vertical_velocity": [
+        {
+          "step": 0,
+          "value": -0.1814507097005844
+        },
+        {
+          "step": 1,
+          "value": -0.0004672836512327194
+        },
+        {
+          "step": 2,
+          "value": -0.0003659662907011807
+        }
+      ],
+      "Diagnostics/moving_xy_error_mps": [
+        {
+          "step": 0,
+          "value": 0.2646991014480591
+        },
+        {
+          "step": 1,
+          "value": 0.24053779244422913
+        },
+        {
+          "step": 2,
+          "value": 0.21826764941215515
+        }
+      ],
+      "Torque/MaxEver_Nm/FL_hip_joint": [
+        {
+          "step": 0,
+          "value": 54.065185546875
+        },
+        {
+          "step": 1,
+          "value": 54.065185546875
+        },
+        {
+          "step": 2,
+          "value": 54.065185546875
+        }
+      ],
+      "Torque/EffortLimitFraction/FL_hip_joint": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Diagnostics/all_feet_contact_pct": [
+        {
+          "step": 0,
+          "value": 47.395835876464844
+        },
+        {
+          "step": 1,
+          "value": 100.0
+        },
+        {
+          "step": 2,
+          "value": 100.0
+        }
+      ],
+      "Diagnostics/airborne_pct_cumulative": [
+        {
+          "step": 0,
+          "value": 48.369197845458984
+        },
+        {
+          "step": 1,
+          "value": 25.493566513061523
+        },
+        {
+          "step": 2,
+          "value": 13.723653793334961
+        }
+      ],
+      "Torque/PeakAbs_Nm/FR_hip_joint": [
+        {
+          "step": 0,
+          "value": 56.94240188598633
+        },
+        {
+          "step": 1,
+          "value": 26.712526321411133
+        },
+        {
+          "step": 2,
+          "value": 34.47679901123047
+        }
+      ],
+      "Walking/Stability/height_error_cm": [
+        {
+          "step": 0,
+          "value": 4.734821319580078
+        },
+        {
+          "step": 1,
+          "value": 1.9820468425750732
+        },
+        {
+          "step": 2,
+          "value": 1.891052484512329
+        }
+      ],
+      "Walking/Tracking/xy_error_mps": [
+        {
+          "step": 0,
+          "value": 0.2646991014480591
+        },
+        {
+          "step": 1,
+          "value": 0.24053779244422913
+        },
+        {
+          "step": 2,
+          "value": 0.21826764941215515
+        }
+      ],
+      "Diagnostics/yaw_error_radps": [
+        {
+          "step": 0,
+          "value": 0.10988315939903259
+        },
+        {
+          "step": 1,
+          "value": 0.05551256984472275
+        },
+        {
+          "step": 2,
+          "value": 0.05051862448453903
+        }
+      ],
+      "Walking/Tracking/raw_xy_error_mps": [
+        {
+          "step": 0,
+          "value": 0.3436010479927063
+        },
+        {
+          "step": 1,
+          "value": 0.21460703015327454
+        },
+        {
+          "step": 2,
+          "value": 0.19426533579826355
+        }
+      ],
+      "Walking/Gait/airborne_pct": [
+        {
+          "step": 0,
+          "value": 33.59375
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Torque/MeanAbs_Nm/BL_thigh_joint": [
+        {
+          "step": 0,
+          "value": 12.98139762878418
+        },
+        {
+          "step": 1,
+          "value": 8.615017890930176
+        },
+        {
+          "step": 2,
+          "value": 7.104732513427734
+        }
+      ],
+      "Diagnostics/actual_yaw_radps": [
+        {
+          "step": 0,
+          "value": 0.04885377734899521
+        },
+        {
+          "step": 1,
+          "value": 0.01750408485531807
+        },
+        {
+          "step": 2,
+          "value": -5.156822589924559e-05
+        }
+      ],
+      "Reward_Rate/joint_torque": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Reward_Rate/joint_position": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Reward_Rate/vertical_acceleration": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Torque/PeakAbs_Nm/FL_calf_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 53.808101654052734
+        },
+        {
+          "step": 2,
+          "value": 48.13629150390625
+        }
+      ],
+      "Torque/P95Abs_Nm/FR_hip_joint": [
+        {
+          "step": 0,
+          "value": 36.1317024230957
+        },
+        {
+          "step": 1,
+          "value": 19.19019889831543
+        },
+        {
+          "step": 2,
+          "value": 22.29974937438965
+        }
+      ],
+      "EstimatedTorque/UnclippedComputedPeakAbs_Nm/FL_hip_joint": [
+        {
+          "step": 0,
+          "value": 54.065185546875
+        },
+        {
+          "step": 1,
+          "value": 35.86713790893555
+        },
+        {
+          "step": 2,
+          "value": 33.70034408569336
+        }
+      ],
+      "Torque/MeanAbs_Nm/BL_hip_joint": [
+        {
+          "step": 0,
+          "value": 16.25262451171875
+        },
+        {
+          "step": 1,
+          "value": 9.920358657836914
+        },
+        {
+          "step": 2,
+          "value": 9.893397331237793
+        }
+      ],
+      "Walking/Tracking/vx_mae_mps": [
+        {
+          "step": 0,
+          "value": 0.2607154846191406
+        },
+        {
+          "step": 1,
+          "value": 0.23478937149047852
+        },
+        {
+          "step": 2,
+          "value": 0.2168792188167572
+        }
+      ],
+      "Torque/MeanAbs_Nm/BR_hip_joint": [
+        {
+          "step": 0,
+          "value": 12.218448638916016
+        },
+        {
+          "step": 1,
+          "value": 9.050821304321289
+        },
+        {
+          "step": 2,
+          "value": 8.457615852355957
+        }
+      ],
+      "Torque/PeakAbs_Nm/BR_calf_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 56.52521514892578
+        },
+        {
+          "step": 2,
+          "value": 62.22924041748047
+        }
+      ],
+      "Torque/P95Abs_Nm/FL_hip_joint": [
+        {
+          "step": 0,
+          "value": 33.12324142456055
+        },
+        {
+          "step": 1,
+          "value": 19.16274642944336
+        },
+        {
+          "step": 2,
+          "value": 22.047950744628906
+        }
+      ],
+      "Torque/EffortLimitFraction/BL_hip_joint": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "EstimatedTorque/UnclippedComputedPeakAbs_Nm/BL_hip_joint": [
+        {
+          "step": 0,
+          "value": 66.4998550415039
+        },
+        {
+          "step": 1,
+          "value": 35.41040802001953
+        },
+        {
+          "step": 2,
+          "value": 33.107208251953125
+        }
+      ],
+      "Diagnostics/undesired_contact_pct": [
+        {
+          "step": 0,
+          "value": 73.4375
+        },
+        {
+          "step": 1,
+          "value": 46.35416793823242
+        },
+        {
+          "step": 2,
+          "value": 21.354167938232422
+        }
+      ],
+      "Torque/PeakAbs_Nm/BL_hip_joint": [
+        {
+          "step": 0,
+          "value": 66.4998550415039
+        },
+        {
+          "step": 1,
+          "value": 35.41040802001953
+        },
+        {
+          "step": 2,
+          "value": 33.107208251953125
+        }
+      ],
+      "Diagnostics/command_vy_mps": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Torque/PeakAbs_Nm/FR_calf_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 50.78410339355469
+        },
+        {
+          "step": 2,
+          "value": 57.741737365722656
+        }
+      ],
+      "Loss/post_hio_kl": [
+        {
+          "step": 0,
+          "value": 0.04219096899032593
+        },
+        {
+          "step": 1,
+          "value": 0.03490109369158745
+        },
+        {
+          "step": 2,
+          "value": 0.027210121974349022
+        }
+      ],
+      "Torque/P95Abs_Nm/FL_thigh_joint": [
+        {
+          "step": 0,
+          "value": 67.04058837890625
+        },
+        {
+          "step": 1,
+          "value": 25.148727416992188
+        },
+        {
+          "step": 2,
+          "value": 20.408905029296875
+        }
+      ],
+      "Torque/MaxEver_Nm/BR_hip_joint": [
+        {
+          "step": 0,
+          "value": 69.81462860107422
+        },
+        {
+          "step": 1,
+          "value": 69.81462860107422
+        },
+        {
+          "step": 2,
+          "value": 69.81462860107422
+        }
+      ],
+      "Diagnostics/moving_command_pct": [
+        {
+          "step": 0,
+          "value": 65.625
+        },
+        {
+          "step": 1,
+          "value": 87.5
+        },
+        {
+          "step": 2,
+          "value": 87.5
+        }
+      ],
+      "Reward_Rate/track_yaw": [
+        {
+          "step": 0,
+          "value": 0.8943970203399658
+        },
+        {
+          "step": 1,
+          "value": 0.9708317518234253
+        },
+        {
+          "step": 2,
+          "value": 0.9760512709617615
+        }
+      ],
+      "Torque/MaxEver_Nm/FR_hip_joint": [
+        {
+          "step": 0,
+          "value": 56.94240188598633
+        },
+        {
+          "step": 1,
+          "value": 56.94240188598633
+        },
+        {
+          "step": 2,
+          "value": 56.94240188598633
+        }
+      ],
+      "Torque/P95Abs_Nm/BR_hip_joint": [
+        {
+          "step": 0,
+          "value": 34.92644119262695
+        },
+        {
+          "step": 1,
+          "value": 20.234663009643555
+        },
+        {
+          "step": 2,
+          "value": 19.242887496948242
+        }
+      ],
+      "Torque/MaxEver_Nm/BL_hip_joint": [
+        {
+          "step": 0,
+          "value": 66.4998550415039
+        },
+        {
+          "step": 1,
+          "value": 66.4998550415039
+        },
+        {
+          "step": 2,
+          "value": 66.4998550415039
+        }
+      ],
+      "Walking/Tracking/actual_vy_mps": [
+        {
+          "step": 0,
+          "value": 0.007547611370682716
+        },
+        {
+          "step": 1,
+          "value": 0.016815539449453354
+        },
+        {
+          "step": 2,
+          "value": -0.008380789309740067
+        }
+      ],
+      "Loss/hio_swap_loss": [
+        {
+          "step": 0,
+          "value": 0.09819413721561432
+        },
+        {
+          "step": 1,
+          "value": 0.10055989027023315
+        },
+        {
+          "step": 2,
+          "value": 0.10348059237003326
+        }
+      ],
+      "Torque/OverallMaxEver_Nm": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 100.0
+        },
+        {
+          "step": 2,
+          "value": 100.0
+        }
+      ],
+      "EstimatedTorque/UnclippedComputedPeakAbs_Nm/FR_calf_joint": [
+        {
+          "step": 0,
+          "value": 152.40823364257812
+        },
+        {
+          "step": 1,
+          "value": 50.78410339355469
+        },
+        {
+          "step": 2,
+          "value": 57.74174118041992
+        }
+      ],
+      "Torque/EffortLimitFraction/BR_hip_joint": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Walking/Gait/contact_count": [
+        {
+          "step": 0,
+          "value": 2.65625
+        },
+        {
+          "step": 1,
+          "value": 4.0
+        },
+        {
+          "step": 2,
+          "value": 4.0
+        }
+      ],
+      "Diagnostics/action_near_limit_pct": [
+        {
+          "step": 0,
+          "value": 7.986111640930176
+        },
+        {
+          "step": 1,
+          "value": 0.0868055671453476
+        },
+        {
+          "step": 2,
+          "value": 0.0434027835726738
+        }
+      ],
+      "Torque/MeanAbs_Nm/FR_calf_joint": [
+        {
+          "step": 0,
+          "value": 34.683345794677734
+        },
+        {
+          "step": 1,
+          "value": 24.597076416015625
+        },
+        {
+          "step": 2,
+          "value": 27.49660873413086
+        }
+      ]
+    }
+  },
+  "torque_smoke100": {
+    "path": "/home/poornaprasad/RL/Quadruped/IsaacLab/logs/rsl_rl/grallator_him_walking_native/2026-11-04_13-03-46_torque_smoke100",
+    "required_tags_verified": 62,
+    "iterations": 3,
+    "scalar_values": {
+      "Reward_Rate/upright": [
+        {
+          "step": 0,
+          "value": -0.0014138559345155954
+        },
+        {
+          "step": 1,
+          "value": -0.0002600160660222173
+        },
+        {
+          "step": 2,
+          "value": -0.00020462609245441854
+        }
+      ],
+      "Torque/MaxEver_Nm/FL_calf_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 100.0
+        },
+        {
+          "step": 2,
+          "value": 100.0
+        }
+      ],
+      "Walking/Tracking/actual_yaw_radps": [
+        {
+          "step": 0,
+          "value": 0.06636221706867218
+        },
+        {
+          "step": 1,
+          "value": 0.010926954448223114
+        },
+        {
+          "step": 2,
+          "value": -0.0030748636927455664
+        }
+      ],
+      "Walking/Tracking/reset_excluded_fraction": [
+        {
+          "step": 0,
+          "value": 0.25
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Loss/value": [
+        {
+          "step": 0,
+          "value": 0.03624049946665764
+        },
+        {
+          "step": 1,
+          "value": 0.03360211104154587
+        },
+        {
+          "step": 2,
+          "value": 0.03176988661289215
+        }
+      ],
+      "Loss/surrogate": [
+        {
+          "step": 0,
+          "value": -0.019481418654322624
+        },
+        {
+          "step": 1,
+          "value": -0.010864193551242352
+        },
+        {
+          "step": 2,
+          "value": -0.008005127310752869
+        }
+      ],
+      "Reward_Rate/action_magnitude": [
+        {
+          "step": 0,
+          "value": -0.002502000192180276
+        },
+        {
+          "step": 1,
+          "value": -0.00114032335113734
+        },
+        {
+          "step": 2,
+          "value": -0.001111745135858655
+        }
+      ],
+      "Walking/Commands/vx_mps": [
+        {
+          "step": 0,
+          "value": 0.1868852972984314
+        },
+        {
+          "step": 1,
+          "value": 0.1868852972984314
+        },
+        {
+          "step": 2,
+          "value": 0.1868852972984314
+        }
+      ],
+      "Reward_Rate/roll_pitch_velocity": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Walking/Gait/stance_slip_mps": [
+        {
+          "step": 0,
+          "value": 0.3173704445362091
+        },
+        {
+          "step": 1,
+          "value": 0.05722257122397423
+        },
+        {
+          "step": 2,
+          "value": 0.05050695687532425
+        }
+      ],
+      "Torque/MaxEver_Nm/FL_thigh_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 100.0
+        },
+        {
+          "step": 2,
+          "value": 100.0
+        }
+      ],
+      "Torque/EffortLimitFraction/FL_thigh_joint": [
+        {
+          "step": 0,
+          "value": 0.015729166567325592
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "EstimatedTorque/UnclippedComputedPeakAbs_Nm/BL_thigh_joint": [
+        {
+          "step": 0,
+          "value": 73.57664489746094
+        },
+        {
+          "step": 1,
+          "value": 39.364253997802734
+        },
+        {
+          "step": 2,
+          "value": 41.63290786743164
+        }
+      ],
+      "Loss/learning_rate": [
+        {
+          "step": 0,
+          "value": 1.4999999621068127e-05
+        },
+        {
+          "step": 1,
+          "value": 7.593750342493877e-05
+        },
+        {
+          "step": 2,
+          "value": 5.062499985797331e-05
+        }
+      ],
+      "Torque/MeanAbs_Nm/BR_thigh_joint": [
+        {
+          "step": 0,
+          "value": 19.745044708251953
+        },
+        {
+          "step": 1,
+          "value": 11.114652633666992
+        },
+        {
+          "step": 2,
+          "value": 8.383182525634766
+        }
+      ],
+      "Torque/PeakAbs_Nm/FL_thigh_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 54.872806549072266
+        },
+        {
+          "step": 2,
+          "value": 48.80762481689453
+        }
+      ],
+      "Diagnostics/actual_speed_mps": [
+        {
+          "step": 0,
+          "value": 0.1477089375257492
+        },
+        {
+          "step": 1,
+          "value": 0.04699376970529556
+        },
+        {
+          "step": 2,
+          "value": 0.028180360794067383
+        }
+      ],
+      "Walking/Tracking/actual_vx_mps": [
+        {
+          "step": 0,
+          "value": -0.13506759703159332
+        },
+        {
+          "step": 1,
+          "value": -0.011760145425796509
+        },
+        {
+          "step": 2,
+          "value": 0.0029563158750534058
+        }
+      ],
+      "Walking/Gait/qualified_airtime_s": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Reward_Rate/mechanical_power": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "EstimatedTorque/UnclippedComputedPeakAbs_Nm/FR_hip_joint": [
+        {
+          "step": 0,
+          "value": 78.41464233398438
+        },
+        {
+          "step": 1,
+          "value": 37.84455871582031
+        },
+        {
+          "step": 2,
+          "value": 39.81137466430664
+        }
+      ],
+      "Reward_Rate/action_rate": [
+        {
+          "step": 0,
+          "value": -0.017275245860219002
+        },
+        {
+          "step": 1,
+          "value": -0.002518767025321722
+        },
+        {
+          "step": 2,
+          "value": -0.0024993978440761566
+        }
+      ],
+      "Perf/collection_time": [
+        {
+          "step": 0,
+          "value": 1.0663211345672607
+        },
+        {
+          "step": 1,
+          "value": 0.14949584007263184
+        },
+        {
+          "step": 2,
+          "value": 0.1565263271331787
+        }
+      ],
+      "Diagnostics/vx_mae_mps": [
+        {
+          "step": 0,
+          "value": 0.32217937707901
+        },
+        {
+          "step": 1,
+          "value": 0.20004451274871826
+        },
+        {
+          "step": 2,
+          "value": 0.18558475375175476
+        }
+      ],
+      "Torque/EffortLimitFraction/FL_calf_joint": [
+        {
+          "step": 0,
+          "value": 0.08760416507720947
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Torque/EffortLimitFraction/BR_calf_joint": [
+        {
+          "step": 0,
+          "value": 0.09937500208616257
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Loss/hio_velocity_mse": [
+        {
+          "step": 0,
+          "value": 0.006415327545255423
+        },
+        {
+          "step": 1,
+          "value": 0.0010357290739193559
+        },
+        {
+          "step": 2,
+          "value": 0.0007774033583700657
+        }
+      ],
+      "Reward_Rate/height": [
+        {
+          "step": 0,
+          "value": 0.19007359445095062
+        },
+        {
+          "step": 1,
+          "value": 0.38593268394470215
+        },
+        {
+          "step": 2,
+          "value": 0.39676421880722046
+        }
+      ],
+      "Torque/MaxEver_Nm/BL_calf_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 100.0
+        },
+        {
+          "step": 2,
+          "value": 100.0
+        }
+      ],
+      "Torque/MeanAbs_Nm/FL_hip_joint": [
+        {
+          "step": 0,
+          "value": 12.523670196533203
+        },
+        {
+          "step": 1,
+          "value": 8.162790298461914
+        },
+        {
+          "step": 2,
+          "value": 9.519290924072266
+        }
+      ],
+      "Torque/MaxEver_Nm/BR_thigh_joint": [
+        {
+          "step": 0,
+          "value": 93.26087951660156
+        },
+        {
+          "step": 1,
+          "value": 93.26087951660156
+        },
+        {
+          "step": 2,
+          "value": 93.26087951660156
+        }
+      ],
+      "Torque/EffortLimitFraction/BL_thigh_joint": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Torque/MeanAbs_Nm/BL_calf_joint": [
+        {
+          "step": 0,
+          "value": 37.21865463256836
+        },
+        {
+          "step": 1,
+          "value": 31.217390060424805
+        },
+        {
+          "step": 2,
+          "value": 29.553327560424805
+        }
+      ],
+      "Perf/learning_time": [
+        {
+          "step": 0,
+          "value": 0.311307430267334
+        },
+        {
+          "step": 1,
+          "value": 0.11385226249694824
+        },
+        {
+          "step": 2,
+          "value": 0.1286470890045166
+        }
+      ],
+      "Torque/MeanAbs_Nm/FR_thigh_joint": [
+        {
+          "step": 0,
+          "value": 29.53008460998535
+        },
+        {
+          "step": 1,
+          "value": 9.63754653930664
+        },
+        {
+          "step": 2,
+          "value": 9.17081356048584
+        }
+      ],
+      "EstimatedTorque/UnclippedComputedPeakAbs_Nm/BR_hip_joint": [
+        {
+          "step": 0,
+          "value": 75.12903594970703
+        },
+        {
+          "step": 1,
+          "value": 36.854270935058594
+        },
+        {
+          "step": 2,
+          "value": 37.95595169067383
+        }
+      ],
+      "Reward_Rate/feet_air_time": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Torque/OverallPeakAbs_Nm": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 73.30632781982422
+        },
+        {
+          "step": 2,
+          "value": 71.18330383300781
+        }
+      ],
+      "Torque/EffortLimitFraction/FR_calf_joint": [
+        {
+          "step": 0,
+          "value": 0.09718750417232513
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Torque/MeanAbs_Nm/FL_calf_joint": [
+        {
+          "step": 0,
+          "value": 31.796546936035156
+        },
+        {
+          "step": 1,
+          "value": 25.363142013549805
+        },
+        {
+          "step": 2,
+          "value": 26.2537841796875
+        }
+      ],
+      "Torque/MeanAbs_Nm/BR_calf_joint": [
+        {
+          "step": 0,
+          "value": 39.642738342285156
+        },
+        {
+          "step": 1,
+          "value": 34.227230072021484
+        },
+        {
+          "step": 2,
+          "value": 32.42107009887695
+        }
+      ],
+      "Reward_Rate/total": [
+        {
+          "step": 0,
+          "value": -0.2224578708410263
+        },
+        {
+          "step": 1,
+          "value": 1.5347363948822021
+        },
+        {
+          "step": 2,
+          "value": 1.9588078260421753
+        }
+      ],
+      "EstimatedTorque/UnclippedComputedPeakAbs_Nm/FL_thigh_joint": [
+        {
+          "step": 0,
+          "value": 131.78167724609375
+        },
+        {
+          "step": 1,
+          "value": 54.872806549072266
+        },
+        {
+          "step": 2,
+          "value": 48.80763244628906
+        }
+      ],
+      "Diagnostics/command_vx_mps": [
+        {
+          "step": 0,
+          "value": 0.1868852972984314
+        },
+        {
+          "step": 1,
+          "value": 0.1868852972984314
+        },
+        {
+          "step": 2,
+          "value": 0.1868852972984314
+        }
+      ],
+      "EstimatedTorque/UnclippedComputedPeakAbs_Nm/FR_thigh_joint": [
+        {
+          "step": 0,
+          "value": 123.17871856689453
+        },
+        {
+          "step": 1,
+          "value": 52.55262756347656
+        },
+        {
+          "step": 2,
+          "value": 42.595603942871094
+        }
+      ],
+      "Walking/Commands/vy_mps": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Walking/Gait/liftoffs": [
+        {
+          "step": 0,
+          "value": 0.06750000268220901
+        },
+        {
+          "step": 1,
+          "value": 0.00041666667675599456
+        },
+        {
+          "step": 2,
+          "value": 0.0008333333535119891
+        }
+      ],
+      "Torque/P95Abs_Nm/BL_hip_joint": [
+        {
+          "step": 0,
+          "value": 42.36654281616211
+        },
+        {
+          "step": 1,
+          "value": 22.11551284790039
+        },
+        {
+          "step": 2,
+          "value": 22.030994415283203
+        }
+      ],
+      "Walking/Commands/yaw_radps": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Torque/P95Abs_Nm/BR_calf_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 50.5974235534668
+        },
+        {
+          "step": 2,
+          "value": 47.88347244262695
+        }
+      ],
+      "Torque/SampleInterval_s": [
+        {
+          "step": 0,
+          "value": 0.004999999888241291
+        },
+        {
+          "step": 1,
+          "value": 0.004999999888241291
+        },
+        {
+          "step": 2,
+          "value": 0.004999999888241291
+        }
+      ],
+      "Diagnostics/feet_contact_count": [
+        {
+          "step": 0,
+          "value": 2.6904168128967285
+        },
+        {
+          "step": 1,
+          "value": 3.99750018119812
+        },
+        {
+          "step": 2,
+          "value": 3.999166488647461
+        }
+      ],
+      "Reward_Rate/joint_velocity": [
+        {
+          "step": 0,
+          "value": -0.0544864684343338
+        },
+        {
+          "step": 1,
+          "value": -0.0017009348375722766
+        },
+        {
+          "step": 2,
+          "value": -0.0016390755772590637
+        }
+      ],
+      "Reward_Rate/trot_sync": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Torque/P95Abs_Nm/FR_calf_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 40.296138763427734
+        },
+        {
+          "step": 2,
+          "value": 40.9373664855957
+        }
+      ],
+      "Torque/EffortLimitFraction/FR_hip_joint": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Torque/MaxEver_Nm/BL_thigh_joint": [
+        {
+          "step": 0,
+          "value": 73.57664489746094
+        },
+        {
+          "step": 1,
+          "value": 73.57664489746094
+        },
+        {
+          "step": 2,
+          "value": 73.57664489746094
+        }
+      ],
+      "Torque/P95Abs_Nm/BL_calf_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 46.49595642089844
+        },
+        {
+          "step": 2,
+          "value": 42.889793395996094
+        }
+      ],
+      "Reward_Rate/undesired_contact": [
+        {
+          "step": 0,
+          "value": -1.3608334064483643
+        },
+        {
+          "step": 1,
+          "value": -0.7091666460037231
+        },
+        {
+          "step": 2,
+          "value": -0.4208333492279053
+        }
+      ],
+      "Walking/Stability/action_near_limit_pct": [
+        {
+          "step": 0,
+          "value": 8.635416984558105
+        },
+        {
+          "step": 1,
+          "value": 0.1111111268401146
+        },
+        {
+          "step": 2,
+          "value": 0.0625
+        }
+      ],
+      "Torque/PeakAbs_Nm/BL_calf_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 73.30632781982422
+        },
+        {
+          "step": 2,
+          "value": 61.17456817626953
+        }
+      ],
+      "Torque/EffortLimitFraction/BR_thigh_joint": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Diagnostics/liftoffs_per_1000_foot_steps": [
+        {
+          "step": 0,
+          "value": 32.1082763671875
+        },
+        {
+          "step": 1,
+          "value": 15.494590759277344
+        },
+        {
+          "step": 2,
+          "value": 8.404349327087402
+        }
+      ],
+      "Torque/MeanAbs_Nm/FR_hip_joint": [
+        {
+          "step": 0,
+          "value": 11.473021507263184
+        },
+        {
+          "step": 1,
+          "value": 8.84416675567627
+        },
+        {
+          "step": 2,
+          "value": 9.772490501403809
+        }
+      ],
+      "Diagnostics/actual_vx_mps": [
+        {
+          "step": 0,
+          "value": -0.13506759703159332
+        },
+        {
+          "step": 1,
+          "value": -0.011760145425796509
+        },
+        {
+          "step": 2,
+          "value": 0.0029563158750534058
+        }
+      ],
+      "Loss/entropy": [
+        {
+          "step": 0,
+          "value": -8.418069839477539
+        },
+        {
+          "step": 1,
+          "value": -8.420280456542969
+        },
+        {
+          "step": 2,
+          "value": -8.42172622680664
+        }
+      ],
+      "Diagnostics/command_speed_mps": [
+        {
+          "step": 0,
+          "value": 0.1868852972984314
+        },
+        {
+          "step": 1,
+          "value": 0.1868852972984314
+        },
+        {
+          "step": 2,
+          "value": 0.1868852972984314
+        }
+      ],
+      "Loss/ppo_kl": [
+        {
+          "step": 0,
+          "value": 0.0185796357691288
+        },
+        {
+          "step": 1,
+          "value": 0.01773339882493019
+        },
+        {
+          "step": 2,
+          "value": 0.01085428986698389
+        }
+      ],
+      "Torque/P95Abs_Nm/FR_thigh_joint": [
+        {
+          "step": 0,
+          "value": 77.91338348388672
+        },
+        {
+          "step": 1,
+          "value": 23.072866439819336
+        },
+        {
+          "step": 2,
+          "value": 22.2679500579834
+        }
+      ],
+      "Diagnostics/height_error_cm": [
+        {
+          "step": 0,
+          "value": 4.728940486907959
+        },
+        {
+          "step": 1,
+          "value": 2.0269572734832764
+        },
+        {
+          "step": 2,
+          "value": 1.9200366735458374
+        }
+      ],
+      "Diagnostics/xy_vel_error_mps": [
+        {
+          "step": 0,
+          "value": 0.32572805881500244
+        },
+        {
+          "step": 1,
+          "value": 0.20441071689128876
+        },
+        {
+          "step": 2,
+          "value": 0.18792450428009033
+        }
+      ],
+      "Torque/EffortLimitFraction/FR_thigh_joint": [
+        {
+          "step": 0,
+          "value": 0.011145833879709244
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Torque/PeakAbs_Nm/BR_thigh_joint": [
+        {
+          "step": 0,
+          "value": 93.26087951660156
+        },
+        {
+          "step": 1,
+          "value": 42.49372482299805
+        },
+        {
+          "step": 2,
+          "value": 37.960079193115234
+        }
+      ],
+      "Torque/PeakAbs_Nm/FR_thigh_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 52.55262756347656
+        },
+        {
+          "step": 2,
+          "value": 42.595603942871094
+        }
+      ],
+      "Diagnostics/vy_mae_mps": [
+        {
+          "step": 0,
+          "value": 0.032673463225364685
+        },
+        {
+          "step": 1,
+          "value": 0.029052017256617546
+        },
+        {
+          "step": 2,
+          "value": 0.018285777419805527
+        }
+      ],
+      "Walking/Stability/fall_fraction": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "EstimatedTorque/UnclippedComputedPeakAbs_Nm/FL_calf_joint": [
+        {
+          "step": 0,
+          "value": 155.1779022216797
+        },
+        {
+          "step": 1,
+          "value": 58.863277435302734
+        },
+        {
+          "step": 2,
+          "value": 58.58214569091797
+        }
+      ],
+      "Torque/PhysicsSamplesPerJoint": [
+        {
+          "step": 0,
+          "value": 9600.0
+        },
+        {
+          "step": 1,
+          "value": 9600.0
+        },
+        {
+          "step": 2,
+          "value": 9600.0
+        }
+      ],
+      "Torque/PeakAbs_Nm/BL_thigh_joint": [
+        {
+          "step": 0,
+          "value": 73.57664489746094
+        },
+        {
+          "step": 1,
+          "value": 39.3642578125
+        },
+        {
+          "step": 2,
+          "value": 41.632911682128906
+        }
+      ],
+      "Perf/total_fps": [
+        {
+          "step": 0,
+          "value": 1742.0
+        },
+        {
+          "step": 1,
+          "value": 9113.0
+        },
+        {
+          "step": 2,
+          "value": 8415.0
+        }
+      ],
+      "EstimatedTorque/UnclippedComputedPeakAbs_Nm/BR_calf_joint": [
+        {
+          "step": 0,
+          "value": 156.1251678466797
+        },
+        {
+          "step": 1,
+          "value": 70.00418090820312
+        },
+        {
+          "step": 2,
+          "value": 71.18329620361328
+        }
+      ],
+      "Torque/P95Abs_Nm/FL_calf_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 40.344547271728516
+        },
+        {
+          "step": 2,
+          "value": 39.440208435058594
+        }
+      ],
+      "EstimatedTorque/UnclippedComputedPeakAbs_Nm/BR_thigh_joint": [
+        {
+          "step": 0,
+          "value": 93.26087951660156
+        },
+        {
+          "step": 1,
+          "value": 42.49372482299805
+        },
+        {
+          "step": 2,
+          "value": 37.960079193115234
+        }
+      ],
+      "Reward_Rate/stance_slip": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Loss/hio_pairs": [
+        {
+          "step": 0,
+          "value": 2300.0
+        },
+        {
+          "step": 1,
+          "value": 2300.0
+        },
+        {
+          "step": 2,
+          "value": 2300.0
+        }
+      ],
+      "Torque/MaxEver_Nm/FR_calf_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 100.0
+        },
+        {
+          "step": 2,
+          "value": 100.0
+        }
+      ],
+      "Policy/mean_std": [
+        {
+          "step": 0,
+          "value": 0.11995387077331543
+        },
+        {
+          "step": 1,
+          "value": 0.11998032033443451
+        },
+        {
+          "step": 2,
+          "value": 0.11988191306591034
+        }
+      ],
+      "Reward_Rate/joint_acceleration": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Diagnostics/command_yaw_radps": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Torque/MeanAbs_Nm/FL_thigh_joint": [
+        {
+          "step": 0,
+          "value": 28.236059188842773
+        },
+        {
+          "step": 1,
+          "value": 10.758797645568848
+        },
+        {
+          "step": 2,
+          "value": 9.791196823120117
+        }
+      ],
+      "Reward_Rate/track_xy": [
+        {
+          "step": 0,
+          "value": 0.32046636939048767
+        },
+        {
+          "step": 1,
+          "value": 0.8917112350463867
+        },
+        {
+          "step": 2,
+          "value": 1.0123815536499023
+        }
+      ],
+      "EstimatedTorque/UnclippedComputedPeakAbs_Nm/BL_calf_joint": [
+        {
+          "step": 0,
+          "value": 158.92686462402344
+        },
+        {
+          "step": 1,
+          "value": 73.30632781982422
+        },
+        {
+          "step": 2,
+          "value": 61.17457580566406
+        }
+      ],
+      "Reward_Rate/time_imbalance": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Torque/MaxEver_Nm/BR_calf_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 100.0
+        },
+        {
+          "step": 2,
+          "value": 100.0
+        }
+      ],
+      "Torque/PeakAbs_Nm/BR_hip_joint": [
+        {
+          "step": 0,
+          "value": 75.12903594970703
+        },
+        {
+          "step": 1,
+          "value": 36.854270935058594
+        },
+        {
+          "step": 2,
+          "value": 37.95595169067383
+        }
+      ],
+      "Walking/Tracking/valid_fraction": [
+        {
+          "step": 0,
+          "value": 0.6825000643730164
+        },
+        {
+          "step": 1,
+          "value": 0.9100000262260437
+        },
+        {
+          "step": 2,
+          "value": 0.9100000262260437
+        }
+      ],
+      "Torque/P95Abs_Nm/BR_thigh_joint": [
+        {
+          "step": 0,
+          "value": 47.28028869628906
+        },
+        {
+          "step": 1,
+          "value": 25.574939727783203
+        },
+        {
+          "step": 2,
+          "value": 20.05121612548828
+        }
+      ],
+      "Diagnostics/actual_vy_mps": [
+        {
+          "step": 0,
+          "value": 0.007273312192410231
+        },
+        {
+          "step": 1,
+          "value": 0.007837658748030663
+        },
+        {
+          "step": 2,
+          "value": -0.0013596646022051573
+        }
+      ],
+      "Torque/P95Abs_Nm/BL_thigh_joint": [
+        {
+          "step": 0,
+          "value": 32.941322326660156
+        },
+        {
+          "step": 1,
+          "value": 20.551939010620117
+        },
+        {
+          "step": 2,
+          "value": 19.27577781677246
+        }
+      ],
+      "Walking/Gait/touchdowns": [
+        {
+          "step": 0,
+          "value": 0.009583333507180214
+        },
+        {
+          "step": 1,
+          "value": 0.00041666667675599456
+        },
+        {
+          "step": 2,
+          "value": 0.00041666667675599456
+        }
+      ],
+      "Torque/EffortLimitFraction/BL_calf_joint": [
+        {
+          "step": 0,
+          "value": 0.09375
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Torque/MaxEver_Nm/FR_thigh_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 100.0
+        },
+        {
+          "step": 2,
+          "value": 100.0
+        }
+      ],
+      "Walking/Stability/undesired_contact_pct": [
+        {
+          "step": 0,
+          "value": 68.04167175292969
+        },
+        {
+          "step": 1,
+          "value": 35.458335876464844
+        },
+        {
+          "step": 2,
+          "value": 21.041667938232422
+        }
+      ],
+      "Torque/PeakAbs_Nm/FL_hip_joint": [
+        {
+          "step": 0,
+          "value": 80.65531921386719
+        },
+        {
+          "step": 1,
+          "value": 38.71109390258789
+        },
+        {
+          "step": 2,
+          "value": 38.49327087402344
+        }
+      ],
+      "Reward_Rate/vertical_velocity": [
+        {
+          "step": 0,
+          "value": -0.18126599490642548
+        },
+        {
+          "step": 1,
+          "value": -0.0005568150663748384
+        },
+        {
+          "step": 2,
+          "value": -0.00038060726365074515
+        }
+      ],
+      "Diagnostics/moving_xy_error_mps": [
+        {
+          "step": 0,
+          "value": 0.24149593710899353
+        },
+        {
+          "step": 1,
+          "value": 0.22061197459697723
+        },
+        {
+          "step": 2,
+          "value": 0.203668475151062
+        }
+      ],
+      "Torque/MaxEver_Nm/FL_hip_joint": [
+        {
+          "step": 0,
+          "value": 80.65531921386719
+        },
+        {
+          "step": 1,
+          "value": 80.65531921386719
+        },
+        {
+          "step": 2,
+          "value": 80.65531921386719
+        }
+      ],
+      "Torque/EffortLimitFraction/FL_hip_joint": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Diagnostics/all_feet_contact_pct": [
+        {
+          "step": 0,
+          "value": 47.91666793823242
+        },
+        {
+          "step": 1,
+          "value": 99.75
+        },
+        {
+          "step": 2,
+          "value": 99.91667175292969
+        }
+      ],
+      "Diagnostics/airborne_pct_cumulative": [
+        {
+          "step": 0,
+          "value": 46.37652587890625
+        },
+        {
+          "step": 1,
+          "value": 24.625991821289062
+        },
+        {
+          "step": 2,
+          "value": 13.267566680908203
+        }
+      ],
+      "Torque/PeakAbs_Nm/FR_hip_joint": [
+        {
+          "step": 0,
+          "value": 78.41464233398438
+        },
+        {
+          "step": 1,
+          "value": 37.84455490112305
+        },
+        {
+          "step": 2,
+          "value": 39.811370849609375
+        }
+      ],
+      "Walking/Stability/height_error_cm": [
+        {
+          "step": 0,
+          "value": 4.728940486907959
+        },
+        {
+          "step": 1,
+          "value": 2.0269572734832764
+        },
+        {
+          "step": 2,
+          "value": 1.9200366735458374
+        }
+      ],
+      "Walking/Tracking/xy_error_mps": [
+        {
+          "step": 0,
+          "value": 0.24149593710899353
+        },
+        {
+          "step": 1,
+          "value": 0.22061197459697723
+        },
+        {
+          "step": 2,
+          "value": 0.203668475151062
+        }
+      ],
+      "Diagnostics/yaw_error_radps": [
+        {
+          "step": 0,
+          "value": 0.11659931391477585
+        },
+        {
+          "step": 1,
+          "value": 0.054164767265319824
+        },
+        {
+          "step": 2,
+          "value": 0.04996054619550705
+        }
+      ],
+      "Walking/Tracking/raw_xy_error_mps": [
+        {
+          "step": 0,
+          "value": 0.32572805881500244
+        },
+        {
+          "step": 1,
+          "value": 0.20441071689128876
+        },
+        {
+          "step": 2,
+          "value": 0.18792450428009033
+        }
+      ],
+      "Walking/Gait/airborne_pct": [
+        {
+          "step": 0,
+          "value": 32.739585876464844
+        },
+        {
+          "step": 1,
+          "value": 0.0625
+        },
+        {
+          "step": 2,
+          "value": 0.02083333395421505
+        }
+      ],
+      "Torque/MeanAbs_Nm/BL_thigh_joint": [
+        {
+          "step": 0,
+          "value": 13.077314376831055
+        },
+        {
+          "step": 1,
+          "value": 8.275372505187988
+        },
+        {
+          "step": 2,
+          "value": 7.9412760734558105
+        }
+      ],
+      "Diagnostics/actual_yaw_radps": [
+        {
+          "step": 0,
+          "value": 0.06636221706867218
+        },
+        {
+          "step": 1,
+          "value": 0.010926954448223114
+        },
+        {
+          "step": 2,
+          "value": -0.0030748636927455664
+        }
+      ],
+      "Reward_Rate/joint_torque": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Reward_Rate/joint_position": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Reward_Rate/vertical_acceleration": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Torque/PeakAbs_Nm/FL_calf_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 58.86327362060547
+        },
+        {
+          "step": 2,
+          "value": 58.5821418762207
+        }
+      ],
+      "Torque/P95Abs_Nm/FR_hip_joint": [
+        {
+          "step": 0,
+          "value": 30.835203170776367
+        },
+        {
+          "step": 1,
+          "value": 20.344921112060547
+        },
+        {
+          "step": 2,
+          "value": 21.57013511657715
+        }
+      ],
+      "EstimatedTorque/UnclippedComputedPeakAbs_Nm/FL_hip_joint": [
+        {
+          "step": 0,
+          "value": 80.65532684326172
+        },
+        {
+          "step": 1,
+          "value": 38.711090087890625
+        },
+        {
+          "step": 2,
+          "value": 38.49326705932617
+        }
+      ],
+      "Torque/MeanAbs_Nm/BL_hip_joint": [
+        {
+          "step": 0,
+          "value": 16.883930206298828
+        },
+        {
+          "step": 1,
+          "value": 9.484712600708008
+        },
+        {
+          "step": 2,
+          "value": 9.948381423950195
+        }
+      ],
+      "Walking/Tracking/vx_mae_mps": [
+        {
+          "step": 0,
+          "value": 0.23862037062644958
+        },
+        {
+          "step": 1,
+          "value": 0.21682772040367126
+        },
+        {
+          "step": 2,
+          "value": 0.20232515037059784
+        }
+      ],
+      "Torque/MeanAbs_Nm/BR_hip_joint": [
+        {
+          "step": 0,
+          "value": 13.582986831665039
+        },
+        {
+          "step": 1,
+          "value": 8.238601684570312
+        },
+        {
+          "step": 2,
+          "value": 9.355210304260254
+        }
+      ],
+      "Torque/PeakAbs_Nm/BR_calf_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 70.00418090820312
+        },
+        {
+          "step": 2,
+          "value": 71.18330383300781
+        }
+      ],
+      "Torque/P95Abs_Nm/FL_hip_joint": [
+        {
+          "step": 0,
+          "value": 35.81496810913086
+        },
+        {
+          "step": 1,
+          "value": 19.268779754638672
+        },
+        {
+          "step": 2,
+          "value": 21.707815170288086
+        }
+      ],
+      "Torque/EffortLimitFraction/BL_hip_joint": [
+        {
+          "step": 0,
+          "value": 0.0005208333604969084
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "EstimatedTorque/UnclippedComputedPeakAbs_Nm/BL_hip_joint": [
+        {
+          "step": 0,
+          "value": 103.57393646240234
+        },
+        {
+          "step": 1,
+          "value": 40.15922164916992
+        },
+        {
+          "step": 2,
+          "value": 45.84824752807617
+        }
+      ],
+      "Diagnostics/undesired_contact_pct": [
+        {
+          "step": 0,
+          "value": 68.04167175292969
+        },
+        {
+          "step": 1,
+          "value": 35.458335876464844
+        },
+        {
+          "step": 2,
+          "value": 21.041667938232422
+        }
+      ],
+      "Torque/PeakAbs_Nm/BL_hip_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 40.15922164916992
+        },
+        {
+          "step": 2,
+          "value": 45.84824752807617
+        }
+      ],
+      "Diagnostics/command_vy_mps": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Torque/PeakAbs_Nm/FR_calf_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 59.105560302734375
+        },
+        {
+          "step": 2,
+          "value": 58.40480422973633
+        }
+      ],
+      "Loss/post_hio_kl": [
+        {
+          "step": 0,
+          "value": 0.019081521779298782
+        },
+        {
+          "step": 1,
+          "value": 0.017557915300130844
+        },
+        {
+          "step": 2,
+          "value": 0.010467063635587692
+        }
+      ],
+      "Torque/P95Abs_Nm/FL_thigh_joint": [
+        {
+          "step": 0,
+          "value": 73.36265563964844
+        },
+        {
+          "step": 1,
+          "value": 26.66054344177246
+        },
+        {
+          "step": 2,
+          "value": 24.216514587402344
+        }
+      ],
+      "Torque/MaxEver_Nm/BR_hip_joint": [
+        {
+          "step": 0,
+          "value": 75.12903594970703
+        },
+        {
+          "step": 1,
+          "value": 75.12903594970703
+        },
+        {
+          "step": 2,
+          "value": 75.12903594970703
+        }
+      ],
+      "Diagnostics/moving_command_pct": [
+        {
+          "step": 0,
+          "value": 68.25
+        },
+        {
+          "step": 1,
+          "value": 91.0
+        },
+        {
+          "step": 2,
+          "value": 91.0
+        }
+      ],
+      "Reward_Rate/track_yaw": [
+        {
+          "step": 0,
+          "value": 0.8847789764404297
+        },
+        {
+          "step": 1,
+          "value": 0.9724359512329102
+        },
+        {
+          "step": 2,
+          "value": 0.9763309955596924
+        }
+      ],
+      "Torque/MaxEver_Nm/FR_hip_joint": [
+        {
+          "step": 0,
+          "value": 78.41464233398438
+        },
+        {
+          "step": 1,
+          "value": 78.41464233398438
+        },
+        {
+          "step": 2,
+          "value": 78.41464233398438
+        }
+      ],
+      "Torque/P95Abs_Nm/BR_hip_joint": [
+        {
+          "step": 0,
+          "value": 36.063323974609375
+        },
+        {
+          "step": 1,
+          "value": 19.57150650024414
+        },
+        {
+          "step": 2,
+          "value": 21.302730560302734
+        }
+      ],
+      "Torque/MaxEver_Nm/BL_hip_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 100.0
+        },
+        {
+          "step": 2,
+          "value": 100.0
+        }
+      ],
+      "Walking/Tracking/actual_vy_mps": [
+        {
+          "step": 0,
+          "value": 0.007273312192410231
+        },
+        {
+          "step": 1,
+          "value": 0.007837658748030663
+        },
+        {
+          "step": 2,
+          "value": -0.0013596646022051573
+        }
+      ],
+      "Loss/hio_swap_loss": [
+        {
+          "step": 0,
+          "value": 0.09862107783555984
+        },
+        {
+          "step": 1,
+          "value": 0.10191041976213455
+        },
+        {
+          "step": 2,
+          "value": 0.10251755267381668
+        }
+      ],
+      "Torque/OverallMaxEver_Nm": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 100.0
+        },
+        {
+          "step": 2,
+          "value": 100.0
+        }
+      ],
+      "EstimatedTorque/UnclippedComputedPeakAbs_Nm/FR_calf_joint": [
+        {
+          "step": 0,
+          "value": 154.2725067138672
+        },
+        {
+          "step": 1,
+          "value": 59.10555648803711
+        },
+        {
+          "step": 2,
+          "value": 58.40480422973633
+        }
+      ],
+      "Torque/EffortLimitFraction/BR_hip_joint": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        },
+        {
+          "step": 2,
+          "value": 0.0
+        }
+      ],
+      "Walking/Gait/contact_count": [
+        {
+          "step": 0,
+          "value": 2.6904168128967285
+        },
+        {
+          "step": 1,
+          "value": 3.99750018119812
+        },
+        {
+          "step": 2,
+          "value": 3.999166488647461
+        }
+      ],
+      "Diagnostics/action_near_limit_pct": [
+        {
+          "step": 0,
+          "value": 8.635416984558105
+        },
+        {
+          "step": 1,
+          "value": 0.1111111268401146
+        },
+        {
+          "step": 2,
+          "value": 0.0625
+        }
+      ],
+      "Torque/MeanAbs_Nm/FR_calf_joint": [
+        {
+          "step": 0,
+          "value": 35.31394577026367
+        },
+        {
+          "step": 1,
+          "value": 26.302865982055664
+        },
+        {
+          "step": 2,
+          "value": 27.512197494506836
+        }
+      ]
+    }
+  },
+  "torque_viewer8": {
+    "path": "/home/poornaprasad/RL/Quadruped/IsaacLab/logs/rsl_rl/grallator_him_walking_native/2026-11-04_13-08-47_torque_viewer8",
+    "required_tags_verified": 62,
+    "iterations": 2,
+    "scalar_values": {
+      "Reward_Rate/upright": [
+        {
+          "step": 0,
+          "value": -0.001284185447730124
+        },
+        {
+          "step": 1,
+          "value": -0.0002881201799027622
+        }
+      ],
+      "Torque/MaxEver_Nm/FL_calf_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 100.0
+        }
+      ],
+      "Walking/Tracking/actual_yaw_radps": [
+        {
+          "step": 0,
+          "value": 0.048869870603084564
+        },
+        {
+          "step": 1,
+          "value": 0.017524175345897675
+        }
+      ],
+      "Walking/Tracking/reset_excluded_fraction": [
+        {
+          "step": 0,
+          "value": 0.25
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        }
+      ],
+      "Loss/value": [
+        {
+          "step": 0,
+          "value": 0.050979673862457275
+        },
+        {
+          "step": 1,
+          "value": 0.04354236274957657
+        }
+      ],
+      "Loss/surrogate": [
+        {
+          "step": 0,
+          "value": -0.07378721982240677
+        },
+        {
+          "step": 1,
+          "value": -0.04127472639083862
+        }
+      ],
+      "Reward_Rate/action_magnitude": [
+        {
+          "step": 0,
+          "value": -0.0024088798090815544
+        },
+        {
+          "step": 1,
+          "value": -0.0011187077034264803
+        }
+      ],
+      "Walking/Commands/vx_mps": [
+        {
+          "step": 0,
+          "value": 0.19333088397979736
+        },
+        {
+          "step": 1,
+          "value": 0.19333088397979736
+        }
+      ],
+      "Reward_Rate/roll_pitch_velocity": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        }
+      ],
+      "Walking/Gait/stance_slip_mps": [
+        {
+          "step": 0,
+          "value": 0.3129534423351288
+        },
+        {
+          "step": 1,
+          "value": 0.05449989438056946
+        }
+      ],
+      "Torque/MaxEver_Nm/FL_thigh_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 100.0
+        }
+      ],
+      "Torque/EffortLimitFraction/FL_thigh_joint": [
+        {
+          "step": 0,
+          "value": 0.0078125
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        }
+      ],
+      "EstimatedTorque/UnclippedComputedPeakAbs_Nm/BL_thigh_joint": [
+        {
+          "step": 0,
+          "value": 62.23049545288086
+        },
+        {
+          "step": 1,
+          "value": 28.11480140686035
+        }
+      ],
+      "Loss/learning_rate": [
+        {
+          "step": 0,
+          "value": 9.999999747378752e-06
+        },
+        {
+          "step": 1,
+          "value": 9.999999747378752e-06
+        }
+      ],
+      "Torque/MeanAbs_Nm/BR_thigh_joint": [
+        {
+          "step": 0,
+          "value": 20.53790855407715
+        },
+        {
+          "step": 1,
+          "value": 12.215581893920898
+        }
+      ],
+      "Torque/PeakAbs_Nm/FL_thigh_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 42.416255950927734
+        }
+      ],
+      "Diagnostics/actual_speed_mps": [
+        {
+          "step": 0,
+          "value": 0.15870510041713715
+        },
+        {
+          "step": 1,
+          "value": 0.0536150261759758
+        }
+      ],
+      "Walking/Tracking/actual_vx_mps": [
+        {
+          "step": 0,
+          "value": -0.1452104151248932
+        },
+        {
+          "step": 1,
+          "value": -0.009178055450320244
+        }
+      ],
+      "Walking/Gait/qualified_airtime_s": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        }
+      ],
+      "Reward_Rate/mechanical_power": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        }
+      ],
+      "EstimatedTorque/UnclippedComputedPeakAbs_Nm/FR_hip_joint": [
+        {
+          "step": 0,
+          "value": 56.940704345703125
+        },
+        {
+          "step": 1,
+          "value": 26.690608978271484
+        }
+      ],
+      "Reward_Rate/action_rate": [
+        {
+          "step": 0,
+          "value": -0.016296496614813805
+        },
+        {
+          "step": 1,
+          "value": -0.002345104468986392
+        }
+      ],
+      "Perf/collection_time": [
+        {
+          "step": 0,
+          "value": 1.201594591140747
+        },
+        {
+          "step": 1,
+          "value": 0.2474679946899414
+        }
+      ],
+      "Diagnostics/vx_mae_mps": [
+        {
+          "step": 0,
+          "value": 0.3385498523712158
+        },
+        {
+          "step": 1,
+          "value": 0.2083566039800644
+        }
+      ],
+      "Torque/EffortLimitFraction/FL_calf_joint": [
+        {
+          "step": 0,
+          "value": 0.0872395858168602
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        }
+      ],
+      "Torque/EffortLimitFraction/BR_calf_joint": [
+        {
+          "step": 0,
+          "value": 0.1015625
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        }
+      ],
+      "Loss/hio_velocity_mse": [
+        {
+          "step": 0,
+          "value": 0.0071686794981360435
+        },
+        {
+          "step": 1,
+          "value": 0.0015527585055679083
+        }
+      ],
+      "Reward_Rate/height": [
+        {
+          "step": 0,
+          "value": 0.19012388586997986
+        },
+        {
+          "step": 1,
+          "value": 0.39051899313926697
+        }
+      ],
+      "Torque/MaxEver_Nm/BL_calf_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 100.0
+        }
+      ],
+      "Torque/MeanAbs_Nm/FL_hip_joint": [
+        {
+          "step": 0,
+          "value": 11.380788803100586
+        },
+        {
+          "step": 1,
+          "value": 7.717388153076172
+        }
+      ],
+      "Torque/MaxEver_Nm/BR_thigh_joint": [
+        {
+          "step": 0,
+          "value": 66.04307556152344
+        },
+        {
+          "step": 1,
+          "value": 66.04307556152344
+        }
+      ],
+      "Torque/EffortLimitFraction/BL_thigh_joint": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        }
+      ],
+      "Torque/MeanAbs_Nm/BL_calf_joint": [
+        {
+          "step": 0,
+          "value": 37.193363189697266
+        },
+        {
+          "step": 1,
+          "value": 32.77665710449219
+        }
+      ],
+      "Perf/learning_time": [
+        {
+          "step": 0,
+          "value": 0.2760028839111328
+        },
+        {
+          "step": 1,
+          "value": 0.07626461982727051
+        }
+      ],
+      "Torque/MeanAbs_Nm/FR_thigh_joint": [
+        {
+          "step": 0,
+          "value": 29.347854614257812
+        },
+        {
+          "step": 1,
+          "value": 9.055598258972168
+        }
+      ],
+      "EstimatedTorque/UnclippedComputedPeakAbs_Nm/BR_hip_joint": [
+        {
+          "step": 0,
+          "value": 69.81462860107422
+        },
+        {
+          "step": 1,
+          "value": 34.91035461425781
+        }
+      ],
+      "Reward_Rate/feet_air_time": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        }
+      ],
+      "Torque/OverallPeakAbs_Nm": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 64.78839874267578
+        }
+      ],
+      "Torque/EffortLimitFraction/FR_calf_joint": [
+        {
+          "step": 0,
+          "value": 0.09375
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        }
+      ],
+      "Torque/MeanAbs_Nm/FL_calf_joint": [
+        {
+          "step": 0,
+          "value": 31.315738677978516
+        },
+        {
+          "step": 1,
+          "value": 26.697858810424805
+        }
+      ],
+      "Torque/MeanAbs_Nm/BR_calf_joint": [
+        {
+          "step": 0,
+          "value": 40.11396789550781
+        },
+        {
+          "step": 1,
+          "value": 34.290679931640625
+        }
+      ],
+      "Reward_Rate/total": [
+        {
+          "step": 0,
+          "value": -0.35060709714889526
+        },
+        {
+          "step": 1,
+          "value": 1.28373384475708
+        }
+      ],
+      "EstimatedTorque/UnclippedComputedPeakAbs_Nm/FL_thigh_joint": [
+        {
+          "step": 0,
+          "value": 119.75926971435547
+        },
+        {
+          "step": 1,
+          "value": 42.41625213623047
+        }
+      ],
+      "Diagnostics/command_vx_mps": [
+        {
+          "step": 0,
+          "value": 0.19333088397979736
+        },
+        {
+          "step": 1,
+          "value": 0.19333088397979736
+        }
+      ],
+      "EstimatedTorque/UnclippedComputedPeakAbs_Nm/FR_thigh_joint": [
+        {
+          "step": 0,
+          "value": 105.07929992675781
+        },
+        {
+          "step": 1,
+          "value": 30.543983459472656
+        }
+      ],
+      "Walking/Commands/vy_mps": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        }
+      ],
+      "Walking/Gait/liftoffs": [
+        {
+          "step": 0,
+          "value": 0.03125
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        }
+      ],
+      "Torque/P95Abs_Nm/BL_hip_joint": [
+        {
+          "step": 0,
+          "value": 40.39436721801758
+        },
+        {
+          "step": 1,
+          "value": 22.05938720703125
+        }
+      ],
+      "Walking/Commands/yaw_radps": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        }
+      ],
+      "Torque/P95Abs_Nm/BR_calf_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 48.66343688964844
+        }
+      ],
+      "Torque/SampleInterval_s": [
+        {
+          "step": 0,
+          "value": 0.004999999888241291
+        },
+        {
+          "step": 1,
+          "value": 0.004999999888241291
+        }
+      ],
+      "Diagnostics/feet_contact_count": [
+        {
+          "step": 0,
+          "value": 2.65625
+        },
+        {
+          "step": 1,
+          "value": 4.0
+        }
+      ],
+      "Reward_Rate/joint_velocity": [
+        {
+          "step": 0,
+          "value": -0.051381707191467285
+        },
+        {
+          "step": 1,
+          "value": -0.001859818585216999
+        }
+      ],
+      "Reward_Rate/trot_sync": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        }
+      ],
+      "Torque/P95Abs_Nm/FR_calf_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 37.91316604614258
+        }
+      ],
+      "Torque/EffortLimitFraction/FR_hip_joint": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        }
+      ],
+      "Torque/MaxEver_Nm/BL_thigh_joint": [
+        {
+          "step": 0,
+          "value": 62.230499267578125
+        },
+        {
+          "step": 1,
+          "value": 62.230499267578125
+        }
+      ],
+      "Torque/P95Abs_Nm/BL_calf_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 49.278541564941406
+        }
+      ],
+      "Reward_Rate/undesired_contact": [
+        {
+          "step": 0,
+          "value": -1.46875
+        },
+        {
+          "step": 1,
+          "value": -0.9270833730697632
+        }
+      ],
+      "Walking/Stability/action_near_limit_pct": [
+        {
+          "step": 0,
+          "value": 7.986111640930176
+        },
+        {
+          "step": 1,
+          "value": 0.0868055671453476
+        }
+      ],
+      "Torque/PeakAbs_Nm/BL_calf_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 64.78839874267578
+        }
+      ],
+      "Torque/EffortLimitFraction/BR_thigh_joint": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        }
+      ],
+      "Diagnostics/liftoffs_per_1000_foot_steps": [
+        {
+          "step": 0,
+          "value": 15.015609741210938
+        },
+        {
+          "step": 1,
+          "value": 7.425309658050537
+        }
+      ],
+      "Torque/MeanAbs_Nm/FR_hip_joint": [
+        {
+          "step": 0,
+          "value": 11.565496444702148
+        },
+        {
+          "step": 1,
+          "value": 9.107279777526855
+        }
+      ],
+      "Diagnostics/actual_vx_mps": [
+        {
+          "step": 0,
+          "value": -0.1452104151248932
+        },
+        {
+          "step": 1,
+          "value": -0.009178055450320244
+        }
+      ],
+      "Loss/entropy": [
+        {
+          "step": 0,
+          "value": -8.414359092712402
+        },
+        {
+          "step": 1,
+          "value": -8.41156005859375
+        }
+      ],
+      "Diagnostics/command_speed_mps": [
+        {
+          "step": 0,
+          "value": 0.19333088397979736
+        },
+        {
+          "step": 1,
+          "value": 0.19333088397979736
+        }
+      ],
+      "Loss/ppo_kl": [
+        {
+          "step": 0,
+          "value": 0.043315522372722626
+        },
+        {
+          "step": 1,
+          "value": 0.03559815138578415
+        }
+      ],
+      "Torque/P95Abs_Nm/FR_thigh_joint": [
+        {
+          "step": 0,
+          "value": 73.56177520751953
+        },
+        {
+          "step": 1,
+          "value": 21.413179397583008
+        }
+      ],
+      "Diagnostics/height_error_cm": [
+        {
+          "step": 0,
+          "value": 4.734832286834717
+        },
+        {
+          "step": 1,
+          "value": 1.9813957214355469
+        }
+      ],
+      "Diagnostics/xy_vel_error_mps": [
+        {
+          "step": 0,
+          "value": 0.34360527992248535
+        },
+        {
+          "step": 1,
+          "value": 0.21458256244659424
+        }
+      ],
+      "Torque/EffortLimitFraction/FR_thigh_joint": [
+        {
+          "step": 0,
+          "value": 0.0078125
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        }
+      ],
+      "Torque/PeakAbs_Nm/BR_thigh_joint": [
+        {
+          "step": 0,
+          "value": 66.04307556152344
+        },
+        {
+          "step": 1,
+          "value": 43.47454071044922
+        }
+      ],
+      "Torque/PeakAbs_Nm/FR_thigh_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 30.54398536682129
+        }
+      ],
+      "Diagnostics/vy_mae_mps": [
+        {
+          "step": 0,
+          "value": 0.0365612655878067
+        },
+        {
+          "step": 1,
+          "value": 0.035002321004867554
+        }
+      ],
+      "Walking/Stability/fall_fraction": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        }
+      ],
+      "EstimatedTorque/UnclippedComputedPeakAbs_Nm/FL_calf_joint": [
+        {
+          "step": 0,
+          "value": 149.4818572998047
+        },
+        {
+          "step": 1,
+          "value": 53.8559684753418
+        }
+      ],
+      "Torque/PhysicsSamplesPerJoint": [
+        {
+          "step": 0,
+          "value": 768.0
+        },
+        {
+          "step": 1,
+          "value": 768.0
+        }
+      ],
+      "Torque/PeakAbs_Nm/BL_thigh_joint": [
+        {
+          "step": 0,
+          "value": 62.230499267578125
+        },
+        {
+          "step": 1,
+          "value": 28.114803314208984
+        }
+      ],
+      "Perf/total_fps": [
+        {
+          "step": 0,
+          "value": 129.0
+        },
+        {
+          "step": 1,
+          "value": 593.0
+        }
+      ],
+      "EstimatedTorque/UnclippedComputedPeakAbs_Nm/BR_calf_joint": [
+        {
+          "step": 0,
+          "value": 155.4327392578125
+        },
+        {
+          "step": 1,
+          "value": 56.528316497802734
+        }
+      ],
+      "Torque/P95Abs_Nm/FL_calf_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 41.67029571533203
+        }
+      ],
+      "EstimatedTorque/UnclippedComputedPeakAbs_Nm/BR_thigh_joint": [
+        {
+          "step": 0,
+          "value": 66.04307556152344
+        },
+        {
+          "step": 1,
+          "value": 43.47453689575195
+        }
+      ],
+      "Reward_Rate/stance_slip": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        }
+      ],
+      "Loss/hio_pairs": [
+        {
+          "step": 0,
+          "value": 184.0
+        },
+        {
+          "step": 1,
+          "value": 184.0
+        }
+      ],
+      "Torque/MaxEver_Nm/FR_calf_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 100.0
+        }
+      ],
+      "Policy/mean_std": [
+        {
+          "step": 0,
+          "value": 0.12001563608646393
+        },
+        {
+          "step": 1,
+          "value": 0.12006393820047379
+        }
+      ],
+      "Reward_Rate/joint_acceleration": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        }
+      ],
+      "Diagnostics/command_yaw_radps": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        }
+      ],
+      "Torque/MeanAbs_Nm/FL_thigh_joint": [
+        {
+          "step": 0,
+          "value": 28.106216430664062
+        },
+        {
+          "step": 1,
+          "value": 9.913345336914062
+        }
+      ],
+      "Reward_Rate/track_xy": [
+        {
+          "step": 0,
+          "value": 0.2864452004432678
+        },
+        {
+          "step": 1,
+          "value": 0.8555817008018494
+        }
+      ],
+      "EstimatedTorque/UnclippedComputedPeakAbs_Nm/BL_calf_joint": [
+        {
+          "step": 0,
+          "value": 154.87875366210938
+        },
+        {
+          "step": 1,
+          "value": 64.78839874267578
+        }
+      ],
+      "Reward_Rate/time_imbalance": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        }
+      ],
+      "Torque/MaxEver_Nm/BR_calf_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 100.0
+        }
+      ],
+      "Torque/PeakAbs_Nm/BR_hip_joint": [
+        {
+          "step": 0,
+          "value": 69.81462860107422
+        },
+        {
+          "step": 1,
+          "value": 34.91035461425781
+        }
+      ],
+      "Walking/Tracking/valid_fraction": [
+        {
+          "step": 0,
+          "value": 0.65625
+        },
+        {
+          "step": 1,
+          "value": 0.875
+        }
+      ],
+      "Torque/P95Abs_Nm/BR_thigh_joint": [
+        {
+          "step": 0,
+          "value": 49.75825881958008
+        },
+        {
+          "step": 1,
+          "value": 28.656435012817383
+        }
+      ],
+      "Diagnostics/actual_vy_mps": [
+        {
+          "step": 0,
+          "value": 0.007546011358499527
+        },
+        {
+          "step": 1,
+          "value": 0.016840247437357903
+        }
+      ],
+      "Torque/P95Abs_Nm/BL_thigh_joint": [
+        {
+          "step": 0,
+          "value": 34.9766845703125
+        },
+        {
+          "step": 1,
+          "value": 19.993450164794922
+        }
+      ],
+      "Walking/Gait/touchdowns": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        }
+      ],
+      "Torque/EffortLimitFraction/BL_calf_joint": [
+        {
+          "step": 0,
+          "value": 0.09375
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        }
+      ],
+      "Torque/MaxEver_Nm/FR_thigh_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 100.0
+        }
+      ],
+      "Walking/Stability/undesired_contact_pct": [
+        {
+          "step": 0,
+          "value": 73.4375
+        },
+        {
+          "step": 1,
+          "value": 46.35416793823242
+        }
+      ],
+      "Torque/PeakAbs_Nm/FL_hip_joint": [
+        {
+          "step": 0,
+          "value": 54.047401428222656
+        },
+        {
+          "step": 1,
+          "value": 35.864036560058594
+        }
+      ],
+      "Reward_Rate/vertical_velocity": [
+        {
+          "step": 0,
+          "value": -0.18145030736923218
+        },
+        {
+          "step": 1,
+          "value": -0.00046719680540263653
+        }
+      ],
+      "Diagnostics/moving_xy_error_mps": [
+        {
+          "step": 0,
+          "value": 0.26470082998275757
+        },
+        {
+          "step": 1,
+          "value": 0.24053001403808594
+        }
+      ],
+      "Torque/MaxEver_Nm/FL_hip_joint": [
+        {
+          "step": 0,
+          "value": 54.047401428222656
+        },
+        {
+          "step": 1,
+          "value": 54.047401428222656
+        }
+      ],
+      "Torque/EffortLimitFraction/FL_hip_joint": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        }
+      ],
+      "Diagnostics/all_feet_contact_pct": [
+        {
+          "step": 0,
+          "value": 47.395835876464844
+        },
+        {
+          "step": 1,
+          "value": 100.0
+        }
+      ],
+      "Diagnostics/airborne_pct_cumulative": [
+        {
+          "step": 0,
+          "value": 48.369197845458984
+        },
+        {
+          "step": 1,
+          "value": 25.493566513061523
+        }
+      ],
+      "Torque/PeakAbs_Nm/FR_hip_joint": [
+        {
+          "step": 0,
+          "value": 56.940704345703125
+        },
+        {
+          "step": 1,
+          "value": 26.69060707092285
+        }
+      ],
+      "Walking/Stability/height_error_cm": [
+        {
+          "step": 0,
+          "value": 4.734832286834717
+        },
+        {
+          "step": 1,
+          "value": 1.9813957214355469
+        }
+      ],
+      "Walking/Tracking/xy_error_mps": [
+        {
+          "step": 0,
+          "value": 0.26470082998275757
+        },
+        {
+          "step": 1,
+          "value": 0.24053001403808594
+        }
+      ],
+      "Diagnostics/yaw_error_radps": [
+        {
+          "step": 0,
+          "value": 0.10988175868988037
+        },
+        {
+          "step": 1,
+          "value": 0.055557847023010254
+        }
+      ],
+      "Walking/Tracking/raw_xy_error_mps": [
+        {
+          "step": 0,
+          "value": 0.34360527992248535
+        },
+        {
+          "step": 1,
+          "value": 0.21458256244659424
+        }
+      ],
+      "Walking/Gait/airborne_pct": [
+        {
+          "step": 0,
+          "value": 33.59375
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        }
+      ],
+      "Torque/MeanAbs_Nm/BL_thigh_joint": [
+        {
+          "step": 0,
+          "value": 12.981863021850586
+        },
+        {
+          "step": 1,
+          "value": 8.612208366394043
+        }
+      ],
+      "Diagnostics/actual_yaw_radps": [
+        {
+          "step": 0,
+          "value": 0.048869870603084564
+        },
+        {
+          "step": 1,
+          "value": 0.017524175345897675
+        }
+      ],
+      "Reward_Rate/joint_torque": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        }
+      ],
+      "Reward_Rate/joint_position": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        }
+      ],
+      "Reward_Rate/vertical_acceleration": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        }
+      ],
+      "Torque/PeakAbs_Nm/FL_calf_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 53.85597610473633
+        }
+      ],
+      "Torque/P95Abs_Nm/FR_hip_joint": [
+        {
+          "step": 0,
+          "value": 36.14069747924805
+        },
+        {
+          "step": 1,
+          "value": 19.199569702148438
+        }
+      ],
+      "EstimatedTorque/UnclippedComputedPeakAbs_Nm/FL_hip_joint": [
+        {
+          "step": 0,
+          "value": 54.047401428222656
+        },
+        {
+          "step": 1,
+          "value": 35.864036560058594
+        }
+      ],
+      "Torque/MeanAbs_Nm/BL_hip_joint": [
+        {
+          "step": 0,
+          "value": 16.251497268676758
+        },
+        {
+          "step": 1,
+          "value": 9.909979820251465
+        }
+      ],
+      "Walking/Tracking/vx_mae_mps": [
+        {
+          "step": 0,
+          "value": 0.26071658730506897
+        },
+        {
+          "step": 1,
+          "value": 0.23478031158447266
+        }
+      ],
+      "Torque/MeanAbs_Nm/BR_hip_joint": [
+        {
+          "step": 0,
+          "value": 12.218358993530273
+        },
+        {
+          "step": 1,
+          "value": 9.056723594665527
+        }
+      ],
+      "Torque/PeakAbs_Nm/BR_calf_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 56.52831268310547
+        }
+      ],
+      "Torque/P95Abs_Nm/FL_hip_joint": [
+        {
+          "step": 0,
+          "value": 33.11457061767578
+        },
+        {
+          "step": 1,
+          "value": 19.205795288085938
+        }
+      ],
+      "Torque/EffortLimitFraction/BL_hip_joint": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        }
+      ],
+      "EstimatedTorque/UnclippedComputedPeakAbs_Nm/BL_hip_joint": [
+        {
+          "step": 0,
+          "value": 66.49984741210938
+        },
+        {
+          "step": 1,
+          "value": 35.41880416870117
+        }
+      ],
+      "Diagnostics/undesired_contact_pct": [
+        {
+          "step": 0,
+          "value": 73.4375
+        },
+        {
+          "step": 1,
+          "value": 46.35416793823242
+        }
+      ],
+      "Torque/PeakAbs_Nm/BL_hip_joint": [
+        {
+          "step": 0,
+          "value": 66.4998550415039
+        },
+        {
+          "step": 1,
+          "value": 35.41880798339844
+        }
+      ],
+      "Diagnostics/command_vy_mps": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        }
+      ],
+      "Torque/PeakAbs_Nm/FR_calf_joint": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 50.77510452270508
+        }
+      ],
+      "Loss/post_hio_kl": [
+        {
+          "step": 0,
+          "value": 0.04322671517729759
+        },
+        {
+          "step": 1,
+          "value": 0.035792093724012375
+        }
+      ],
+      "Torque/P95Abs_Nm/FL_thigh_joint": [
+        {
+          "step": 0,
+          "value": 67.04051971435547
+        },
+        {
+          "step": 1,
+          "value": 25.074716567993164
+        }
+      ],
+      "Torque/MaxEver_Nm/BR_hip_joint": [
+        {
+          "step": 0,
+          "value": 69.81462860107422
+        },
+        {
+          "step": 1,
+          "value": 69.81462860107422
+        }
+      ],
+      "Diagnostics/moving_command_pct": [
+        {
+          "step": 0,
+          "value": 65.625
+        },
+        {
+          "step": 1,
+          "value": 87.5
+        }
+      ],
+      "Reward_Rate/track_yaw": [
+        {
+          "step": 0,
+          "value": 0.8943955302238464
+        },
+        {
+          "step": 1,
+          "value": 0.9707953929901123
+        }
+      ],
+      "Torque/MaxEver_Nm/FR_hip_joint": [
+        {
+          "step": 0,
+          "value": 56.940704345703125
+        },
+        {
+          "step": 1,
+          "value": 56.940704345703125
+        }
+      ],
+      "Torque/P95Abs_Nm/BR_hip_joint": [
+        {
+          "step": 0,
+          "value": 34.926422119140625
+        },
+        {
+          "step": 1,
+          "value": 20.194738388061523
+        }
+      ],
+      "Torque/MaxEver_Nm/BL_hip_joint": [
+        {
+          "step": 0,
+          "value": 66.4998550415039
+        },
+        {
+          "step": 1,
+          "value": 66.4998550415039
+        }
+      ],
+      "Walking/Tracking/actual_vy_mps": [
+        {
+          "step": 0,
+          "value": 0.007546011358499527
+        },
+        {
+          "step": 1,
+          "value": 0.016840247437357903
+        }
+      ],
+      "Loss/hio_swap_loss": [
+        {
+          "step": 0,
+          "value": 0.0981941819190979
+        },
+        {
+          "step": 1,
+          "value": 0.10051680356264114
+        }
+      ],
+      "Torque/OverallMaxEver_Nm": [
+        {
+          "step": 0,
+          "value": 100.0
+        },
+        {
+          "step": 1,
+          "value": 100.0
+        }
+      ],
+      "EstimatedTorque/UnclippedComputedPeakAbs_Nm/FR_calf_joint": [
+        {
+          "step": 0,
+          "value": 152.4082489013672
+        },
+        {
+          "step": 1,
+          "value": 50.77510452270508
+        }
+      ],
+      "Torque/EffortLimitFraction/BR_hip_joint": [
+        {
+          "step": 0,
+          "value": 0.0
+        },
+        {
+          "step": 1,
+          "value": 0.0
+        }
+      ],
+      "Walking/Gait/contact_count": [
+        {
+          "step": 0,
+          "value": 2.65625
+        },
+        {
+          "step": 1,
+          "value": 4.0
+        }
+      ],
+      "Diagnostics/action_near_limit_pct": [
+        {
+          "step": 0,
+          "value": 7.986111640930176
+        },
+        {
+          "step": 1,
+          "value": 0.0868055671453476
+        }
+      ],
+      "Torque/MeanAbs_Nm/FR_calf_joint": [
+        {
+          "step": 0,
+          "value": 34.68263626098633
+        },
+        {
+          "step": 1,
+          "value": 24.579198837280273
+        }
+      ]
+    }
+  }
+}

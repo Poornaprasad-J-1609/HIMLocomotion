@@ -1,0 +1,77 @@
+[
+  {
+    "path": "grallator_rl/scripts/audit_walking_runtime.py",
+    "status": "new",
+    "sha256": "f18bdc3cd36a20f2083a8f10712c84491806a59a029739d73852806dee89fbac"
+  },
+  {
+    "path": "grallator_rl/scripts/inspect_walking_run.py",
+    "status": "new",
+    "sha256": "b1d6d3ad86494b629bb6ba7bb7188bfd6fcaa2376020323cd760c286fa60496b"
+  },
+  {
+    "path": "grallator_rl/scripts/run_walking_tests.py",
+    "status": "new",
+    "sha256": "bc52d8c64f976a7ba8b977cb2fcfe8e14964edc75314c9d666d3fd618d593d12"
+  },
+  {
+    "path": "grallator_rl/scripts/train_walking.py",
+    "status": "modified",
+    "sha256": "d2f29ab65782b9911f82b26d4c8322c1e48d1030c1af886dc5b49d4274a6fe6d"
+  },
+  {
+    "path": "grallator_rl/src/grallator_rl/him/walking_checkpoint.py",
+    "status": "new",
+    "sha256": "fc675f7e7fd4d38b5162b4a45c52e5710f611cac112144a8b3af33a8b6948f15"
+  },
+  {
+    "path": "grallator_rl/src/grallator_rl/him/walking_ppo.py",
+    "status": "new",
+    "sha256": "822243f27edca05071f4bb4dbf921ca8de326bec77cc005682db2ee1a9a5c73f"
+  },
+  {
+    "path": "grallator_rl/src/grallator_rl/him/walking_ppo_cfg.py",
+    "status": "new",
+    "sha256": "95ec95f7799915783da2c90a5779389d840a88b2c7f7e42655c5c9ce98eab661"
+  },
+  {
+    "path": "grallator_rl/src/grallator_rl/him/walking_registration.py",
+    "status": "modified",
+    "sha256": "a4fc1724cd23d76904a1f03be29f04717996462e5aea4ba144a87fae82293eae"
+  },
+  {
+    "path": "grallator_rl/src/grallator_rl/tasks/walking_direct/diagnostics.py",
+    "status": "new",
+    "sha256": "1d19ce0c9d4a20fd7fd728051d8d7030654ee19343a94c4907aec247cc8edab7"
+  },
+  {
+    "path": "grallator_rl/src/grallator_rl/tasks/walking_direct/env.py",
+    "status": "modified",
+    "sha256": "cb88c9fbe63496a5d968898e1442373810a138c19851aed79a5c77456d2325a3"
+  },
+  {
+    "path": "grallator_rl/src/grallator_rl/tasks/walking_direct/env_cfg.py",
+    "status": "modified",
+    "sha256": "6a12f3a2c980766b65a6c41f88c971ce875e1b14255f39c00c50b96a4278d382"
+  },
+  {
+    "path": "grallator_rl/src/grallator_rl/tasks/walking_direct/gait_state.py",
+    "status": "new",
+    "sha256": "a4dd5856c067d348999aa4a27bc4c17fda728744fa1b72597174cd0d12c71bb7"
+  },
+  {
+    "path": "grallator_rl/src/grallator_rl/tasks/walking_direct/reward_cfg.py",
+    "status": "modified",
+    "sha256": "04a0c45a8c5d6124ed434dd59a6286b058f553a02b69959b6d7fb77b3dfe49d5"
+  },
+  {
+    "path": "grallator_rl/src/grallator_rl/tasks/walking_direct/rewards.py",
+    "status": "modified",
+    "sha256": "98a3850b8f95267f8f6b5416dff57268179de8f27dbf0a529b6d6dec26df28ab"
+  },
+  {
+    "path": "grallator_rl/tests/test_native_walking.py",
+    "status": "new",
+    "sha256": "f1bc217a72102cf6779acd4aa6880374f683abd7b55009f58f491c1bd282e804"
+  }
+]
